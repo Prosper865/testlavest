@@ -1,0 +1,20 @@
+.grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 25px; align-items: start; }
+.stack { display: grid; gap: 25px; }
+
+.total { font-size: 38px; letter-spacing: -1.3px; margin: 6px 0 22px; }
+.assets { display: grid; gap: 10px; }
+.asset { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 14px; padding: 14px 16px; border: 1px solid var(--card-line); border-radius: var(--radius-sm); }
+.asset h3 { font-size: 14px; font-weight: 500; }
+.asset p { font-size: 10px; color: var(--muted); margin-top: 4px; }
+.assetValue { text-align: right; font-size: 14px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.assetValue small { display: block; font-size: 10px; font-weight: 400; color: var(--muted); margin-top: 4px; }
+
+.form h2 { font-size: 22px; font-weight: 400; margin: 13px 0 18px; }
+.form button[type="submit"] { margin-top: 22px; }
+.notice { font-size: 11px; line-height: 1.7; color: #7a6470; background: var(--brand-wash); border: 1px solid #f0d7df; padding: 12px 14px; border-radius: var(--radius-sm); margin-top: 16px; }
+.estimate { display: flex; justify-content: space-between; font-size: 12px; margin-top: 16px; }
+
+.cash { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+
+@media (max-width: 1100px) { .grid { grid-template-columns: 1fr; } }
+@media (max-width: 580px) { .total { font-size: 32px; } .asset { grid-template-columns: auto 1fr; } .assetValue { grid-column: 1 / -1; text-align: left; } }

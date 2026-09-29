@@ -1,0 +1,16 @@
+.logo { display: inline-flex; width: 43px; height: 43px; align-items: center; justify-content: center; border-radius: 10px; background: #f3f3f5; flex-shrink: 0; }
+.logo img, .logo svg { width: 62%; height: 62%; }
+.coin { background: transparent; }
+.coin img { width: 100%; height: 100%; }
+
+.microsoft { display: grid; grid-template-columns: 1fr 1fr; gap: 6%; width: 54%; height: 54%; }
+.microsoft i { background: #f35325; }
+.microsoft i:nth-child(2) { background: #81bc06; }
+.microsoft i:nth-child(3) { background: #05a6f0; }
+.microsoft i:nth-child(4) { background: #ffba08; }
+
+/* Forex: two overlapping round flags */
+.pair { position: relative; background: transparent; }
+.pair img { position: absolute; width: 66%; height: 66%; border-radius: 50%; box-shadow: 0 0 0 2px #fff; object-fit: cover; }
+.pair img:first-child { top: 0; left: 0; }
+.pair img:last-child { right: 0; bottom: 0; }

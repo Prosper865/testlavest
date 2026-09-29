@@ -1,0 +1,10 @@
+/* "pills": filter and range chips. "tabs": a two-way toggle such as Buy / Sell. */
+.pills { display: flex; gap: 6px; flex-wrap: wrap; }
+.pills button { border: 0; background: transparent; color: #716874; padding: 10px 14px; font-size: 11px; border-radius: var(--radius-sm); }
+.pills button[aria-pressed="true"] { background: var(--brand-soft); color: #b71d30; }
+
+.tabs { display: flex; background: var(--surface-sunken); padding: 4px; border-radius: 5px; }
+.tabs button { flex: 1; padding: 9px; border: 0; background: none; color: #776775; border-radius: 3px; }
+.tabs button[aria-pressed="true"] { background: #fff; color: #bc1e32; box-shadow: 0 1px 4px #243b2015; }
+
+@media (max-width: 580px) { .pills { gap: 3px; } .pills button { font-size: 10px; padding: 9px 10px; } }

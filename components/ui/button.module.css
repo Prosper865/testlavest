@@ -1,0 +1,13 @@
+.button { display: inline-flex; align-items: center; justify-content: center; gap: 27px; padding: 17px 23px; border: 1px solid transparent; border-radius: 3px; font-size: 12px; font-weight: 500; transition: background .2s; }
+.button > span[aria-hidden] { font-size: 19px; line-height: 1; }
+
+.primary { background: var(--brand); color: #fff; }
+.primary:hover:not(:disabled) { background: var(--brand-hover); }
+.outline { background: #fff; color: #b21c31; border-color: #d7bcc5; }
+.outline:hover:not(:disabled) { background: #fff2f5; }
+.ghost { background: transparent; color: var(--brand-text); padding-inline: 0; }
+.ghost:hover:not(:disabled) { color: var(--brand-hover); }
+
+.sm { padding: 11px 16px; gap: 14px; font-size: 11px; }
+.sm > span[aria-hidden] { font-size: 15px; }
+.block { width: 100%; justify-content: space-between; }

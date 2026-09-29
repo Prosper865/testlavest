@@ -1,0 +1,42 @@
+/* Browser: filters, search, and the stock card grid. */
+.controls { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 23px; }
+.search { font-size: 11px; width: 250px; }
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+
+.card { position: relative; padding: 21px; border: 1px solid var(--card-line); border-radius: 5px; background: #fff; }
+.cardTop { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 15px; font-size: 12px; }
+.watch { position: relative; z-index: 1; border: 0; background: none; color: #b31f33; font-size: 21px; }
+.card h3 { font-size: 15px; font-weight: 500; margin-bottom: 4px; }
+.card .muted { font-size: 10px; }
+.price { display: flex; justify-content: space-between; align-items: center; margin-top: 23px; }
+.price b { font-size: 21px; font-weight: 500; letter-spacing: -.5px; font-variant-numeric: tabular-nums; }
+.price span { font-size: 11px; }
+.mini { height: 48px; margin-top: 16px; }
+.action { border-top: 1px solid var(--card-line); display: flex; justify-content: space-between; padding-top: 12px; margin-top: 13px; font-size: 10px; color: #b71d30; }
+.action::after { content: ""; position: absolute; inset: 0; }
+
+.sampleLabel { color: var(--muted); font-size: 10px; }
+
+/* Order ticket */
+.ticket h2 { font-size: 24px; font-weight: 400; margin: 13px 0 20px; }
+.sellAll { margin-top: 8px; border: 1px solid var(--line); background: #fff; border-radius: 20px; padding: 9px 13px; font-size: 11px; color: #716874; }
+.sellAll:hover { border-color: #e2b9c3; color: var(--brand-text); }
+.estimate { display: flex; justify-content: space-between; font-size: 12px; margin-top: 20px; margin-bottom: 9px; }
+.ticket button[type="submit"] { margin-top: 20px; }
+
+
+
+@media (max-width: 800px) {
+  .controls { align-items: flex-start; flex-direction: column; }
+  .search { width: 100%; }
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 580px) {
+  .grid { gap: 12px; }
+  .card { padding: 15px; }
+  .card h3 { font-size: 13px; }
+  .card .muted > span { display: none; }
+  .price b { font-size: 18px; }
+  .price span { font-size: 10px; }
+  .sampleLabel { font-size: 10px; }
+}

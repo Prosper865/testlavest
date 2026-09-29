@@ -1,0 +1,18 @@
+.ticket h2 { font-size: 24px; font-weight: 400; margin: 13px 0 20px; }
+.ticket button[type="submit"] { margin-top: 20px; }
+.amountRow { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+.amountRow button { border: 1px solid var(--line); background: #fff; border-radius: 20px; padding: 9px 13px; font-size: 11px; color: #716874; }
+.amountRow button:hover { border-color: #e2b9c3; color: var(--brand-text); }
+.estimate { display: flex; justify-content: space-between; font-size: 12px; margin-top: 18px; }
+.estimate + .estimate { margin-top: 8px; color: var(--muted); }
+
+
+.holdings { display: grid; gap: 10px; }
+.holding { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 14px; padding: 12px 14px; border: 1px solid var(--card-line); border-radius: var(--radius-sm); }
+.holding:hover { background: var(--surface-muted); }
+.holding b { font-size: 13px; font-weight: 500; }
+.holding small { display: block; font-size: 10px; color: var(--muted); margin-top: 3px; }
+.holdingValue { text-align: right; font-size: 13px; font-variant-numeric: tabular-nums; }
+.holdingLogo { width: 34px; height: 34px; border-radius: 8px; }
+.holdingLogo img { width: 21px; height: 21px; }
+.holdingValue small { display: block; font-size: 10px; margin-top: 3px; }

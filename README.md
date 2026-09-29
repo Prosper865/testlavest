@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Aurevia Capital
 
-## Getting Started
+An investment broker platform prototype built with Next.js 16.3.6, React 19, TypeScript, and CSS Modules (Tailwind CSS 4 is available).
 
-First, run the development server:
+## Run locally
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit http://localhost:3000 for the public website and http://localhost:3000/dashboard for the platform.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Live market news
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Headlines come from [Finnhub](https://finnhub.io) (free tier). Copy `.env.example` to `.env.local`, add `FINNHUB_API_KEY`, and restart the dev server. Without a key, clearly labelled sample headlines are shown. The key is only read on the server (`features/news/get-news.ts`) and responses are cached for 10 minutes.
 
-## Learn More
+## Product modules
 
-To learn more about Next.js, take a look at the following resources:
+| Module | Route | What it does |
+| --- | --- | --- |
+| Investments · Automated | `/investments` | Recurring plans into concept strategies; contributions run automatically on schedule |
+| Stocks · Realtime | `/stocks`, `/stocks/[symbol]` | Simulated live quotes, watchlist, sample news, buy/sell ticket |
+| Tesla hub | `/tesla` | TSLA trading (whole or fractional), recurring buys, price alerts, real company data and key dates (Finnhub), Tesla news, "Save for your Tesla" goals, Tesla 101 |
+| Crypto · 24/7 | `/crypto`, `/crypto/[symbol]` | Trading chart, fractional buy/sell from $1, recurring buys (dollar-cost averaging), crypto news |
+| Wallet · Transfers | `/wallet` | Crypto balances, simulated deposit and withdrawal, demo cash top-ups |
+| Marketplace · Tesla | `/marketplace` | Curated new and pre-owned EV listings with refundable reservations |
+| Overview | `/dashboard` | Total value, allocation, holdings, and activity across all modules |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Folder structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+app/                     Routing only; pages compose feature components
+  (marketing)/           Public website
+  (platform)/            Broker app with shared header and layout
+components/
+  ui/                    Buttons, headings, panels, segmented controls, form fields
+  layout/                Brand, site header/footer, platform header
+  charts/                Line chart, sparkline, trend line
+features/<module>/       One folder per business module: data, logic, components, index.ts
+  market/                Instruments, simulated quotes and price history, shared chart, terminal, quote panel
+  portfolio/             Account store (cash, holdings, crypto, plans, reservations, activity)
+  tesla/                 Tesla hub: Finnhub company data, key dates, education content
+  alerts/                Price alerts, alert watcher, reminder banner
+  news/                  Finnhub news (server-only) with sample fallback
+  investments/ stocks/ crypto/ wallet/ marketplace/ marketing/
+config/site.ts           Company name, navigation, disclaimer
+lib/                     Formatting and small utilities
+styles/                  Design tokens and base element styles
+```
 
-## Deploy on Vercel
+Rules of thumb: routes stay thin; features import from `components/` and `lib/`, and from each other only through the `market` and `portfolio` modules; each component keeps its styles in a colocated `*.module.css`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Demo boundaries
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Prices tick from a simulated random walk and are not market data. The account lives in the browser (localStorage) and can be reset from any platform page. There are no user accounts, payments, custody, real orders, or database.
+
+Before offering real services the product needs authentication, persistent accounts, licensed market data and news, a brokerage/custody provider, order and cash ledgers, KYC, and country-specific availability. The seams for these are `features/market/quotes.ts` (market data) and `features/portfolio/store.ts` (account actions).
+
+Tesla and other company marks identify instruments and products and do not imply affiliation. See ASSETS.md for image and logo sources.
+
+## Checks
+
+```bash
+pnpm lint
+pnpm build
+```

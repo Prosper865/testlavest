@@ -1,0 +1,7 @@
+.brand { display: flex; align-items: center; gap: 12px; font-size: 21px; letter-spacing: 3px; font-weight: 600; color: #202126; }
+.brand small { display: block; font-size: 10px; letter-spacing: 5px; margin-top: 4px; }
+.mark { position: relative; width: 37px; font-family: var(--font-serif); font-size: 44px; line-height: 1; letter-spacing: -6px; font-weight: 400; color: var(--brand); }
+.mark > span { position: absolute; width: 17px; height: 3px; background: var(--background); transform: rotate(-40deg); left: 15px; top: 26px; }
+
+@media (max-width: 800px) { .brand { font-size: 18px; } .mark { font-size: 36px; } .brand small { font-size: 10px; } }
+@media (max-width: 580px) { .brand { gap: 7px; font-size: 15px; letter-spacing: 2px; } .brand small { letter-spacing: 4px; font-size: 10px; } .mark { width: 29px; } }

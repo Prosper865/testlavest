@@ -1,0 +1,9 @@
+.footer { border-top: 1px solid var(--line); padding-top: 35px; padding-bottom: 25px; }
+.top { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.top > span { font-family: var(--font-serif); font-style: italic; font-size: 17px; color: #766c77; }
+.top > a:last-child { font-size: 11px; padding: 12px 0; }
+.disclaimer { font-size: 10px; line-height: 1.9; color: #766c77; margin: 32px 0; max-width: 1000px; }
+.bottom { display: flex; justify-content: space-between; font-size: 10px; color: #766c77; border-top: 1px solid var(--line); padding-top: 20px; }
+
+@media (max-width: 800px) { .top > span { display: none; } }
+@media (max-width: 580px) { .top { gap: 10px; } .bottom { gap: 15px; flex-direction: column; } }

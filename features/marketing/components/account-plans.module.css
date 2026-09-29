@@ -1,0 +1,58 @@
+.section { margin-top: 86px; padding: 78px 0 50px; background: linear-gradient(180deg, #fcf7f8, #fff 85%); border-block: 1px solid #f0e7eb; scroll-margin-top: 24px; }
+.heading { text-align: center; margin-bottom: 46px; }
+.heading > div:first-child { justify-content: center; gap: 8px; }
+.heading h2 { font-size: clamp(32px, 3.4vw, 48px); line-height: 1.13; margin: 19px 0; letter-spacing: -1.7px; }
+.heading h2 > span { color: #c41d31; }
+.heading > p { color: #726671; font-size: 13px; line-height: 1.85; }
+.previewLabel { display: inline-block; border: 1px solid #eadde2; background: #fff; color: #8a737e; border-radius: 20px; font-size: 10px; letter-spacing: .9px; padding: 8px 12px; margin-top: 22px; }
+
+.grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; align-items: stretch; }
+.card { position: relative; display: flex; flex-direction: column; padding: 30px; background: #fff; border: 1px solid #e8dfe3; border-radius: 17px; box-shadow: 0 12px 40px #39111e06; transition: transform .2s, box-shadow .2s; overflow: hidden; }
+.card:hover { transform: translateY(-4px); box-shadow: 0 16px 42px #39111e12; }
+.cardTop { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 29px; }
+.icon { display: flex; align-items: center; justify-content: center; width: 49px; height: 49px; border-radius: 13px; background: #fff0f3; color: #c92037; }
+.icon svg { width: 28px; height: 28px; }
+.position { color: #8c7782; font-size: 10px; letter-spacing: 1px; }
+.label { color: #a57584; font-size: 10px; letter-spacing: 1.3px; margin-bottom: 10px; }
+.card h3 { font-size: 28px; letter-spacing: -.8px; font-weight: 500; }
+.description { font-size: 12px; line-height: 1.85; color: #7b6d77; margin-top: 13px; min-height: 46px; }
+.pricing { padding-block: 23px; margin-top: 19px; border-top: 1px solid #eee6ea; }
+.pricing > span { color: #87727e; font-size: 10px; }
+.pricing strong { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 26px; font-weight: 500; letter-spacing: -.6px; margin: 9px 0; }
+.pricing strong > span { color: #c52035; font-size: 24px; }
+.pricing small { color: #887a83; font-size: 10px; }
+.button { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 15px 17px; background: #fff; border: 1px solid #d7bcc5; color: #b21c31; border-radius: 7px; font-size: 11px; text-align: left; }
+.button:hover { background: #fff2f5; }
+.button > span { font-size: 17px; }
+.includes { font-size: 10px; letter-spacing: 1.2px; color: #8a7882; margin-top: 29px; }
+.card ul { list-style: none; padding: 0; margin: 17px 0 26px; }
+.card li { display: flex; align-items: baseline; gap: 10px; font-size: 11px; color: #665963; line-height: 1.65; margin-top: 13px; }
+.card li > span { color: #bd2037; font-size: 11px; }
+.audience { margin-top: auto; padding-top: 20px; border-top: 1px solid #eee6ea; }
+.audience > span { display: block; font-size: 10px; color: #98848e; margin-bottom: 7px; }
+.audience > b { font-size: 11px; font-weight: 500; color: #63505c; }
+
+.featured { background: linear-gradient(145deg, #d91f39, #b71730); color: #fff; border-color: #cb1a33; box-shadow: 0 16px 45px #be1d3325; }
+.featured .icon { background: #ffffff21; color: #fff; }
+.featured .position { background: #fff; color: #b31e32; padding: 7px 8px; border-radius: 4px; font-size: 10px; letter-spacing: .7px; }
+.featured .label, .featured .description, .featured .pricing > span, .featured .pricing small, .featured .includes, .featured li, .featured .audience > span { color: #ffe0e7; }
+.featured .pricing, .featured .audience { border-color: #ffffff30; }
+.featured .pricing strong > span, .featured li > span, .featured .audience > b { color: #fff; }
+.featured .button { background: #fff; border-color: #fff; color: #b3172c; }
+.featured .button:hover { background: #ffedf1; }
+.selected { outline: 2px solid #c91e35; outline-offset: 4px; }
+
+.details { display: flex; justify-content: space-between; align-items: center; gap: 30px; padding: 29px 32px; margin-top: 29px; border: 1px solid #edcbd5; background: #fff6f8; border-radius: 12px; }
+.details[hidden] { display: none; }
+.details h3 { font-size: 22px; font-weight: 500; margin-top: 12px; letter-spacing: -.5px; }
+.details p { max-width: 760px; font-size: 12px; line-height: 1.9; color: #7a6470; margin-top: 10px; }
+.details > a { flex-shrink: 0; }
+
+.footnote { display: flex; align-items: flex-start; gap: 13px; margin-top: 30px; padding: 0 5px; }
+.footnoteIcon { border: 1px solid #c7b2bc; border-radius: 50%; min-width: 16px; height: 16px; font: 11px Georgia, serif; text-align: center; line-height: 16px; color: #967582; margin-top: 2px; }
+.footnote p { max-width: 790px; font-size: 10px; line-height: 1.9; color: #8b7782; }
+.footnote > a { margin-left: auto; font-size: 11px; color: #b41d31; white-space: nowrap; padding: 8px 0; margin-top: -4px; }
+
+@media (max-width: 1100px) { .card { padding: 23px; } .card h3 { font-size: 25px; } .description { min-height: 67px; } .position { font-size: 10px; } .featured .position { font-size: 10px; padding: 7px 5px; } .icon { width: 42px; height: 42px; } .pricing strong { font-size: 23px; } }
+@media (max-width: 800px) { .grid { gap: 13px; } .card { padding: 18px; border-radius: 12px; } .cardTop { flex-direction: column; align-items: flex-start; gap: 12px; margin-bottom: 22px; } .position { min-height: 23px; display: flex; align-items: center; } .card h3 { font-size: 22px; } .pricing strong { font-size: 21px; } .label { font-size: 10px; } .card li { font-size: 10px; } .description { min-height: 88px; } .button { font-size: 10px; padding: 13px 10px; } .details { flex-direction: column; align-items: flex-start; } .footnote { flex-wrap: wrap; } .footnote p { flex: 1; } .footnote > a { margin-left: 29px; } }
+@media (max-width: 580px) { .section { margin-top: 52px; padding: 48px 0 35px; } .heading { margin-bottom: 28px; } .heading h2 { font-size: 35px; letter-spacing: -1.3px; } .heading > p { font-size: 12px; } .previewLabel { font-size: 10px; letter-spacing: .5px; } .grid { grid-template-columns: 1fr; gap: 22px; } .card { padding: 28px; border-radius: 16px; } .cardTop { flex-direction: row; align-items: center; margin-bottom: 24px; } .card h3 { font-size: 29px; } .description { min-height: 0; font-size: 13px; } .icon { width: 47px; height: 47px; } .label { font-size: 10px; } .pricing strong { font-size: 28px; } .featured .position { font-size: 10px; padding: 8px; } .button { font-size: 12px; padding: 16px; } .card li { font-size: 12px; } .details { padding: 24px; } .details > a { width: 100%; } .footnote p { font-size: 10px; } }

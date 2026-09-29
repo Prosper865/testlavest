@@ -1,0 +1,69 @@
+.section { padding-top: 82px; padding-bottom: 10px; }
+
+/* Professional photo section */
+.professional { display: grid; grid-template-columns: 1fr 1fr; gap: 65px; align-items: center; margin-block: 100px; }
+.photo { position: relative; min-height: 505px; border-radius: 6px; overflow: hidden; }
+.photo > img { object-fit: cover; }
+.photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, #26131bed, transparent 75%); }
+.caption { position: absolute; bottom: 34px; left: 33px; right: 25px; z-index: 1; color: #fff; }
+.caption > span { display: block; color: #f2d4dd; font-size: 10px; letter-spacing: 2px; margin-bottom: 16px; }
+.caption > b { font-size: 30px; line-height: 1.25; font-weight: 500; letter-spacing: -.8px; }
+.professionalCopy h2 { font-size: 37px; line-height: 1.2; margin: 20px 0; }
+.professionalCopy > p { font-size: 13px; line-height: 1.9; color: #6c6570; margin-top: 16px; }
+.features { display: flex; flex-direction: column; gap: 16px; margin-block: 25px; }
+.features > span { display: flex; gap: 19px; font-size: 10px; color: #c72035; }
+.features b { font-size: 12px; color: #4d434e; font-weight: 400; }
+
+/* Approach */
+.approach { background: #fff5f6; color: #29222a; margin-top: 50px; padding: 72px 0; border-block: 1px solid #f0dce1; scroll-margin-top: 0; }
+.approachGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; }
+.approach h2 { font-size: 43px; line-height: 1.2; margin: 22px 0; }
+.approach h2 em { font-style: normal; color: #bc1e32; letter-spacing: -1px; }
+.approach p { color: #72636e; font-size: 12px; line-height: 1.9; max-width: 365px; }
+.approachButton { margin-top: 25px; }
+.principles > div { display: flex; gap: 27px; border-bottom: 1px solid #ead7de; padding: 25px 0; }
+.principles > div:first-child { padding-top: 0; }
+.principles > div > span { font-size: 10px; color: #bc1e32; margin-top: 5px; }
+.principles h3 { font-size: 17px; font-weight: 400; margin-bottom: 9px; }
+
+/* FAQ */
+.learn { max-width: 900px; padding-bottom: 50px; }
+.faq { border-bottom: 1px solid var(--line); }
+.faq summary { display: flex; justify-content: space-between; align-items: center; gap: 20px; font-size: 15px; padding: 24px 0; }
+.faq summary span { font-size: 22px; color: #c01e33; transition: transform .2s; }
+.faq[open] summary span { transform: rotate(45deg); }
+.faq p { color: #706573; font-size: 13px; line-height: 1.9; padding-bottom: 24px; max-width: 750px; }
+
+/* Call to action */
+.cta { display: flex; justify-content: space-between; align-items: center; gap: 25px; padding: 37px 40px; background: #fff1f3; border: 1px solid #f0d7df; border-radius: 7px; margin-top: 25px; margin-bottom: 75px; }
+.cta h2 { margin-top: 13px; font-size: 32px; }
+.cta > div > div:first-child { font-size: 10px; }
+
+@media (max-width: 1100px) { .professional { gap: 35px; } .professionalCopy h2 { font-size: 31px; } .approachGrid { gap: 50px; } }
+@media (max-width: 800px) {
+  .section { padding-top: 55px; }
+  .professional { gap: 30px; }
+  .photo { min-height: 550px; }
+  .professionalCopy h2 { font-size: 29px; }
+  .caption { left: 22px; }
+  .caption > b { font-size: 24px; }
+  .approach { padding: 50px 0; }
+  .approachGrid { gap: 35px; }
+  .approach h2 { font-size: 35px; }
+  .cta { padding: 30px; }
+  .cta h2 { font-size: 25px; }
+}
+@media (max-width: 580px) {
+  .section { padding-top: 48px; }
+  .professional { grid-template-columns: 1fr; margin-block: 65px; gap: 35px; }
+  .photo { min-height: 390px; }
+  .professionalCopy h2 { font-size: 33px; }
+  .caption > b { font-size: 28px; }
+  .approachGrid { grid-template-columns: 1fr; gap: 45px; }
+  .approach h2 { font-size: 38px; }
+  .principles > div { gap: 19px; }
+  .faq summary { font-size: 13px; line-height: 1.5; }
+  .cta { flex-direction: column; align-items: flex-start; margin-bottom: 45px; padding: 27px; }
+  .cta h2 { font-size: 29px; }
+  .cta > div > div:first-child { line-height: 1.7; font-size: 10px; }
+}

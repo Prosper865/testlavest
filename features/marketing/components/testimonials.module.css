@@ -1,0 +1,33 @@
+.section { padding-top: 82px; padding-bottom: 10px; scroll-margin-top: 24px; }
+.layout { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.6fr); gap: 18px; }
+
+/* Left: brand card with an avatar mosaic */
+.intro { position: relative; display: flex; flex-direction: column; justify-content: space-between; gap: 30px; padding: 32px; border-radius: 16px; overflow: hidden; color: #fff; background: linear-gradient(155deg, #d91f39, #8f1024); }
+.intro::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 90% 8%, #ffffff2e, transparent 45%); pointer-events: none; }
+.mosaic { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; max-width: 280px; }
+.mosaic img { width: 100%; height: auto; aspect-ratio: 1; border-radius: 50%; background: #fff; border: 3px solid #ffffff55; }
+.mosaic img:nth-child(even) { transform: translateY(14px); }
+.intro h3 { font-size: 30px; font-weight: 500; line-height: 1.15; letter-spacing: -1px; }
+.intro p { font-size: 13px; line-height: 1.7; color: #ffe0e7; margin-top: 12px; max-width: 320px; }
+.cta { align-self: flex-start; border-color: #fff; }
+
+/* Right: review cards */
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.card { display: flex; flex-direction: column; gap: 16px; padding: 26px; border: 1px solid var(--card-line); border-radius: 16px; background: #fff; box-shadow: var(--shadow-card); transition: transform .2s, box-shadow .2s; }
+.card:hover { transform: translateY(-3px); box-shadow: 0 16px 42px #39111e12; }
+.top { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.stars { display: flex; gap: 2px; color: #e8a317; font-size: 14px; letter-spacing: 1px; }
+.stars .off { color: #e6e1e4; }
+.product { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; padding: 5px 8px; border-radius: 20px; background: var(--brand-soft); color: #b71d30; }
+.card blockquote { margin: 0; font-size: 14px; line-height: 1.75; color: #3a3439; flex: 1; }
+.card blockquote::before { content: "“"; display: block; font-family: var(--font-serif); font-size: 40px; line-height: .6; color: var(--brand); margin-bottom: 8px; }
+.person { display: flex; align-items: center; gap: 12px; padding-top: 16px; border-top: 1px solid var(--line); }
+.person img { width: 44px; height: 44px; border-radius: 50%; background: var(--surface-sunken); object-fit: cover; }
+.person b { display: block; font-size: 13px; font-weight: 600; }
+.person small { display: block; font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+.note { font-size: 10px; color: var(--subtle); margin-top: 16px; }
+
+@media (max-width: 1100px) { .layout { grid-template-columns: 1fr; } .mosaic { grid-template-columns: repeat(8, 1fr); max-width: none; } .mosaic img:nth-child(even) { transform: none; } }
+@media (max-width: 800px) { .section { padding-top: 55px; } .grid { gap: 12px; } .card { padding: 20px; } .mosaic { grid-template-columns: repeat(4, 1fr); max-width: 260px; } }
+@media (max-width: 580px) { .section { padding-top: 48px; } .grid { grid-template-columns: 1fr; } .intro { padding: 26px; } .intro h3 { font-size: 26px; } }

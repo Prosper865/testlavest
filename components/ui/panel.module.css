@@ -1,0 +1,19 @@
+.panel { border: 1px solid var(--card-line); border-radius: var(--radius); padding: 28px; background: var(--surface); }
+.panelHeader { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 20px; }
+.panelHeader h2, .panelHeader h3 { font-size: 17px; font-weight: 500; letter-spacing: -.2px; }
+.panelHeader > a { padding: 8px 0; }
+
+.stat small { display: block; font-size: 10px; color: #766775; margin-bottom: 9px; }
+.stat b { font-size: 15px; font-weight: 500; }
+
+.empty { padding: 40px 20px; text-align: center; border: 1px dashed var(--line); border-radius: var(--radius-sm); color: #756674; font-size: 12px; line-height: 1.7; }
+
+.status { font-size: 11px; color: #a32437; line-height: 1.6; margin-top: 10px; min-height: 18px; }
+
+.field { display: block; }
+.field > span { display: block; font-size: 11px; margin: 15px 0 7px; }
+.field input, .field select { width: 100%; font-size: 12px; }
+.field > small { display: block; font-size: 10px; color: var(--muted); margin-top: 6px; }
+
+@media (max-width: 800px) { .panel { padding: 20px; } }
+@media (max-width: 580px) { .panel { padding: 22px; } .stat b { font-size: 12px; } .stat small { font-size: 10px; } }

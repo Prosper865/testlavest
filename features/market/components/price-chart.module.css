@@ -1,0 +1,14 @@
+.chart { display: grid; gap: 14px; }
+.toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.readout { display: flex; gap: 14px; flex-wrap: wrap; font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; min-height: 16px; }
+.readout b { color: var(--foreground); font-weight: 500; margin-left: 4px; }
+.period { font-size: 11px; color: var(--muted); }
+.period span { font-weight: 600; margin-right: 6px; }
+.canvas { position: relative; width: 100%; height: var(--chart-height, 420px); }
+.controls { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.types { display: flex; border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 2px; }
+.types button { border: 0; background: none; padding: 7px 10px; font-size: 11px; color: #716874; border-radius: 3px; }
+.types button[aria-pressed="true"] { background: var(--brand-soft); color: #b71d30; }
+.note { font-size: 10px; color: var(--subtle); }
+
+@media (max-width: 580px) { .canvas { height: min(var(--chart-height, 420px), 340px); } .readout { gap: 8px; font-size: 10px; } }

@@ -1,0 +1,39 @@
+/* Design tokens: the red and white brand palette. Market gains keep a semantic green. */
+:root {
+  --background: #ffffff;
+  --foreground: #202126;
+  --muted: #6a6870;
+  --subtle: #79717a;
+
+  --brand: #d51e32;
+  --brand-hover: #b61527;
+  --brand-text: #bd1e30;
+  --brand-soft: #fdecef;
+  --brand-tint: #fff0f2;
+  --brand-wash: #fff7f8;
+
+  --surface: #ffffff;
+  --surface-muted: #faf5f7;
+  --surface-sunken: #f6f2f4;
+  --line: #e6e3e5;
+  --card-line: #e6e1e4;
+  --input-line: #dcd5da;
+
+  --positive: #16704d;
+  --negative: #c51e34;
+
+  --radius-sm: 4px;
+  --radius: 7px;
+  --radius-lg: 12px;
+  --shadow-card: 0 8px 30px #3b122005;
+
+  --font-serif: Georgia, serif;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-brand: var(--brand);
+  --font-sans: Arial, Helvetica, sans-serif;
+  --font-mono: Consolas, monospace;
+}

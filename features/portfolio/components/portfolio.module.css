@@ -1,0 +1,43 @@
+.overviewTop { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 12px; }
+.value { font-size: 42px; letter-spacing: -1.5px; margin-top: 18px; }
+.ranges { display: flex; justify-content: flex-end; margin: 10px 0; }
+.balances { border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 15px; padding-top: 23px; margin-top: 20px; flex-wrap: wrap; }
+
+.allocation { display: flex; height: 10px; border-radius: 5px; overflow: hidden; background: var(--surface-sunken); margin-top: 6px; }
+.allocation > span { display: block; height: 100%; }
+.legend { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 20px; margin-top: 22px; font-size: 12px; }
+.legend > div { display: flex; align-items: center; gap: 9px; }
+.legend i { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+.legend span { color: var(--muted); }
+.legend b { margin-left: auto; font-weight: 500; }
+
+.holdings { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.holding { display: flex; align-items: center; gap: 12px; padding: 14px; background: var(--surface-muted); border-radius: var(--radius-sm); font-size: 12px; }
+.holding:hover { background: var(--brand-wash); }
+.holding small { display: block; font-size: 10px; color: #766775; margin-top: 4px; }
+.holding strong { margin-left: auto; font-weight: 500; text-align: right; }
+.holdingLogo { width: 34px; height: 34px; border-radius: 8px; background: #fff; }
+.holdingLogo img { width: 21px; height: 21px; }
+
+.activity { list-style: none; padding: 0; margin: 0; }
+.activity li { display: flex; gap: 14px; padding: 13px 0; border-bottom: 1px solid var(--line); font-size: 12px; line-height: 1.5; }
+.activity li:last-child { border-bottom: 0; }
+.activity time { color: var(--subtle); font-size: 10px; white-space: nowrap; min-width: 92px; padding-top: 2px; }
+.module { display: inline-block; font-size: 10px; letter-spacing: .8px; text-transform: uppercase; color: var(--brand-text); margin-bottom: 3px; }
+
+.shortcuts { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; }
+@media (max-width: 1100px) { .shortcuts { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 800px) { .shortcuts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.shortcut { display: flex; flex-direction: column; gap: 6px; padding: 20px; border: 1px solid var(--card-line); border-radius: var(--radius); background: #fff; transition: border-color .2s, transform .2s; }
+.shortcut:hover { border-color: #e2b9c3; transform: translateY(-2px); }
+.shortcut > span { font-size: 10px; letter-spacing: 1.2px; color: var(--brand-text); text-transform: uppercase; }
+.shortcut > b { font-size: 15px; font-weight: 500; }
+.shortcut > strong { font-size: 20px; font-weight: 500; letter-spacing: -.5px; margin-top: 8px; }
+.shortcut > small { font-size: 10px; color: var(--muted); }
+
+.resetButton { border: 0; background: none; color: var(--subtle); font-size: 11px; text-decoration: underline; padding: 12px 0; }
+.resetButton:hover { color: var(--brand-text); }
+
+@media (max-width: 1100px) { .holdings { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 800px) { .value { font-size: 33px; } }
+@media (max-width: 580px) { .holdings { grid-template-columns: 1fr; } .value { font-size: 36px; } .legend { grid-template-columns: 1fr; } .activity time { min-width: 70px; } }

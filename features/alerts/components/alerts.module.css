@@ -1,0 +1,22 @@
+.form { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 8px; align-items: end; }
+.form select, .form input { font-size: 12px; padding: 10px 12px; }
+.form label span { display: block; font-size: 11px; margin-bottom: 6px; }
+.hint { font-size: 11px; color: var(--muted); margin: 10px 0 0; }
+
+.list { list-style: none; padding: 0; margin: 18px 0 0; display: grid; gap: 8px; }
+.alert { display: flex; align-items: center; gap: 12px; padding: 11px 13px; border: 1px solid var(--card-line); border-radius: var(--radius-sm); font-size: 12px; }
+.alert b { font-weight: 600; }
+.alert small { display: block; font-size: 10px; color: var(--muted); margin-top: 2px; }
+.alert button { margin-left: auto; border: 0; background: none; color: var(--subtle); font-size: 11px; text-decoration: underline; padding: 10px 4px; }
+.alert button:hover { color: var(--brand-text); }
+.badge { font-size: 10px; letter-spacing: .8px; text-transform: uppercase; padding: 4px 6px; border-radius: 3px; background: #e5f1eb; color: var(--positive); }
+.fired .badge { background: var(--brand-soft); color: #b71d30; }
+
+.banner { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; padding: 12px 16px; margin-bottom: 24px; border: 1px solid #f0d7df; border-radius: 10px; background: var(--brand-wash); font-size: 12px; }
+.banner > b { display: flex; align-items: center; gap: 8px; font-size: 11px; letter-spacing: .8px; text-transform: uppercase; color: var(--brand-text); }
+.banner > b::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--brand); }
+.banner span { color: #48434a; }
+.banner span strong { font-weight: 600; color: var(--foreground); }
+
+@media (max-width: 580px) { .form { grid-template-columns: 1fr 1fr; } .form button { grid-column: 1 / -1; } }
+.banner a { padding: 8px 0; }
