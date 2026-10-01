@@ -37,7 +37,7 @@ export function CompanySnapshot({ data }: { data: TeslaData }) {
             </div>
           )}
           <p className={styles.source}>
-            Market data via <a href="https://finnhub.io" target="_blank" rel="noopener noreferrer">Finnhub</a>, may be delayed{quote ? ` (as of ${formatDate(quote.asOf)})` : ""}. The trading demo simulates prices starting from real values.
+            Market data via <a href="https://finnhub.io" target="_blank" rel="noopener noreferrer">Finnhub</a>, may be delayed{quote ? ` (as of ${formatDate(quote.asOf)})` : ""}. Trading simulates prices starting from real values.
             {profile && <> Company site: <a href={profile.website} target="_blank" rel="noopener noreferrer">tesla.com</a>.</>}
           </p>
         </>

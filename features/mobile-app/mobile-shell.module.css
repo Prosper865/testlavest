@@ -1,0 +1,10 @@
+.header { position: relative; z-index: 30; }
+.menu { position: absolute; top: 100%; left: 12px; right: 12px; padding: 10px; border: 1px solid #eee4e8; border-radius: 0 0 18px 18px; background: #fff; box-shadow: 0 15px 30px #22232b20; max-height: calc(100dvh - 160px); overflow-y: auto; }
+.menu:not([hidden]) { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; }
+.menu a { min-height: 48px; padding: 12px; display: flex; align-items: center; justify-content: space-between; gap: 6px; font-size: 12px; border-radius: 10px; color: #555862; }
+.menu a:hover, .menu a[aria-current="page"] { color: #bd2038; background: #fff2f4; }
+.menu a span { color: #bd2038; }
+.content { font-size: 14px; overflow-wrap: anywhere; }
+.content > * { min-width: 0; max-width: 100%; }
+.content h1 { font-size: 29px; line-height: 1.15; letter-spacing: -1px; }
+.content input, .content select, .content textarea { max-width: 100%; }

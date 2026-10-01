@@ -9,3 +9,6 @@
 .stats { display: flex; gap: 30px; flex-wrap: wrap; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--line); }
 
 @media (max-width: 580px) { .head { flex-wrap: wrap; } .watch { margin-left: 0; } .price b { font-size: 34px; } }
+
+/* Respond to the mobile app width, including on larger screens. */
+@container mobile-app (max-width: 580px) { .head { flex-wrap: wrap; } .watch { margin-left: 0; } .price b { font-size: 34px; } }

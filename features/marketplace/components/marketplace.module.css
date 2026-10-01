@@ -1,20 +1,21 @@
 .controls { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 23px; flex-wrap: wrap; }
 .sort { display: flex; align-items: center; gap: 10px; font-size: 11px; color: var(--muted); }
 .sort select { font-size: 11px; padding: 9px 12px; }
-.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+/* Cards wrap by their own width, so the grid fits any page or app frame without breakpoints. */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); gap: 20px; }
 
-.card { display: flex; flex-direction: column; border: 1px solid var(--card-line); border-radius: 10px; overflow: hidden; background: #fff; }
+.card { min-width: 0; display: flex; flex-direction: column; border: 1px solid var(--card-line); border-radius: 10px; overflow: hidden; background: #fff; }
 .art { position: relative; height: 170px; padding: 18px 20px; background: linear-gradient(160deg, #2a1318, #140a0d 70%); color: #fff; overflow: hidden; }
 .art > span { position: relative; z-index: 1; font-size: 10px; letter-spacing: 1.3px; color: #f2d4dd; }
-.art > b { position: absolute; z-index: 1; left: 20px; bottom: 16px; font-size: 28px; font-weight: 500; letter-spacing: -1px; }
+.art > b { position: absolute; z-index: 1; left: 20px; right: 20px; bottom: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 28px; font-weight: 500; letter-spacing: -1px; }
 .art img { position: absolute; top: 16px; right: 18px; width: 22px; height: 22px; filter: invert(1); opacity: .9; }
 .paint { position: absolute; right: -40px; bottom: -70px; width: 230px; height: 170px; border-radius: 50%; opacity: .9; box-shadow: inset -20px -20px 40px #0006, 0 0 60px #0005; }
 
 .body { display: flex; flex-direction: column; flex: 1; padding: 20px; }
 .body h3 { font-size: 15px; font-weight: 500; }
 .body > p { font-size: 11px; color: var(--muted); margin-top: 5px; }
-.price { font-size: 24px; font-weight: 500; letter-spacing: -.6px; margin-top: 16px; }
-.specs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 16px 0; padding: 14px 0; border-block: 1px solid var(--line); }
+.price { white-space: nowrap; font-size: 24px; font-weight: 500; letter-spacing: -.6px; margin-top: 16px; }
+.specs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin: 16px 0; padding: 14px 0; border-block: 1px solid var(--line); }
 .specs div { font-size: 13px; font-weight: 500; }
 .specs small { display: block; font-size: 10px; font-weight: 400; color: var(--subtle); margin-top: 4px; }
 .actions { margin-top: auto; display: grid; gap: 8px; }
@@ -48,5 +49,6 @@
 
 .disclaimer { font-size: 10px; color: var(--subtle); line-height: 1.7; margin-top: 18px; }
 
-@media (max-width: 1100px) { .grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 580px) { .grid { grid-template-columns: 1fr; } }
+
+/* Respond to the mobile app width, including on larger screens. */
+@container mobile-app (max-width: 1100px) { .goalsLayout { grid-template-columns: 1fr; } }

@@ -22,10 +22,10 @@ export function PlanBuilder({ strategyId, onStrategyChange }: Props) {
   const [notice, setNotice] = useState("");
   const value = Number(amount);
 
-  function submit(event: React.FormEvent) {
+  async function submit(event: React.FormEvent) {
     event.preventDefault();
     const strategy = getStrategy(strategyId)!;
-    setNotice(portfolioActions.createPlan(strategy.id, strategy.name, value, frequency).message);
+    setNotice((await portfolioActions.createPlan(strategy.id, strategy.name, value, frequency)).message);
   }
 
   return (

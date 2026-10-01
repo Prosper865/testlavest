@@ -19,9 +19,9 @@ export function RecurringBuyForm({ symbol }: { symbol: string }) {
   const [notice, setNotice] = useState("");
   const name = getInstrument(symbol)?.name ?? symbol;
 
-  function submit(event: React.FormEvent) {
+  async function submit(event: React.FormEvent) {
     event.preventDefault();
-    setNotice(portfolioActions.createPlan(`crypto:${symbol}`, name, Number(amount), frequency, symbol).message);
+    setNotice((await portfolioActions.createPlan(`crypto:${symbol}`, name, Number(amount), frequency, symbol)).message);
   }
 
   return (

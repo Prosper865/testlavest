@@ -40,3 +40,19 @@
   .price span { font-size: 10px; }
   .sampleLabel { font-size: 10px; }
 }
+
+/* Respond to the mobile app width, including on larger screens. */
+@container mobile-app (max-width: 800px) {
+  .controls { align-items: flex-start; flex-direction: column; }
+  .search { width: 100%; }
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+@container mobile-app (max-width: 580px) {
+  .grid { gap: 12px; }
+  .card { padding: 15px; }
+  .card h3 { font-size: 13px; }
+  .card .muted > span { display: none; }
+  .price b { font-size: 18px; }
+  .price span { font-size: 10px; }
+  .sampleLabel { font-size: 10px; }
+}

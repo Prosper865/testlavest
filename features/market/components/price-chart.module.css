@@ -12,3 +12,6 @@
 .note { font-size: 10px; color: var(--subtle); }
 
 @media (max-width: 580px) { .canvas { height: min(var(--chart-height, 420px), 340px); } .readout { gap: 8px; font-size: 10px; } }
+
+/* Respond to the mobile app width, including on larger screens. */
+@container mobile-app (max-width: 580px) { .canvas { height: min(var(--chart-height, 420px), 340px); } .readout { gap: 8px; font-size: 10px; } }

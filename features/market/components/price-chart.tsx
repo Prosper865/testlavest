@@ -170,7 +170,7 @@ export function PriceChart({ symbol, height = 420, defaultTimeframe = "3M" }: { 
         role="img"
         aria-label={`${symbol} ${type === "candles" ? "candlestick" : "line"} chart, ${periodLabel[timeframe]}, ${percent(periodChange)}. Simulated data.`}
       />
-      <p className={styles.note}>Simulated price history for demonstration · not real market data</p>
+      <p className={styles.note}>Simulated price history · not real market data</p>
     </div>
   );
 }

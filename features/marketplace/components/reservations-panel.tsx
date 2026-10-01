@@ -12,7 +12,7 @@ export function ReservationsPanel() {
     <Panel aria-labelledby="reservations-heading">
       <PanelHeader title={<span id="reservations-heading">Your reservations</span>} />
       {reservations.length === 0 ? (
-        <EmptyState>No vehicles reserved yet. Reserve one from the selection above with a refundable demo deposit.</EmptyState>
+        <EmptyState>No vehicles reserved yet. Reserve one from the selection above with a refundable deposit.</EmptyState>
       ) : (
         <ul className={styles.reservations}>
           {reservations.map(item => {

@@ -5,7 +5,10 @@
 .menuToggle { display: none; align-items: center; gap: 8px; white-space: nowrap; border: 1px solid var(--line); border-radius: 8px; background: #fff; font-size: 13px; color: #3a3439; margin-left: auto; min-height: 44px; padding: 0 14px; }
 .menuToggle[aria-expanded="true"] { border-color: #e2b9c3; color: var(--brand-text); }
 .cta { padding: 13px 19px; white-space: nowrap; }
-.nav .menuCta { display: none; }
+.nav .menuCta, .nav .menuLogin { display: none; }
+.headerActions { display: flex; align-items: center; gap: 18px; }
+.login { font-size: 12px; font-weight: 500; color: #3a3439; padding: 12px 4px; white-space: nowrap; }
+.login:hover { color: #c0172a; }
 
 /* Platform header: tab navigation for the broker modules. */
 .platformBar { border-bottom: 1px solid var(--line); background: #fff; position: sticky; top: 0; z-index: 20; }
@@ -24,11 +27,12 @@
 @media (max-width: 1023px) {
   .header { height: 82px; gap: 12px; }
   .menuToggle { display: inline-flex; }
-  .header > .cta { display: none; }
+  .headerActions { display: none; }
   .nav { display: none; }
   .navOpen { display: flex; flex-direction: column; gap: 0; position: absolute; top: calc(100% - 4px); left: 0; right: 0; background: #fff; z-index: 30; border: 1px solid var(--line); border-radius: 12px; padding: 6px 20px; box-shadow: 0 16px 36px #142d3018; }
   .navOpen a { display: flex; align-items: center; min-height: 48px; font-size: 15px; border-bottom: 1px solid var(--line); }
   .navOpen a:nth-last-child(2) { border-bottom: 0; }
+  .navOpen .menuLogin { display: flex; }
   .navOpen .menuCta { display: flex; justify-content: space-between; margin: 8px 0 12px; min-height: 48px; color: #fff; border-bottom: 0; }
 }
 @media (max-width: 800px) {

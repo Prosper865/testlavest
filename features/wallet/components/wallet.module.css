@@ -18,3 +18,7 @@
 
 @media (max-width: 1100px) { .grid { grid-template-columns: 1fr; } }
 @media (max-width: 580px) { .total { font-size: 32px; } .asset { grid-template-columns: auto 1fr; } .assetValue { grid-column: 1 / -1; text-align: left; } }
+
+/* Respond to the mobile app width, including on larger screens. */
+@container mobile-app (max-width: 1100px) { .grid { grid-template-columns: 1fr; } }
+@container mobile-app (max-width: 580px) { .total { font-size: 32px; } .asset { grid-template-columns: auto 1fr; } .assetValue { grid-column: 1 / -1; text-align: left; } }

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { platformNav } from "@/config/site";
+import { UserMenu } from "@/features/account/user-menu";
 import { usePortfolio } from "@/features/portfolio/store";
 import { cn } from "@/lib/utils";
 import { money } from "@/lib/format";
@@ -24,7 +25,7 @@ export function PlatformHeader() {
         </nav>
         <div className={styles.account}>
           <div>Buying power<b>{money(cash)}</b></div>
-          <Link href="/">Website ↗</Link>
+          <UserMenu />
         </div>
       </header>
     </div>

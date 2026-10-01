@@ -11,3 +11,7 @@
 
 @media (max-width: 800px) { .sectionHeading { align-items: flex-start; flex-direction: column; gap: 15px; } }
 @media (max-width: 580px) { .eyebrow { font-size: 10px; letter-spacing: 1.5px; } .sectionHeading { margin-bottom: 24px; } .sectionHeading h1 { font-size: 31px; } }
+
+/* Respond to the mobile app width, including on larger screens. */
+@container mobile-app (max-width: 800px) { .sectionHeading { align-items: flex-start; flex-direction: column; gap: 15px; } }
+@container mobile-app (max-width: 580px) { .eyebrow { font-size: 10px; letter-spacing: 1.5px; } .sectionHeading { margin-bottom: 24px; } .sectionHeading h1 { font-size: 31px; } }

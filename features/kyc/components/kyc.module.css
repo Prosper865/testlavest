@@ -1,0 +1,95 @@
+.wizard { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 28px; align-items: start; }
+
+/* Stepper */
+.steps { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; position: sticky; top: 100px; }
+.step { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 12px; font-size: 14px; color: var(--muted); }
+.step span { display: grid; place-items: center; flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; border: 1px solid #e3dde1; background: #fff; font-size: 12px; font-weight: 600; }
+.step[aria-current="step"] { background: #fff; color: #202126; font-weight: 500; box-shadow: 0 1px 2px #20212608, 0 4px 16px #2021260a; }
+.step[aria-current="step"] span { border-color: #d51e32; background: #d51e32; color: #fff; }
+.done span { border-color: #16704d; background: #e5f1eb; color: #16704d; }
+
+/* Card */
+.card { padding: 32px; border: 1px solid #ece8eb; border-radius: 18px; background: #fff; box-shadow: 0 1px 2px #20212606, 0 8px 28px #20212608; }
+.card h2 { font-size: 22px; font-weight: 500; letter-spacing: -.4px; }
+.card > p { font-size: 14px; color: var(--muted); margin-top: 6px; line-height: 1.6; }
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 16px; margin-top: 26px; }
+.full { grid-column: 1 / -1; }
+.field label { display: block; font-size: 13px; font-weight: 500; color: #2f2a30; margin-bottom: 7px; }
+.field input, .field select { width: 100%; height: 46px; padding: 0 14px; font-size: 14px; border: 1px solid #e3dde1; border-radius: 10px; background: #fff; }
+.field input:focus, .field select:focus { outline: none; border-color: #d51e32; box-shadow: 0 0 0 4px #d51e321a; }
+.field [aria-invalid="true"] { border-color: #d51e32; }
+.error { font-size: 12px; color: #b3172c; margin-top: 6px; }
+.hint { font-size: 12px; color: var(--subtle); margin-top: 6px; }
+
+/* Uploads */
+.upload { display: grid; gap: 10px; }
+.drop { position: relative; display: flex; align-items: center; gap: 14px; min-height: 96px; padding: 16px; border: 1.5px dashed #ddd5da; border-radius: 12px; background: #fcfbfc; transition: border-color .15s, background .15s; }
+.drop:hover, .drop:focus-within { border-color: #d51e32; background: #fff7f8; }
+.drop input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.drop img { width: 64px; height: 64px; border-radius: 8px; object-fit: cover; background: #f1eef0; }
+.dropIcon { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 10px; background: #fdecef; color: #c92037; font-size: 20px; }
+.drop b { display: block; font-size: 14px; font-weight: 500; }
+.drop small { display: block; font-size: 12px; color: var(--muted); margin-top: 3px; }
+
+/* Review */
+.review { display: grid; gap: 14px; margin-top: 24px; }
+.reviewGroup { padding: 16px 18px; border: 1px solid #eee9ec; border-radius: 12px; }
+.reviewGroup h3 { display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; margin-bottom: 10px; }
+.reviewGroup h3 button { border: 0; background: none; color: #b71d30; font-size: 12px; font-weight: 500; padding: 4px 0; }
+.reviewGroup dl { display: grid; grid-template-columns: 140px minmax(0, 1fr); gap: 8px 12px; margin: 0; font-size: 13px; }
+.reviewGroup dt { color: var(--muted); }
+.reviewGroup dd { margin: 0; overflow-wrap: anywhere; }
+.consent { display: flex; gap: 10px; align-items: flex-start; margin-top: 20px; font-size: 13px; line-height: 1.55; color: #4d464c; }
+.consent input { width: 18px; height: 18px; margin-top: 1px; accent-color: #d51e32; flex-shrink: 0; }
+
+.alert { margin-top: 20px; padding: 12px 14px; border-radius: 10px; background: #fdecef; color: #9b1427; font-size: 13px; }
+.actions { display: flex; justify-content: space-between; gap: 12px; margin-top: 28px; padding-top: 22px; border-top: 1px solid #f0ecef; }
+.primary, .secondary { height: 46px; padding: 0 22px; border-radius: 10px; font-size: 14px; font-weight: 500; }
+.primary { border: 0; background: #d51e32; color: #fff; margin-left: auto; }
+.primary:hover:not(:disabled) { background: #b61527; }
+.secondary { border: 1px solid #e3dde1; background: #fff; color: #2f2a30; }
+.secondary:hover { background: #f7f5f6; }
+
+/* Status */
+.status { max-width: 640px; margin: 0 auto; padding: 40px 36px; text-align: center; }
+.statusIcon { display: grid; place-items: center; width: 64px; height: 64px; margin: 0 auto 18px; border-radius: 50%; font-size: 28px; }
+.pending .statusIcon { background: #fff4e0; color: #b26a00; }
+.approved .statusIcon { background: #e5f1eb; color: #16704d; }
+.rejected .statusIcon { background: #fdecef; color: #b3172c; }
+.status h1 { font-size: 26px; font-weight: 500; letter-spacing: -.6px; }
+.status p { font-size: 14px; color: var(--muted); line-height: 1.7; margin-top: 10px; }
+.timeline { list-style: none; padding: 0; margin: 26px auto 0; max-width: 360px; text-align: left; display: grid; gap: 12px; }
+.timeline li { display: flex; gap: 12px; font-size: 13px; }
+.timeline li span { width: 10px; height: 10px; margin-top: 4px; border-radius: 50%; background: #d9d2d6; flex-shrink: 0; }
+.timeline li.reached span { background: #16704d; }
+.timeline small { display: block; font-size: 12px; color: var(--subtle); }
+.note { margin: 20px auto 0; max-width: 460px; padding: 14px 16px; border-radius: 12px; background: #fdecef; color: #7d1020; font-size: 13px; text-align: left; line-height: 1.6; }
+.statusActions { display: flex; justify-content: center; gap: 10px; margin-top: 26px; flex-wrap: wrap; }
+
+@media (max-width: 900px) {
+  .wizard { grid-template-columns: 1fr; gap: 16px; }
+  .steps { position: static; display: flex; overflow-x: auto; scrollbar-width: none; gap: 4px; }
+  .step { flex-shrink: 0; padding: 8px 10px; font-size: 13px; }
+}
+@media (max-width: 580px) {
+  .card { padding: 22px 18px; }
+  .grid { grid-template-columns: 1fr; }
+  .reviewGroup dl { grid-template-columns: 1fr; gap: 2px; }
+  .reviewGroup dd { margin-bottom: 8px; }
+  .status { padding: 28px 18px; }
+}
+.row { display: contents; }
+
+/* Respond to the mobile app width, including on larger screens. */
+@container mobile-app (max-width: 900px) {
+  .wizard { grid-template-columns: 1fr; gap: 16px; }
+  .steps { position: static; display: flex; overflow-x: auto; scrollbar-width: none; gap: 4px; }
+  .step { flex-shrink: 0; padding: 8px 10px; font-size: 13px; }
+}
+@container mobile-app (max-width: 580px) {
+  .card { padding: 22px 18px; }
+  .grid { grid-template-columns: 1fr; }
+  .reviewGroup dl { grid-template-columns: 1fr; gap: 2px; }
+  .reviewGroup dd { margin-bottom: 8px; }
+  .status { padding: 28px 18px; }
+}

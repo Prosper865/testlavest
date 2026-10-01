@@ -33,9 +33,13 @@ export function SiteHeader() {
       </button>
       <nav id="site-navigation" className={cn(styles.nav, open && styles.navOpen)} aria-label="Main navigation">
         {marketingNav.map(link => <Link key={link.href} href={link.href} onClick={() => setOpen(false)}>{link.label}</Link>)}
-        <ButtonLink href="/dashboard" className={styles.menuCta} onClick={() => setOpen(false)}>Open platform</ButtonLink>
+        <Link href="/login" className={styles.menuLogin} onClick={() => setOpen(false)}>Log in</Link>
+        <ButtonLink href="/signup" className={styles.menuCta} onClick={() => setOpen(false)}>Get started</ButtonLink>
       </nav>
-      <ButtonLink href="/dashboard" className={styles.cta}>Open platform</ButtonLink>
+      <div className={styles.headerActions}>
+        <Link href="/login" className={styles.login}>Log in</Link>
+        <ButtonLink href="/signup" className={styles.cta}>Get started</ButtonLink>
+      </div>
     </header>
   );
 }

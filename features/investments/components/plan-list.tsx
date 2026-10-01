@@ -44,9 +44,9 @@ export function PlanList({ title = "Your automated plans", filter, asset, emptyT
                 </div>
                 <div className={styles.planValue}>{money(plan.invested)}<small>{plan.goal ? `Saved of ${money(plan.goal.target)}` : plan.asset ? `Spent on ${plan.asset}` : "Contributed"}</small></div>
                 <div className={styles.planActions}>
-                  <Button size="sm" variant="outline" onClick={() => setNotice(portfolioActions.contribute(plan.id).message)}>{plan.asset ? "Buy now" : "Contribute now"}</Button>
+                  <Button size="sm" variant="outline" onClick={async () => setNotice((await portfolioActions.contribute(plan.id)).message)}>{plan.asset ? "Buy now" : "Contribute now"}</Button>
                   <Button size="sm" variant="outline" onClick={() => portfolioActions.togglePlan(plan.id)}>{active ? "Pause" : "Resume"}</Button>
-                  <Button size="sm" variant="ghost" onClick={() => setNotice(portfolioActions.removePlan(plan.id).message)}>{plan.asset ? "Stop" : "Close plan"}</Button>
+                  <Button size="sm" variant="ghost" onClick={async () => setNotice((await portfolioActions.removePlan(plan.id)).message)}>{plan.asset ? "Stop" : "Close plan"}</Button>
                 </div>
               </article>
             );

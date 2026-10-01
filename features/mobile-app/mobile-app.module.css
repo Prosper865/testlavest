@@ -1,0 +1,169 @@
+.backdrop { min-height: 100dvh; background: #eff0f2; }
+.app { container: mobile-app / inline-size; position: relative; width: min(100%, 440px); min-height: 100dvh; margin-inline: auto; background: #fff; box-shadow: 0 0 80px #22232b15; color: #1d2029; }
+.topbar { height: 76px; padding: 15px 22px; display: flex; align-items: center; gap: 11px; background: #fff; border-bottom: 1px solid #f1f0f2; }
+.appBrand { display: flex; align-items: center; gap: 9px; margin-right: auto; color: #202129; font-size: 16px; font-weight: 700; letter-spacing: 1.9px; line-height: 1; }
+.brandMark { width: 34px; height: 34px; border-radius: 11px; color: #d71935; background: #fff0f3; display: grid; place-items: center; font: 28px Georgia,serif; letter-spacing: -3px; padding-right: 3px; }
+.appBrand small { display: block; font-size: 7px; letter-spacing: 3px; margin-top: 5px; color: #909199; }
+.demoPill { display: flex; align-items: center; gap: 5px; border: 1px solid #f0d8de; border-radius: 20px; padding: 6px 8px; background: #fff8f9; color: #a32d40; font-size: 9px; font-weight: 700; letter-spacing: .4px; }
+.demoPill > span { width: 5px; height: 5px; background: #d61c39; border-radius: 50%; }
+.iconButton { border: 0; background: #f7f7f8; color: #41424c; border-radius: 50%; width: 38px; height: 38px; display: grid; place-items: center; position: relative; }
+.iconButton i { position: absolute; top: 8px; right: 8px; width: 5px; height: 5px; background: #d71935; border-radius: 50%; }
+.content { padding: 27px 20px calc(116px + env(safe-area-inset-bottom)); }
+.welcome { display: flex; justify-content: space-between; align-items: center; gap: 15px; margin-bottom: 24px; }
+.welcome span,.screenHeading > span { font-size: 9px; font-weight: 700; letter-spacing: 1.4px; color: #a06c7a; }
+.welcome h1,.screenHeading h1 { font-size: 29px; letter-spacing: -1.2px; font-weight: 700; margin-top: 5px; }
+.avatar { flex: none; display: grid; place-items: center; border: 0; background: #f8e9ed; color: #bf223b; width: 40px; height: 40px; border-radius: 50%; }
+.balanceCard { position: relative; overflow: hidden; background: linear-gradient(120deg,#d91e3c,#ac102d); color: #fff; border-radius: 22px; padding: 24px; min-height: 190px; box-shadow: 0 12px 30px #c8253e28; }
+.balanceCard::before { content: ""; position: absolute; right: -70px; top: -100px; width: 260px; height: 260px; border: 1px solid #ffffff25; border-radius: 50%; }
+.balanceCard::after { content: ""; position: absolute; right: -10px; top: -60px; width: 180px; height: 180px; border: 1px solid #ffffff20; border-radius: 50%; }
+.balanceLabel { display: flex; align-items: center; gap: 8px; font-size: 9px; letter-spacing: 1.2px; color: #ffe6ec; font-weight: 700; position: relative; z-index: 1; }
+.balanceLabel button { border: 0; background: transparent; color: inherit; display: grid; place-items: center; padding: 1px; }
+.balanceAmount { font-size: clamp(31px,9vw,41px); letter-spacing: -1.5px; font-weight: 600; line-height: 1.15; position: relative; z-index: 1; margin-top: 20px; font-variant-numeric: tabular-nums; }
+.balanceMeta { display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 1; margin-top: 23px; font-size: 9px; letter-spacing: .5px; }
+.balanceMeta span { display: flex; align-items: center; gap: 5px; }
+.balanceMeta i { display: block; width: 5px; height: 5px; background: #fff; border-radius: 50%; }
+.balanceMeta .balanceCash { align-items: flex-end; flex-direction: column; gap: 5px; text-align: right; }
+.balanceCash small { color: #ffe3e9; font-size: 8px; letter-spacing: .7px; }
+.balanceCash strong { font-size: 13px; letter-spacing: 0; font-variant-numeric: tabular-nums; }
+.balanceGlow { position: absolute; right: -50px; bottom: -110px; width: 230px; height: 230px; border-radius: 50%; background: #ffffff15; filter: blur(8px); }
+.quickActions,.walletActions { display: grid; grid-template-columns: repeat(5,1fr); gap: 5px; margin: 24px 0; }
+.quickActions button,.walletActions button { border: 0; background: transparent; color: #555862; font-size: 11px; display: flex; align-items: center; flex-direction: column; gap: 8px; padding: 0; }
+.quickActions button > span,.walletActions button > span { display: grid; place-items: center; width: 48px; height: 48px; background: #fff2f4; color: #c9223d; border-radius: 16px; }
+.quickActions button:hover > span,.walletActions button:hover > span { background: #f9dfe6; }
+.accountStats { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px; margin: 0 0 25px; }
+.accountStats > div { min-width: 0; display: flex; flex-direction: column; gap: 9px; padding: 14px 11px; border: 1px solid #f0e8eb; border-radius: 14px; background: #fffafb; }
+.accountStats span { color: #8e858b; font-size: 10px; }
+.accountStats strong { font-size: clamp(13px,3.8vw,17px); font-weight: 700; letter-spacing: -.5px; font-variant-numeric: tabular-nums; overflow: hidden; text-overflow: ellipsis; }
+.sectionTitle { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 29px 0 12px; }
+.sectionTitle h2 { font-size: 17px; letter-spacing: -.4px; font-weight: 700; }
+.sectionTitle button { border: 0; background: transparent; color: #bd2038; font-size: 11px; display: flex; align-items: center; gap: 3px; }
+.assetList { background: #fff; }
+.emptyAssets { border: 1px dashed #edcdd5; border-radius: 15px; padding: 20px; background: #fffafb; }
+.emptyAssets p { color: #797984; font-size: 11px; line-height: 1.6; }
+.emptyAssets button { display: flex; align-items: center; gap: 8px; padding: 0; margin-top: 13px; border: 0; background: transparent; color: #bc2039; font-size: 11px; font-weight: 700; }
+.assetRow { border: 0; border-bottom: 1px solid #f0eff1; padding: 14px 0; display: flex; gap: 11px; align-items: center; width: 100%; background: transparent; color: #1f222a; text-align: left; }
+.assetRow:last-child { border-bottom: 0; }
+.assetRow > svg { color: #acadb3; flex: none; }
+.assetLogo { width: 42px !important; height: 42px !important; border-radius: 13px !important; flex: none; }
+.assetName { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.assetName strong { font-size: 12px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.assetName span { font-size: 10px; color: #8b8d94; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.assetNumbers { margin-left: auto; display: flex; flex-direction: column; align-items: flex-end; gap: 5px; min-width: 90px; }
+.assetNumbers strong { font-size: 12px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.assetNumbers span { font-size: 10px; font-weight: 600; }
+.gain { color: #15865b; }
+.loss { color: #cc3347; }
+.promoCard { position: relative; overflow: hidden; background: #151820; color: #fff; border-radius: 20px; padding: 24px; margin-top: 28px; }
+.promoCard::after { content: ""; position: absolute; width: 180px; height: 180px; border: 1px solid #ffffff1c; border-radius: 50%; right: -60px; top: -45px; }
+.promoCard > span { font-size: 8px; color: #f2a7b6; letter-spacing: 1px; font-weight: 700; }
+.promoCard h2 { margin-top: 11px; font-size: 22px; letter-spacing: -.6px; font-weight: 600; }
+.promoCard p { color: #c8c6ca; font-size: 11px; line-height: 1.8; max-width: 230px; margin: 11px 0 18px; }
+.promoCard button { border: 0; background: transparent; color: #fff; padding: 0; display: flex; align-items: center; gap: 13px; font-size: 11px; font-weight: 700; position: relative; z-index: 1; }
+.screenHeading { margin-bottom: 23px; }
+.screenHeading h1 { font-size: 32px; }
+.screenHeading p { color: #84858d; font-size: 12px; line-height: 1.6; margin-top: 8px; }
+.searchBox { display: flex; gap: 10px; align-items: center; background: #f7f7f8; border: 1px solid #ededf0; border-radius: 13px; padding: 0 14px; color: #888a92; height: 51px; }
+.searchBox input { width: 100%; height: 100%; border: 0; padding: 0; background: transparent; color: #242630; font-size: 13px; outline: 0; }
+.searchBox:focus-within { outline: 2px solid #d4203d; }
+.categoryTabs { display: flex; gap: 7px; margin-top: 19px; overflow-x: auto; scrollbar-width: none; }
+.categoryTabs button { flex: 1; min-height: 37px; border: 1px solid #ece9ed; background: #fff; border-radius: 22px; padding: 8px 12px; font-size: 11px; color: #74747c; white-space: nowrap; }
+.categoryTabs button.active { background: #d31d39; color: #fff; border-color: #d31d39; }
+.listHeading { display: flex; justify-content: space-between; margin: 28px 0 5px; color: #9a9aa1; font-size: 9px; font-weight: 700; letter-spacing: .7px; }
+.inlineNotice { color: #ad253a; font-size: 11px; line-height: 1.6; min-height: 1em; margin-top: 13px; }
+.empty { color: #8e9098; font-size: 12px; line-height: 1.8; padding: 18px 0; }
+.orderCard { border: 1px solid #eae8ec; border-radius: 19px; padding: 20px; box-shadow: 0 6px 22px #1d202905; }
+.ticketTabs { display: flex; background: #f7f5f6; border-radius: 12px; padding: 4px; gap: 4px; }
+.ticketTabs button { flex: 1; border: 0; border-radius: 9px; background: transparent; color: #777881; padding: 11px; font-size: 12px; font-weight: 600; }
+.ticketTabs button.active { background: #fff; box-shadow: 0 2px 8px #28202b10; color: #c3203b; }
+.fieldLabel { display: block; margin: 24px 0 9px; color: #868690; font-size: 9px; font-weight: 700; letter-spacing: 1px; }
+.orderSelect,.transferCard select,.transferCard input { width: 100%; min-height: 47px; border-radius: 11px; border: 1px solid #e5e3e7; background: #fff; font-size: 13px; }
+.selectedAsset { display: flex; gap: 10px; align-items: center; padding: 17px 0; border-bottom: 1px solid #efedf0; }
+.selectedAsset > div { display: flex; flex-direction: column; gap: 5px; }
+.selectedAsset > div > strong { font-size: 12px; }
+.selectedAsset > div > span { color: #92929b; font-size: 10px; }
+.selectedAsset > strong { margin-left: auto; font-size: 13px; }
+.amountInput { display: flex; align-items: center; border: 1px solid #e5e3e7; border-radius: 11px; padding: 0 14px; height: 63px; gap: 8px; }
+.amountInput > span { font-size: 24px; font-weight: 700; }
+.amountInput input { width: 100%; border: 0; background: none; padding: 0; font-size: 27px; font-weight: 700; outline: none; }
+.amountInput:focus-within { outline: 2px solid #d51e32; }
+.amountChips { display: flex; gap: 8px; margin-top: 13px; }
+.amountChips button { flex: 1; border: 1px solid #efebee; background: #faf9fa; border-radius: 8px; padding: 8px; font-size: 10px; color: #777781; }
+.amountChips button:hover { border-color: #e3a8b4; color: #b51c35; }
+.orderSummary { border-top: 1px solid #efedf0; margin-top: 25px; padding-top: 5px; }
+.orderSummary > div { display: flex; justify-content: space-between; gap: 12px; padding-top: 16px; font-size: 11px; }
+.orderSummary span { color: #898994; }
+.orderSummary strong { font-weight: 700; text-align: right; }
+.primaryButton { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: #d31d39; border: 0; border-radius: 12px; color: #fff; width: 100%; min-height: 51px; padding: 0 18px; margin-top: 26px; font-size: 13px; font-weight: 700; }
+.primaryButton:hover { background: #b8162f; }
+.orderDisclaimer { text-align: center; color: #92919a; font-size: 10px; margin-top: 13px; }
+.walletBalance { background: #181d28; color: #fff; border-radius: 22px; padding: 24px; min-height: 164px; overflow: hidden; position: relative; }
+.walletBalance > span { color: #e7abb6; font-size: 9px; letter-spacing: 1.3px; font-weight: 700; }
+.walletBalance > div:not(.walletDecoration) { margin-top: 18px; font-size: 35px; font-weight: 600; letter-spacing: -1px; position: relative; z-index: 1; }
+.walletBalance > p { margin-top: 8px; font-size: 11px; color: #aaaeb9; }
+.walletDecoration { position: absolute; right: -8px; bottom: -46px; font: 180px Georgia,serif; color: #ffffff08; pointer-events: none; }
+.walletActions { grid-template-columns: repeat(4,1fr); margin: 25px 0; }
+.walletOverview { display: grid; grid-template-columns: 1fr 1fr; gap: 11px; }
+.walletOverview > div { background: #faf8f9; border: 1px solid #f0ecef; border-radius: 13px; padding: 16px; display: flex; flex-direction: column; gap: 9px; }
+.walletOverview span { font-size: 10px; color: #8b8a93; }
+.walletOverview strong { font-size: 16px; letter-spacing: -.4px; }
+.transferCard { border: 1px solid #efd8dd; border-radius: 18px; background: #fffafb; margin-top: 25px; padding: 20px; }
+.transferCard .sectionTitle { margin: 0; }
+.transferCard > p { font-size: 11px; line-height: 1.6; color: #8c7c84; margin-top: 12px; }
+.transferCard .fieldLabel { margin-top: 18px; }
+.transferCard .primaryButton { margin-top: 20px; }
+.backLink { display: flex; align-items: center; gap: 6px; border: 0; background: transparent; color: #bd2038; font-size: 12px; font-weight: 700; padding: 0; margin-bottom: 25px; }
+.investSummary { display: flex; flex-direction: column; gap: 9px; border-radius: 19px; padding: 21px; background: #1b202c; color: #fff; }
+.investSummary span { color: #eba7b5; font-size: 9px; font-weight: 700; letter-spacing: 1.3px; }
+.investSummary strong { font-size: 31px; letter-spacing: -1px; font-variant-numeric: tabular-nums; }
+.investSummary small { color: #b9bdc8; font-size: 10px; }
+.planList { display: grid; gap: 10px; }
+.planCard { display: grid; grid-template-columns: 1fr auto; gap: 13px; padding: 17px; border: 1px solid #eceaed; border-radius: 14px; }
+.planCard > div { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.planCard strong,.planCard b { font-size: 12px; }
+.planCard span { color: #898994; font-size: 10px; }
+.planCard button { border: 1px solid #ecdce1; border-radius: 8px; padding: 9px 10px; color: #b9223b; background: #fff; font-size: 10px; font-weight: 700; }
+.previewCard { aspect-ratio: 1.58; display: flex; flex-direction: column; justify-content: space-between; padding: 27px; border-radius: 20px; color: #fff; background: linear-gradient(125deg,#b91734,#d9364e 65%,#671123); box-shadow: 0 16px 32px #ac183146; overflow: hidden; }
+.previewCardTop,.previewCardBottom { display: flex; justify-content: space-between; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; }
+.previewCardTop span:last-child { color: #ffd0d9; }
+.previewCardChip { width: 36px; height: 26px; border: 1px solid #ffffffa0; border-radius: 6px; background: #ffffff2f; }
+.previewCard > strong { font-size: 20px; letter-spacing: 1px; white-space: nowrap; }
+.previewCardBottom { font-size: 8px; color: #ffe0e5; }
+.cardInfo { display: flex; gap: 13px; padding: 17px; border: 1px solid #efeaed; border-radius: 14px; margin-top: 25px; color: #bc213a; }
+.cardInfo > div { color: #252832; }
+.cardInfo strong { font-size: 13px; }
+.cardInfo p { margin-top: 7px; color: #83858e; font-size: 11px; line-height: 1.6; }
+.activityList { border: 1px solid #eceaed; border-radius: 15px; overflow: hidden; }
+.activityItem { display: flex; align-items: center; gap: 12px; padding: 14px; border-bottom: 1px solid #f0eff1; }
+.activityItem:last-child { border-bottom: 0; }
+.activityIcon { display: grid; place-items: center; width: 39px; height: 39px; flex: none; border-radius: 12px; background: #fff0f3; color: #cb2541; }
+.activityItem > div { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.activityItem strong { font-size: 11px; line-height: 1.35; font-weight: 600; }
+.activityItem span:not(.activityIcon) { font-size: 10px; color: #9999a1; }
+.activityItem > svg { margin-left: auto; color: #a9a9b0; }
+.profileCard { display: flex; align-items: center; gap: 12px; border: 1px solid #eceaed; border-radius: 16px; padding: 18px; }
+.profileAvatar { display: grid; place-items: center; background: #fff0f3; color: #c6223c; border-radius: 50%; width: 53px; height: 53px; }
+.profileCard h2 { font-size: 15px; font-weight: 700; letter-spacing: 0; }
+.profileCard p { color: #95959e; font-size: 10px; margin-top: 5px; }
+.verified { margin-left: auto; display: flex; align-items: center; gap: 3px; background: #f1faf4; color: #228359; font-size: 9px; font-weight: 700; border-radius: 20px; padding: 6px; }
+.profileStats { display: grid; grid-template-columns: repeat(3,1fr); margin-top: 18px; background: #faf9fa; border-radius: 15px; padding: 17px; }
+.profileStats > div { display: flex; align-items: center; flex-direction: column; gap: 5px; border-right: 1px solid #eae7ea; }
+.profileStats > div:last-child { border: 0; }
+.profileStats strong { font-size: 18px; }
+.profileStats span { color: #8d8c95; font-size: 9px; }
+.profileLinks { border: 1px solid #eceaed; border-radius: 15px; overflow: hidden; }
+.profileLinks a { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid #f1eff1; font-size: 12px; }
+.profileLinks a:last-child { border-bottom: 0; }
+.profileLinks a > span { display: flex; align-items: center; gap: 12px; }
+.profileLinks a svg { color: #c31f39; }
+.profileNote { color: #9a98a1; font-size: 10px; line-height: 1.7; margin-top: 26px; text-align: center; }
+.resetButton { display: block; width: 100%; padding: 14px; margin-top: 25px; border: 1px solid #eddbe0; border-radius: 11px; background: #fff; color: #b62a40; font-size: 11px; font-weight: 600; }
+.resetButton:hover { background: #fff6f8; }
+.bottomNav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: min(100%,440px); display: grid; grid-template-columns: repeat(5,1fr); align-items: end; min-height: calc(75px + env(safe-area-inset-bottom)); padding: 7px 7px calc(9px + env(safe-area-inset-bottom)); background: #fff; border-top: 1px solid #efedf0; box-shadow: 0 -7px 22px #1c1a250a; z-index: 20; }
+.navItem { border: 0; background: none; color: #9697a0; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 4px 0; font-size: 9px; font-weight: 600; }
+.navIcon { display: grid; place-items: center; width: 32px; height: 32px; }
+.navActive { color: #c91f3b; }
+.navTrade .navIcon { background: #d31d39; color: #fff; border-radius: 50%; width: 45px; height: 45px; margin-top: -15px; box-shadow: 0 5px 14px #d31d3933; }
+.navTrade.navActive .navIcon { background: #ad152d; }
+@media (max-width: 440px) { .backdrop { background: #fff; } .app { box-shadow: none; } }
+@media (max-width: 360px) { .content { padding-inline: 16px; } .topbar { padding-inline: 16px; } .assetNumbers { min-width: 79px; } .categoryTabs button { padding-inline: 8px; } .quickActions button { font-size: 9px; } .quickActions button > span { width: 43px; height: 43px; } .accountStats > div { padding-inline: 8px; } }
+@media (prefers-reduced-motion: reduce) { .app * { scroll-behavior: auto; } }

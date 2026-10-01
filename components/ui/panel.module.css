@@ -17,3 +17,7 @@
 
 @media (max-width: 800px) { .panel { padding: 20px; } }
 @media (max-width: 580px) { .panel { padding: 22px; } .stat b { font-size: 12px; } .stat small { font-size: 10px; } }
+
+/* Respond to the mobile app width, including on larger screens. */
+@container mobile-app (max-width: 800px) { .panel { padding: 20px; } }
+@container mobile-app (max-width: 580px) { .panel { padding: 22px; } .stat b { font-size: 12px; } .stat small { font-size: 10px; } }

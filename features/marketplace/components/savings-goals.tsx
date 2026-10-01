@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button, EmptyState, Eyebrow, Field, Panel, PanelHeader, SegmentedControl, StatusMessage } from "@/components/ui";
 import { portfolioActions, usePortfolio, type Frequency } from "@/features/portfolio/store";
 import { formatDate, money } from "@/lib/format";
-import { RESERVATION_DEPOSIT, getVehicle, vehicleName, vehicles } from "../vehicles";
+import { getVehicle, vehicleName, vehicles } from "../vehicles";
 import styles from "./marketplace.module.css";
 
 const frequencies = [
@@ -31,10 +31,10 @@ export function SavingsGoalPlanner({ vehicleId, onVehicleChange }: PlannerProps)
     onVehicleChange?.(id);
   }
 
-  function submit(event: React.FormEvent) {
+  async function submit(event: React.FormEvent) {
     event.preventDefault();
     const name = vehicleName(vehicle);
-    setNotice(portfolioActions.createPlan(`goal:${vehicle.id}`, name, Number(amount), frequency, undefined, { vehicleId: vehicle.id, vehicleName: name, target: vehicle.price }).message);
+    setNotice((await portfolioActions.createPlan(`goal:${vehicle.id}`, name, Number(amount), frequency, undefined, { vehicleId: vehicle.id, vehicleName: name, target: vehicle.price })).message);
   }
 
   return (
@@ -95,14 +95,14 @@ export function SavingsGoalsList() {
                 <p className={styles.goalAmounts}>{money(plan.invested)} saved of {money(goal.target)}</p>
                 <div className={styles.goalActions}>
                   {reached ? (
-                    <Button size="sm" disabled={reserved} onClick={() => setNotice(portfolioActions.completeGoal(plan.id, RESERVATION_DEPOSIT).message)}>{reserved ? "Already reserved" : "Reserve with savings"}</Button>
+                    <Button size="sm" disabled={reserved} onClick={async () => setNotice((await portfolioActions.completeGoal(plan.id)).message)}>{reserved ? "Already reserved" : "Reserve with savings"}</Button>
                   ) : (
                     <>
-                      <Button size="sm" variant="outline" onClick={() => setNotice(portfolioActions.contribute(plan.id).message)}>Add {money(plan.amount)} now</Button>
+                      <Button size="sm" variant="outline" onClick={async () => setNotice((await portfolioActions.contribute(plan.id)).message)}>Add {money(plan.amount)} now</Button>
                       <Button size="sm" variant="outline" onClick={() => portfolioActions.togglePlan(plan.id)}>{plan.status === "active" ? "Pause" : "Resume"}</Button>
                     </>
                   )}
-                  <Button size="sm" variant="ghost" onClick={() => setNotice(portfolioActions.removePlan(plan.id).message)}>Close goal</Button>
+                  <Button size="sm" variant="ghost" onClick={async () => setNotice((await portfolioActions.removePlan(plan.id)).message)}>Close goal</Button>
                 </div>
               </article>
             );

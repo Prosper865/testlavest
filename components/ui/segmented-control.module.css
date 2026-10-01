@@ -8,3 +8,6 @@
 .tabs button[aria-pressed="true"] { background: #fff; color: #bc1e32; box-shadow: 0 1px 4px #243b2015; }
 
 @media (max-width: 580px) { .pills { gap: 3px; } .pills button { font-size: 10px; padding: 9px 10px; } }
+
+/* Respond to the mobile app width, including on larger screens. */
+@container mobile-app (max-width: 580px) { .pills { gap: 3px; } .pills button { font-size: 10px; padding: 9px 10px; } }

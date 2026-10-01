@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { SectionHeading, Tag } from "@/components/ui";
 import { ActivityFeed } from "@/features/portfolio";
 import { CashFunding, TransferForm, WalletBalances } from "@/features/wallet";
@@ -11,11 +12,12 @@ export default function WalletPage() {
     <>
       <SectionHeading level="h1" eyebrow="Wallet · Crypto" title="Deposit and withdraw easily." aside={<Tag>Simulated transfers</Tag>} />
       <p className={styles.intro}>Track your Bitcoin, Ethereum, and Solana balances at simulated live prices, and manage your cash balance for the rest of the platform.</p>
+      <p className={styles.intro}><Link href="/withdrawals">Withdraw funds to a bank / view withdrawal status →</Link></p>
       <div className={styles.split}>
         <div className={styles.stack}>
           <WalletBalances />
           <ActivityFeed title="Wallet activity" modules={["wallet", "account"]} />
-        </div>
+        </div>d
         <div className={styles.stack}>
           <TransferForm />
           <CashFunding />

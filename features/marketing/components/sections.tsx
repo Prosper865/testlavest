@@ -94,7 +94,7 @@ export function CtaSection() {
         <Eyebrow>Your next chapter starts with a clearer view</Eyebrow>
         <h2>Make space for possibility.</h2>
       </div>
-      <ButtonLink href="/dashboard">Explore the demo</ButtonLink>
+      <ButtonLink href="/dashboard">Explore</ButtonLink>
     </section>
   );
 }

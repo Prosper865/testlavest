@@ -1,0 +1,44 @@
+/* Split layout: brand panel + form. Soft neutrals, one accent. */
+.shell { min-height: 100vh; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); background: #f7f6f8; }
+.aside { position: relative; display: flex; flex-direction: column; justify-content: space-between; gap: 40px; padding: 40px 48px; color: #fff; overflow: hidden; background: radial-gradient(circle at 85% 0%, #ff4d6333, transparent 45%), linear-gradient(160deg, #1c0b10, #3a1019 60%, #7e1122); }
+.pitch h2 { font-size: clamp(28px, 3vw, 38px); font-weight: 500; letter-spacing: -1px; line-height: 1.15; }
+.pitch h2 span { color: #ff9ca7; }
+.pitch ul { list-style: none; padding: 0; margin: 26px 0 0; display: grid; gap: 14px; }
+.pitch li { display: flex; gap: 12px; align-items: flex-start; font-size: 14px; line-height: 1.55; color: #f0dfe3; }
+.pitch li span { display: grid; place-items: center; flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; background: #ffffff1f; font-size: 11px; color: #fff; }
+.asideNote { font-size: 11px; line-height: 1.6; color: #d7bcc3; max-width: 420px; }
+
+.main { display: flex; align-items: center; justify-content: center; padding: 40px 24px; }
+.card { width: min(440px, 100%); }
+.card h1 { font-size: 28px; font-weight: 500; letter-spacing: -.8px; }
+.lead { font-size: 14px; color: var(--muted); margin-top: 8px; line-height: 1.6; }
+.form { display: grid; gap: 16px; margin-top: 28px; }
+
+.field label { display: block; font-size: 13px; font-weight: 500; color: #2f2a30; margin-bottom: 7px; }
+.field input { width: 100%; height: 48px; padding: 0 14px; font-size: 15px; border: 1px solid #e3dde1; border-radius: 10px; background: #fff; transition: border-color .15s, box-shadow .15s; }
+.field input:focus { outline: none; border-color: #d51e32; box-shadow: 0 0 0 4px #d51e321a; }
+.field input[aria-invalid="true"] { border-color: #d51e32; }
+.passwordWrap { position: relative; }
+.passwordWrap input { padding-right: 70px; }
+.reveal { position: absolute; right: 6px; top: 6px; height: 36px; padding: 0 10px; border: 0; border-radius: 8px; background: transparent; font-size: 12px; color: var(--muted); }
+.reveal:hover { background: #f4f1f3; color: #2f2a30; }
+.errors { margin: 7px 0 0; padding: 0; list-style: none; font-size: 12px; color: #b3172c; display: grid; gap: 3px; }
+.hint { font-size: 12px; color: var(--subtle); margin-top: 7px; }
+
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: #4d464c; line-height: 1.5; }
+.check input { width: 18px; height: 18px; margin-top: 1px; accent-color: #d51e32; flex-shrink: 0; }
+
+.alert { padding: 12px 14px; border-radius: 10px; background: #fdecef; color: #9b1427; font-size: 13px; line-height: 1.5; }
+.submit { height: 50px; border: 0; border-radius: 10px; background: #d51e32; color: #fff; font-size: 15px; font-weight: 500; margin-top: 4px; }
+.submit:hover:not(:disabled) { background: #b61527; }
+.submit:disabled { opacity: .7; }
+.switch { margin-top: 22px; font-size: 14px; color: var(--muted); text-align: center; }
+.switch a { color: #b71d30; font-weight: 500; padding: 6px 2px; }
+
+@media (max-width: 900px) {
+  .shell { grid-template-columns: 1fr; }
+  .aside { padding: 24px 20px; gap: 18px; }
+  .pitch ul, .asideNote { display: none; }
+  .pitch h2 { font-size: 24px; }
+  .main { align-items: flex-start; padding: 32px 20px 48px; }
+}

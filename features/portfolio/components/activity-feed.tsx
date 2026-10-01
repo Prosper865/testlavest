@@ -14,7 +14,7 @@ export function ActivityFeed({ title = "Recent activity", modules, limit = 8 }: 
     <Panel aria-label={title}>
       <PanelHeader title={title} />
       {items.length === 0 ? (
-        <EmptyState>No activity yet. Actions you take in the demo will appear here.</EmptyState>
+        <EmptyState>No activity yet. Actions you take will appear here.</EmptyState>
       ) : (
         <ul className={styles.activity}>
           {items.map(item => (

@@ -16,7 +16,7 @@ export function HoldingsPanel() {
     <Panel aria-labelledby="holdings-heading">
       <PanelHeader title={<span id="holdings-heading">Stock holdings</span>} action={<Link href="/stocks" className="accent-text muted">Browse stocks →</Link>} />
       {positions.length === 0 ? (
-        <EmptyState>No holdings yet. Open a stock and place a demo buy order to get started.</EmptyState>
+        <EmptyState>No holdings yet. Open a stock and place a buy order to get started.</EmptyState>
       ) : (
         <div className={styles.holdings}>
           {positions.map(([symbol, shares]) => (

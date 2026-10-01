@@ -7,7 +7,7 @@ export const site = {
   tagline: "A broader perspective on investing.",
   description: "Automated investing, real-time stocks, a crypto wallet, and a curated Tesla marketplace in one brokerage platform.",
   disclaimer:
-    "Aurevia Capital is a working brand for this product prototype. All market prices, charts, portfolios, and allocations are illustrative. No real accounts, deposits, trades, or investment products are offered through this demo. Investing involves risk, including the loss of capital.",
+    "Aurevia Capital is a working brand for this product prototype. All market prices, charts, portfolios, and allocations are illustrative. No real accounts, deposits, trades, or investment products are offered through this. Investing involves risk, including the loss of capital.",
 };
 
 // Fill in once licensed. When set, the "Fully regulated" card shows the regulator and licence number.

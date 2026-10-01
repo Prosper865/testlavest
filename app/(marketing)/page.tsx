@@ -1,7 +1,6 @@
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import {
-  AccountPlans,
   ApproachSection,
   CompanyBelt,
   CtaSection,
@@ -16,6 +15,7 @@ import {
   WhyUs,
 } from "@/features/marketing";
 import { NewsSection } from "@/features/news";
+import { PlansSection } from "@/features/plans";
 
 export default function HomePage() {
   return (
@@ -28,7 +28,7 @@ export default function HomePage() {
         <WhyUs />
         <CompanyBelt />
         <GlobalMarkets />
-        <AccountPlans />
+        <PlansSection />
         <StrategiesSection />
         <NewsSection />
         <ProfessionalSection />

@@ -41,3 +41,10 @@
 @media (max-width: 1100px) { .holdings { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 800px) { .value { font-size: 33px; } }
 @media (max-width: 580px) { .holdings { grid-template-columns: 1fr; } .value { font-size: 36px; } .legend { grid-template-columns: 1fr; } .activity time { min-width: 70px; } }
+
+/* Respond to the mobile app width, including on larger screens. */
+@container mobile-app (max-width: 1100px) { .shortcuts { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@container mobile-app (max-width: 800px) { .shortcuts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@container mobile-app (max-width: 1100px) { .holdings { grid-template-columns: repeat(2, 1fr); } }
+@container mobile-app (max-width: 800px) { .value { font-size: 33px; } }
+@container mobile-app (max-width: 580px) { .holdings { grid-template-columns: 1fr; } .value { font-size: 36px; } .legend { grid-template-columns: 1fr; } .activity time { min-width: 70px; } }

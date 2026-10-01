@@ -1,0 +1,32 @@
+/* User menu */
+.menu { position: relative; }
+.trigger { display: flex; align-items: center; gap: 8px; height: 40px; padding: 0 6px 0 4px; border: 1px solid var(--line); border-radius: 22px; background: #fff; color: #2f2a30; font-size: 12px; }
+.trigger:hover, .trigger[aria-expanded="true"] { border-color: #e2b9c3; }
+.avatar { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(140deg, #d91f39, #8f1024); color: #fff; font-size: 12px; font-weight: 600; letter-spacing: .5px; }
+.chevron { font-size: 10px; color: var(--subtle); padding-right: 6px; }
+.panel { position: absolute; right: 0; top: calc(100% + 8px); z-index: 40; width: 260px; padding: 8px; border: 1px solid #ece8eb; border-radius: 14px; background: #fff; box-shadow: 0 16px 40px #2021261f; }
+.who { padding: 10px 10px 12px; border-bottom: 1px solid #f1edf0; margin-bottom: 6px; }
+.who b { display: block; font-size: 14px; font-weight: 600; }
+.who small { display: block; font-size: 12px; color: var(--muted); margin-top: 2px; overflow-wrap: anywhere; }
+.whoStatus { margin-top: 8px; }
+.item { display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%; min-height: 40px; padding: 0 10px; border: 0; border-radius: 9px; background: none; font-size: 13px; color: #2f2a30; text-align: left; }
+.item:hover { background: #f7f5f6; }
+.danger { color: #b3172c; }
+
+/* Status pills */
+.pill { display: inline-flex; align-items: center; gap: 6px; padding: 3px 9px; border-radius: 20px; font-size: 11px; font-weight: 500; white-space: nowrap; }
+.pill::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.approved { background: #e8f4ee; color: #16704d; }
+.pending { background: #fff4e0; color: #9a5b00; }
+.rejected { background: #fdecef; color: #b3172c; }
+.not_started { background: #f1eef0; color: #6a6870; }
+
+/* Verification banner */
+.banner { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; padding: 14px 18px; margin-bottom: 24px; border-radius: 14px; border: 1px solid; font-size: 13px; line-height: 1.5; }
+.banner b { font-weight: 600; }
+.banner p { flex: 1; min-width: 220px; }
+.banner a { display: inline-flex; align-items: center; min-height: 38px; padding: 0 14px; border-radius: 10px; font-size: 13px; font-weight: 500; white-space: nowrap; }
+.banner.not_started, .banner.rejected { background: #fff7f8; border-color: #f3d4dc; color: #5c1320; }
+.banner.not_started a, .banner.rejected a { background: #d51e32; color: #fff; }
+.banner.pending { background: #fffaf0; border-color: #f4e2bd; color: #5e3c00; }
+.banner.pending a { border: 1px solid #ecd3a2; color: #7a4d00; }

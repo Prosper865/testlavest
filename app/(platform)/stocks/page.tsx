@@ -12,7 +12,7 @@ export default function StocksPage() {
   return (
     <>
       <SectionHeading level="h1" eyebrow="Stocks · Realtime" title="Quotes, news, and watchlists." aside={<Tag>Simulated live prices</Tag>} />
-      <p className={styles.intro}>Prices update every few seconds. Star a company to add it to your watchlist, or open a quote to trade with virtual funds.</p>
+      <p className={styles.intro}>Prices update every few seconds. Star a company to add it to your watchlist, or open a quote to trade with funds.</p>
       <MarketTerminal instruments={stocks} label="Choose a stock" />
       <div className={styles.section}>
         <StockBrowser />

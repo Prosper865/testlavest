@@ -6,9 +6,10 @@ import { usePortfolioValuation } from "../valuation";
 import styles from "./portfolio.module.css";
 
 export function AllocationPanel() {
-  const { total, cash, stocks, crypto, plans, reserved } = usePortfolioValuation();
+  const { total, cash, stocks, crypto, plans, reserved, pendingCash } = usePortfolioValuation();
   const parts = [
-    { label: "Cash", value: cash, color: "#d9ced3" },
+    { label: "Available cash", value: cash, color: "#d9ced3" },
+    { label: "Pending withdrawals", value: pendingCash, color: "#96908e" },
     { label: "Stocks", value: stocks, color: "#d51e32" },
     { label: "Crypto", value: crypto, color: "#f08a52" },
     { label: "Automated plans", value: plans, color: "#7a3a4a" },

@@ -15,7 +15,7 @@ import styles from "./markets.module.css";
 const tabs = [
   { id: "Stocks", icon: "↗", note: "Trade shares of the companies shaping tomorrow." },
   { id: "Crypto", icon: "◈", note: "Buy and sell digital assets 24/7, from $1." },
-  { id: "Forex", icon: "◎", note: "Currency markets are a discovery preview; trading is not enabled." },
+  { id: "Forex", icon: "◎", note: "Currency markets are a discovery preview; trading." },
 ] as const;
 type TabId = (typeof tabs)[number]["id"];
 

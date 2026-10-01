@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button, SegmentedControl, StatusMessage } from "@/components/ui";
 import { portfolioActions, usePortfolio } from "@/features/portfolio/store";
 import { money } from "@/lib/format";
-import { RESERVATION_DEPOSIT, vehicleName, vehicles, type Condition } from "../vehicles";
+import { RESERVATION_DEPOSIT, vehicles, type Condition } from "../vehicles";
 import { VehicleCard } from "./vehicle-card";
 import styles from "./marketplace.module.css";
 
@@ -44,10 +44,10 @@ export function VehicleCatalog({ onSaveFor }: { onSaveFor?: (vehicleId: string) 
               {reserved ? (
                 <>
                   <p className={styles.reserved}>✓ Reserved with a {money(RESERVATION_DEPOSIT)} deposit</p>
-                  <Button variant="outline" size="sm" block onClick={() => setNotice(portfolioActions.cancelReservation(vehicle.id, vehicleName(vehicle)).message)}>Cancel reservation</Button>
+                  <Button variant="outline" size="sm" block onClick={async () => setNotice((await portfolioActions.cancelReservation(vehicle.id)).message)}>Cancel reservation</Button>
                 </>
               ) : (
-                <Button size="sm" block arrow="↗" onClick={() => setNotice(portfolioActions.reserveVehicle(vehicle.id, vehicleName(vehicle), RESERVATION_DEPOSIT).message)}>
+                <Button size="sm" block arrow="↗" onClick={async () => setNotice((await portfolioActions.reserveVehicle(vehicle.id)).message)}>
                   Reserve · {money(RESERVATION_DEPOSIT)} refundable
                 </Button>
               )}
@@ -58,7 +58,7 @@ export function VehicleCatalog({ onSaveFor }: { onSaveFor?: (vehicleId: string) 
           );
         })}
       </div>
-      <p className={styles.disclaimer}>Illustrative prices and specifications for a curated selection. Reservations use virtual funds and are fully refundable in the demo. Tesla is a trademark of Tesla, Inc.; no affiliation or endorsement is implied.</p>
+      <p className={styles.disclaimer}>Illustrative prices and specifications for a curated selection. Reservations use funds and are fully refundable. Tesla is a trademark of Tesla, Inc.; no affiliation or endorsement is implied.</p>
     </>
   );
 }
