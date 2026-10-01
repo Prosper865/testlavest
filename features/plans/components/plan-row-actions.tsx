@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useActionState } from "react";
 import { deletePlan, movePlan, togglePlanVisibility } from "../actions";
 import styles from "./plan-admin.module.css";
+import { Icon } from "@/components/ui";
 
 type Props = { id: string; name: string; visible: boolean; isFirst: boolean; isLast: boolean };
 
@@ -16,8 +17,8 @@ export function PlanRowActions({ id, name, visible, isFirst, isLast }: Props) {
     <div className={styles.rowActions}>
       <form action={moveAction} className={styles.order}>
         <input type="hidden" name="id" value={id} />
-        <button type="submit" name="direction" value="up" disabled={isFirst || moving} aria-label={`Move ${name} up`}>↑</button>
-        <button type="submit" name="direction" value="down" disabled={isLast || moving} aria-label={`Move ${name} down`}>↓</button>
+        <button type="submit" name="direction" value="up" disabled={isFirst || moving} aria-label={`Move ${name} up`}><Icon name="arrow-up" /></button>
+        <button type="submit" name="direction" value="down" disabled={isLast || moving} aria-label={`Move ${name} down`}><Icon name="arrow-down" /></button>
       </form>
       <form action={toggleAction}>
         <input type="hidden" name="id" value={id} />

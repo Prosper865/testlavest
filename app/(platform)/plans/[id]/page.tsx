@@ -6,6 +6,7 @@ import { getDb, schema } from "@/lib/db";
 import { CheckoutForm } from "@/features/payments/checkout-form";
 import { money } from "@/lib/format";
 import styles from "@/features/payments/checkout.module.css";
+import { Icon } from "@/components/ui";
 
 export const metadata = { title: "Start a plan" };
 
@@ -21,7 +22,7 @@ export default async function PlanCheckoutPage({ params }: { params: Promise<{ i
     db.select({ id: schema.planPayments.id }).from(schema.planPayments).where(and(eq(schema.planPayments.userId, user.id), eq(schema.planPayments.planId, id), eq(schema.planPayments.status, "pending"))),
   ]);
   return <div className={styles.stack}>
-    <Link href="/plans">← All plans and payment status</Link>
+    <Link href="/plans"><Icon name="arrow-left" /> All plans and payment status</Link>
     <div><span className={styles.badge}>PLAN</span><h1>Start with {plan.name}</h1><p>{plan.tagline}</p></div>
     <div className={styles.card}><h2>{plan.name}</h2><p>From {money(plan.minInvestment)} · {plan.duration}</p>
       {pending.length ? <p className={styles.notice}>Your payment for this plan is already under review. <Link href="/plans">View your submission</Link>.</p> :

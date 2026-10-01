@@ -6,6 +6,7 @@ import { requireAdmin } from "@/lib/auth/dal";
 import { getDb, schema } from "@/lib/db";
 import { money } from "@/lib/format";
 import styles from "@/features/payments/checkout.module.css";
+import { Icon } from "@/components/ui";
 
 export const metadata = { title: "Plan payment reviews" };
 
@@ -31,7 +32,7 @@ export default async function PlanPaymentReviewsPage() {
           <a href={`/api/plan-payments/${payment.id}/receipt`} target="_blank" rel="noreferrer">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img className={styles.preview} src={`/api/plan-payments/${payment.id}/receipt`} alt={`Payment screenshot for ${payment.planName} submitted by ${payment.userName}`} loading="lazy" />
-            Open full screenshot ↗
+            Open full screenshot <Icon name="arrow-up-right" />
           </a>
           {payment.status === "pending" ? <PaymentReviewForm id={payment.id} /> : <p>{payment.status === "approved" ? "Approved — balance credited." : "Rejected — no balance credited."}{payment.reviewNote && ` Note: ${payment.reviewNote}`}</p>}
         </div>

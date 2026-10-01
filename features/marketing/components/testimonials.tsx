@@ -4,6 +4,7 @@ import { ButtonLink, SectionHeading, Tag } from "@/components/ui";
 import { cn } from "@/lib/utils";
 import { testimonials, testimonialsArePreview, type Testimonial } from "../content";
 import styles from "./testimonials.module.css";
+import { Icon } from "@/components/ui";
 
 // Illustrated avatars (DiceBear "Notionists", CC0) stand in until customers provide consented photos.
 const avatar = (seed: string) => createAvatar(notionists, { seed, backgroundColor: ["fdecef", "fff0f2", "f6f2f4"] }).toDataUri();
@@ -12,7 +13,7 @@ const mosaicSeeds = ["Nora", "Kofi", "Mei", "Luca", "Zara", "Omar", "Ines", "The
 function Stars({ rating }: { rating: number }) {
   return (
     <span className={styles.stars} role="img" aria-label={`${rating} out of 5 stars`}>
-      {[1, 2, 3, 4, 5].map(n => <span key={n} className={n > rating ? styles.off : undefined} aria-hidden="true">★</span>)}
+      {[1, 2, 3, 4, 5].map(n => <span key={n} className={n > rating ? styles.off : undefined} aria-hidden="true"><Icon name="star" filled /></span>)}
     </span>
   );
 }

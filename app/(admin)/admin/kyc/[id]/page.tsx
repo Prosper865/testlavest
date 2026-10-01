@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Avatar, Card, documentLabels, getKycDetail, PageHeader, Pill, ReviewPanel } from "@/features/admin";
 import styles from "@/features/admin/components/admin.module.css";
 import { formatDate, formatDateTime } from "@/lib/format";
+import { Icon } from "@/components/ui";
 
 export const metadata: Metadata = { title: "Review submission" };
 
@@ -24,7 +25,7 @@ function DocumentPreview({ id, file, label, fileKey }: { id: string; file: "docu
         // eslint-disable-next-line @next/next/no-img-element -- private, auth-checked image; not optimisable
         <img src={src} alt={label} />
       )}
-      <span>{label}<b aria-hidden="true">Open ↗</b></span>
+      <span>{label}<b aria-hidden="true">Open <Icon name="arrow-up-right" /></b></span>
     </a>
   );
 }

@@ -6,6 +6,7 @@ import { useState } from "react";
 import { MobileIcon } from "./mobile-icon";
 import styles from "./mobile-app.module.css";
 import shell from "./mobile-shell.module.css";
+import { Icon } from "@/components/ui";
 
 const destinations = [
   ["Overview", "/dashboard"], ["Tesla", "/tesla"], ["Investments", "/investments"],
@@ -18,12 +19,12 @@ export function MobileHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   return <header className={`${styles.topbar} ${shell.header}`} onKeyDown={event => { if (event.key === "Escape") setOpen(false); }}>
-    <Link href="/dashboard" className={styles.appBrand} aria-label="Aurevia Invest home" onClick={() => setOpen(false)}><span className={styles.brandMark}>A</span><span>AUREVIA<small>INVEST</small></span></Link>
+    <Link href="/dashboard" className={styles.appBrand} aria-label="Teslavest home" onClick={() => setOpen(false)}><span className={styles.brandMark}>T</span><span>Teslavest</span></Link>
     <button type="button" className={styles.iconButton} aria-label={open ? "Close app menu" : "Open app menu"} aria-expanded={open} aria-controls="mobile-pages" onClick={() => setOpen(value => !value)}>
       <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d={open ? "m6 6 12 12M6 18 18 6" : "M4 6h16M4 12h16M4 18h16"} /></svg>
     </button>
     <nav id="mobile-pages" aria-label="App pages" hidden={!open} className={shell.menu}>
-      {destinations.map(([label, href]) => <Link key={href} href={href} aria-current={pathname === href || pathname.startsWith(`${href}/`) ? "page" : undefined} onClick={() => setOpen(false)}>{label}<span aria-hidden="true">↗</span></Link>)}
+      {destinations.map(([label, href]) => <Link key={href} href={href} aria-current={pathname === href || pathname.startsWith(`${href}/`) ? "page" : undefined} onClick={() => setOpen(false)}>{label}<span aria-hidden="true"><Icon name="arrow-up-right" /></span></Link>)}
     </nav>
   </header>;
 }

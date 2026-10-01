@@ -36,7 +36,7 @@ export function RecurringBuyForm({ symbol }: { symbol: string }) {
         <Field label="Frequency" group>
           <SegmentedControl variant="tabs" label="Buy frequency" options={frequencies} value={frequency} onChange={setFrequency} />
         </Field>
-        <Button type="submit" variant="outline" block arrow="↗">Start recurring buy</Button>
+        <Button type="submit" variant="outline" block arrow="arrow-up-right">Start recurring buy</Button>
         <StatusMessage>{notice}</StatusMessage>
       </form>
     </Panel>

@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import type { Strategy } from "../strategies";
 import styles from "./investments.module.css";
+import { Icon } from "@/components/ui";
 
 type Props = { strategy: Strategy; index: number; selected?: boolean; children?: ReactNode };
 
@@ -30,7 +31,7 @@ export function StrategyGrid({ children }: { children: ReactNode }) {
 export function StrategyDetails({ strategy, children }: { strategy: Strategy; children?: ReactNode }) {
   return (
     <details className={styles.details}>
-      <summary className={styles.summary}>Explore strategy <span aria-hidden="true">↗</span></summary>
+      <summary className={styles.summary}>Explore strategy <span aria-hidden="true"><Icon name="arrow-up-right" /></span></summary>
       <p>{strategy.allocation}. This is an illustrative allocation, not an available fund or a recommendation. Investment values can fall as well as rise.</p>
       {children}
     </details>

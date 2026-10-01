@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { Brand } from "@/components/layout/brand";
 import styles from "./auth.module.css";
+import { Icon } from "@/components/ui";
 
 const benefits = [
   "Stocks, crypto, and automated plans in one account",
@@ -16,7 +17,7 @@ export function AuthShell({ children }: { children: ReactNode }) {
         <Brand tone="light" />
         <div className={styles.pitch}>
           <h2>One account.<br /><span>Every way to invest.</span></h2>
-          <ul>{benefits.map(item => <li key={item}><span aria-hidden="true">✓</span>{item}</li>)}</ul>
+          <ul>{benefits.map(item => <li key={item}><span aria-hidden="true"><Icon name="check" /></span>{item}</li>)}</ul>
         </div>
         <p className={styles.asideNote}>Platform preview: trading uses funds and simulated prices. Identity verification is simulated.</p>
       </aside>

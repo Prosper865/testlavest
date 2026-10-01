@@ -58,7 +58,7 @@ export function SavingsGoalPlanner({ vehicleId, onVehicleChange }: PlannerProps)
           <span>Goal</span><b>{money(vehicle.price)}</b>
           <span>At this pace</span><b>{months ? `about ${months} month${months === 1 ? "" : "s"}` : "—"}</b>
         </div>
-        <Button type="submit" block arrow="↗">Start saving</Button>
+        <Button type="submit" block arrow="arrow-up-right">Start saving</Button>
         <StatusMessage>{notice}</StatusMessage>
       </form>
     </Panel>

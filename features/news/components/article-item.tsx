@@ -1,5 +1,6 @@
 import type { NewsArticle } from "../types";
 import styles from "./news.module.css";
+import { Icon } from "@/components/ui";
 
 function Headline({ article, children }: { article: NewsArticle; children: React.ReactNode }) {
   if (!article.url) return <>{children}</>;
@@ -22,7 +23,7 @@ export function ArticleItem({ article }: { article: NewsArticle }) {
       <div>
         <ArticleMeta article={article} />
         <Headline article={article}>
-          <h3>{article.headline}{article.url && <span className={styles.external} aria-label="(opens in a new tab)"> ↗</span>}</h3>
+          <h3>{article.headline}{article.url && <span className={styles.external} aria-label="(opens in a new tab)"> <Icon name="arrow-up-right" /></span>}</h3>
         </Headline>
         {article.summary && <p>{article.summary}</p>}
       </div>

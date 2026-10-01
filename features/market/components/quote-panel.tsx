@@ -9,6 +9,7 @@ import { MarketLogo } from "./market-logo";
 import { PriceChange } from "./price-change";
 import { PriceChart } from "./price-chart";
 import styles from "./quote-panel.module.css";
+import { Icon } from "@/components/ui";
 
 /** Quote header, trading chart, and position summary for a stock or a coin. */
 export function QuotePanel({ symbol }: { symbol: string }) {
@@ -28,7 +29,7 @@ export function QuotePanel({ symbol }: { symbol: string }) {
           <p>{symbol} · {isCrypto ? "Cryptocurrency · trades 24/7" : item.sector} · USD</p>
         </div>
         <Button variant="outline" size="sm" className={styles.watch} aria-pressed={watched} onClick={() => portfolioActions.toggleWatch(symbol)}>
-          {watched ? "★ Watching" : "☆ Add to watchlist"}
+          {watched ? <><Icon name="star" filled /> Watching</> : <><Icon name="star" /> Add to watchlist</>}
         </Button>
       </div>
       <div className={styles.price}>

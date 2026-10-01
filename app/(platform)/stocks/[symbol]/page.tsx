@@ -7,6 +7,7 @@ import { OrderTicket } from "@/features/stocks";
 import { PriceAlerts } from "@/features/alerts";
 import { RecurringBuyForm } from "@/features/investments";
 import styles from "../../platform.module.css";
+import { Icon } from "@/components/ui";
 
 export function generateStaticParams() {
   return stocks.map(stock => ({ symbol: stock.symbol }));
@@ -23,7 +24,7 @@ export default async function StockPage({ params }: PageProps<"/stocks/[symbol]"
 
   return (
     <>
-      <Link href="/stocks" className={styles.back}>← All stocks</Link>
+      <Link href="/stocks" className={styles.back}><Icon name="arrow-left" /> All stocks</Link>
       <div className={styles.split}>
         <QuotePanel symbol={stock.symbol} />
         <div className={styles.stack}>

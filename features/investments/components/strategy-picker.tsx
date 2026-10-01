@@ -23,7 +23,7 @@ export function StrategyPicker() {
         {strategies.map((strategy, index) => (
           <StrategyCard key={strategy.id} strategy={strategy} index={index} selected={strategy.id === strategyId}>
             <StrategyDetails strategy={strategy} />
-            <Button variant="outline" size="sm" block arrow="→" onClick={() => choose(strategy.id)} className={styles.selectButton}>
+            <Button variant="outline" size="sm" block arrow="arrow-right" onClick={() => choose(strategy.id)} className={styles.selectButton}>
               {strategy.id === strategyId ? "Selected for your plan" : "Automate this strategy"}
             </Button>
           </StrategyCard>

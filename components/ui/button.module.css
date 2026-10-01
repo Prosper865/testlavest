@@ -1,5 +1,5 @@
 .button { display: inline-flex; align-items: center; justify-content: center; gap: 27px; padding: 17px 23px; border: 1px solid transparent; border-radius: 3px; font-size: 12px; font-weight: 500; transition: background .2s; }
-.button > span[aria-hidden] { font-size: 19px; line-height: 1; }
+.button > span[aria-hidden] { display: inline-flex; font-size: 19px; line-height: 1; }
 
 .primary { background: var(--brand); color: #fff; }
 .primary:hover:not(:disabled) { background: var(--brand-hover); }

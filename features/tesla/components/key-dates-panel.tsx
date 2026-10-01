@@ -6,6 +6,7 @@ import { portfolioActions, usePortfolio } from "@/features/portfolio/store";
 import { cn } from "@/lib/utils";
 import type { KeyDate } from "../key-dates";
 import styles from "./tesla.module.css";
+import { Icon } from "@/components/ui";
 
 const month = new Intl.DateTimeFormat("en-US", { month: "short", timeZone: "UTC" });
 const day = new Intl.DateTimeFormat("en-US", { day: "numeric", timeZone: "UTC" });
@@ -37,7 +38,7 @@ export function KeyDatesPanel({ events }: { events: KeyDate[] }) {
                   <p>{event.detail}</p>
                 </div>
                 <button type="button" className={styles.remind} aria-pressed={reminded} aria-label={`${reminded ? "Remove reminder for" : "Remind me about"} ${event.title}`} onClick={() => toggle(event)}>
-                  {reminded ? "✓ Reminder on" : "🔔 Remind me"}
+                  {reminded ? <><Icon name="check" /> Reminder on</> : <><Icon name="bell" /> Remind me</>}
                 </button>
               </li>
             );

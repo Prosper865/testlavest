@@ -7,6 +7,7 @@ import { site } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { faqs, principles } from "../content";
 import styles from "./sections.module.css";
+import { Icon } from "@/components/ui";
 
 export function StrategiesSection() {
   return (
@@ -21,7 +22,7 @@ export function StrategiesSection() {
         {strategies.map((strategy, index) => (
           <StrategyCard key={strategy.id} strategy={strategy} index={index}>
             <StrategyDetails strategy={strategy}>
-              <Link href="/investments" className="accent-text">Automate this strategy →</Link>
+              <Link href="/investments" className="accent-text">Automate this strategy <Icon name="arrow-right" /></Link>
             </StrategyDetails>
           </StrategyCard>
         ))}

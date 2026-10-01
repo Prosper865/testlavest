@@ -49,7 +49,7 @@ export function PlanBuilder({ strategyId, onStrategyChange }: Props) {
           <span>Planned per year</span>
           <b>{money((Number.isFinite(value) ? value : 0) * perYear[frequency])}</b>
         </div>
-        <Button type="submit" block arrow="↗">Start automated plan</Button>
+        <Button type="submit" block arrow="arrow-up-right">Start automated plan</Button>
         <StatusMessage>{notice}</StatusMessage>
       </form>
     </Panel>

@@ -11,11 +11,12 @@ import { PriceChange } from "@/features/market/components/price-change";
 import { formatPrice } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import styles from "./markets.module.css";
+import { Icon } from "@/components/ui";
 
 const tabs = [
-  { id: "Stocks", icon: "↗", note: "Trade shares of the companies shaping tomorrow." },
-  { id: "Crypto", icon: "◈", note: "Buy and sell digital assets 24/7, from $1." },
-  { id: "Forex", icon: "◎", note: "Currency markets are a discovery preview; trading." },
+  { id: "Stocks", icon: "trend-up", note: "Trade shares of the companies shaping tomorrow." },
+  { id: "Crypto", icon: "crypto", note: "Buy and sell digital assets 24/7, from $1." },
+  { id: "Forex", icon: "globe", note: "Currency markets are a discovery preview; trading." },
 ] as const;
 type TabId = (typeof tabs)[number]["id"];
 
@@ -60,7 +61,7 @@ export function GlobalMarkets() {
       />
       <div className={styles.tabs} role="group" aria-label="Market category">
         {tabs.map(item => (
-          <button key={item.id} aria-pressed={item.id === tabId} onClick={() => setTabId(item.id)}>{item.icon} <span>{item.id}</span></button>
+          <button key={item.id} aria-pressed={item.id === tabId} onClick={() => setTabId(item.id)}><Icon name={item.icon} /> <span>{item.id}</span></button>
         ))}
         <small>SIMULATED QUOTES · NOT REAL MARKET DATA</small>
       </div>

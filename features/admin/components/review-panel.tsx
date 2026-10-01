@@ -4,6 +4,7 @@ import { useActionState, useState } from "react";
 import { reviewKyc } from "../actions";
 import { cn } from "@/lib/utils";
 import styles from "./admin.module.css";
+import { Icon } from "@/components/ui";
 
 const reasons = ["Document is blurry or cropped", "Selfie doesn't match the ID", "Document has expired", "Name doesn't match the account", "Address could not be verified"];
 
@@ -21,8 +22,8 @@ export function ReviewPanel({ submissionId }: { submissionId: string }) {
     <form action={action}>
       <input type="hidden" name="submissionId" value={submissionId} />
       <div className={styles.decision} role="radiogroup" aria-label="Decision">
-        <label className={styles.approve}><input type="radio" name="decision" value="approved" checked={decision === "approved"} onChange={() => setDecision("approved")} />✓ Approve</label>
-        <label className={styles.reject}><input type="radio" name="decision" value="rejected" checked={decision === "rejected"} onChange={() => setDecision("rejected")} />✕ Reject</label>
+        <label className={styles.approve}><input type="radio" name="decision" value="approved" checked={decision === "approved"} onChange={() => setDecision("approved")} /><Icon name="check" /> Approve</label>
+        <label className={styles.reject}><input type="radio" name="decision" value="rejected" checked={decision === "rejected"} onChange={() => setDecision("rejected")} /><Icon name="close" /> Reject</label>
       </div>
       <label className={styles.noteLabel} htmlFor="review-note">{decision === "rejected" ? "Reason (shown to the user)" : "Internal note (optional)"}</label>
       <textarea id="review-note" name="note" className={styles.note} value={note} onChange={event => setNote(event.target.value)} maxLength={500} required={decision === "rejected"} placeholder={decision === "rejected" ? "Explain what the user needs to fix." : "Anything worth recording for this approval."} />

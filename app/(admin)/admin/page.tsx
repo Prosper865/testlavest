@@ -5,6 +5,7 @@ import styles from "@/features/admin/components/admin.module.css";
 import { requireAdmin } from "@/lib/auth/dal";
 import { formatDateTime } from "@/lib/format";
 import { cn } from "@/lib/utils";
+import { Icon as UiIcon } from "@/components/ui";
 
 export const metadata: Metadata = { title: "Overview" };
 
@@ -25,7 +26,7 @@ export default async function AdminOverviewPage() {
         <Card className={cn(styles.stat, data.pending > 0 && styles.statAccent)}>
           <span>Pending reviews<i><Icon name="clock" /></i></span>
           <strong>{data.pending}</strong>
-          <small>{data.pending ? <Link href="/admin/kyc?status=pending" className="accent-text">Review queue →</Link> : "Queue is clear"}</small>
+          <small>{data.pending ? <Link href="/admin/kyc?status=pending" className="accent-text">Review queue <UiIcon name="arrow-right" /></Link> : "Queue is clear"}</small>
         </Card>
         <Card className={styles.stat}>
           <span>Total users<i><Icon name="users" /></i></span>

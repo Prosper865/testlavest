@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { cn, initials } from "@/lib/utils";
 import styles from "./admin.module.css";
+import { Icon } from "@/components/ui";
 
 const pillLabels: Record<string, string> = {
   pending: "Pending", approved: "Approved", rejected: "Rejected", not_started: "Not started",
@@ -20,7 +21,7 @@ export function PageHeader({ title, description, back, actions }: { title: strin
   return (
     <div className={styles.pageHeader}>
       <div>
-        {back && <Link href={back.href} className={styles.crumb}>← {back.label}</Link>}
+        {back && <Link href={back.href} className={styles.crumb}><Icon name="arrow-left" /> {back.label}</Link>}
         <h1>{title}</h1>
         {description && <p>{description}</p>}
       </div>

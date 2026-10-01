@@ -53,7 +53,7 @@ export function TransferForm() {
           <span>Estimated value</span>
           <b>{money((value > 0 ? value : 0) * quote.price)}</b>
         </div>
-        <Button type="submit" block arrow="↗">Send crypto</Button>
+        <Button type="submit" block arrow="arrow-up-right">Send crypto</Button>
         <StatusMessage>{notice}</StatusMessage>
         <p className={styles.notice}>Simulated transfer only. Nothing is sent on-chain.</p>
       </form>

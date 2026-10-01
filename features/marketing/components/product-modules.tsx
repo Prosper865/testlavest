@@ -3,6 +3,7 @@ import { SectionHeading } from "@/components/ui";
 import { cn } from "@/lib/utils";
 import { products } from "../content";
 import styles from "./product-modules.module.css";
+import { Icon } from "@/components/ui";
 
 function ProductIcon({ kind }: { kind: (typeof products)[number]["icon"] }) {
   return (
@@ -29,7 +30,7 @@ export function ProductModules() {
           <Link key={product.href} href={product.href} className={styles.card}>
             <div className={styles.top}>
               <span className={styles.icon}><ProductIcon kind={product.icon} /></span>
-              <span className={styles.arrow} aria-hidden="true">↗</span>
+              <span className={styles.arrow} aria-hidden="true"><Icon name="arrow-up-right" /></span>
             </div>
             <span className={styles.label}>{product.label}</span>
             <h3>{product.title}</h3>

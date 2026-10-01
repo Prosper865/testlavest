@@ -9,6 +9,7 @@ import { useQuotes } from "@/features/market/quotes";
 import { formatPrice } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import styles from "./market-snapshot.module.css";
+import { Icon } from "@/components/ui";
 
 // Tesla leads, then stocks and crypto alternate: one platform for both markets.
 const order = ["TSLA", "BTC", "NVDA", "ETH", "AAPL", "SOL", "MSFT", "BNB", "GOOGL", "XRP", "META", "DOGE", "AMD", "ADA", "NFLX", "AVAX", "COIN", "LINK", "V"];
@@ -51,9 +52,9 @@ export function MarketSnapshot() {
         </div>
         <div className={styles.aside}>
           <button type="button" className={styles.pause} aria-pressed={paused} aria-label={paused ? "Resume ticker" : "Pause ticker"} onClick={() => setPaused(!paused)}>
-            {paused ? "▶" : "Ⅱ"}
+            <Icon name={paused ? "play" : "pause"} />
           </button>
-          <Link href="/dashboard" className={styles.cta}>Trade from $1 →</Link>
+          <Link href="/dashboard" className={styles.cta}>Trade from $1 <Icon name="arrow-right" /></Link>
         </div>
       </div>
     </section>

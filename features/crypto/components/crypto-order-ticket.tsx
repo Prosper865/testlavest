@@ -136,7 +136,7 @@ export function CryptoOrderTicket({ symbol }: { symbol: string }) {
 
         </div>
 
-        <Button type="submit" disabled={trading} block arrow="↗">{side} {symbol} with funds</Button>
+        <Button type="submit" disabled={trading} block arrow="arrow-up-right">{side} {symbol} with funds</Button>
 
         <StatusMessage>{notice}</StatusMessage>
 

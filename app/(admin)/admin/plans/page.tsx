@@ -5,6 +5,7 @@ import styles from "@/features/admin/components/admin.module.css";
 import { listAllPlans, PlanCard, PlanRowActions, riskLabels } from "@/features/plans";
 import planStyles from "@/features/plans/components/plan-admin.module.css";
 import { cn } from "@/lib/utils";
+import { Icon } from "@/components/ui";
 
 export const metadata: Metadata = { title: "Investment plans" };
 
@@ -48,7 +49,7 @@ export default async function AdminPlansPage({ searchParams }: PageProps<"/admin
           )}
         </Card>
 
-        <Card title="Website preview" action={<Link href="/#plans" target="_blank">Open website ↗</Link>}>
+        <Card title="Website preview" action={<Link href="/#plans" target="_blank">Open website <Icon name="arrow-up-right" /></Link>}>
           {visible.length === 0 ? <Empty title="Nothing is shown">Turn on at least one plan to show the section&apos;s cards.</Empty> : (
             <div className={planStyles.previewGrid}>
               {visible.map((plan, index) => <PlanCard key={plan.id} plan={plan} index={index} />)}

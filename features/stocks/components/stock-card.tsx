@@ -8,6 +8,7 @@ import type { Instrument } from "@/features/market/instruments";
 import type { Quote } from "@/features/market/quotes";
 import { formatPrice } from "@/lib/format";
 import styles from "./stocks.module.css";
+import { Icon } from "@/components/ui";
 
 type Props = { stock: Instrument; quote: Quote; watched: boolean; onToggleWatch: () => void };
 
@@ -23,7 +24,7 @@ export function StockCard({ stock, quote, watched, onToggleWatch }: Props) {
           aria-pressed={watched}
           onClick={onToggleWatch}
         >
-          {watched ? "★" : "☆"}
+          <Icon name="star" filled={watched} />
         </button>
       </div>
       <h3>{stock.name}</h3>
@@ -34,7 +35,7 @@ export function StockCard({ stock, quote, watched, onToggleWatch }: Props) {
       </div>
       <MiniChart symbol={stock.symbol} className={styles.mini} />
       <Link className={styles.action} href={`/stocks/${stock.symbol}`}>
-        View quote &amp; trade <span aria-hidden="true">↗</span>
+        View quote &amp; trade <span aria-hidden="true"><Icon name="arrow-up-right" /></span>
       </Link>
     </article>
   );

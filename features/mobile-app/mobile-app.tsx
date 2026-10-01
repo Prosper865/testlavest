@@ -296,9 +296,9 @@ export default function MobileApp({ availablePlans }: { availablePlans: { id: st
 
         <button type="button" className={styles.backLink} onClick={() => go("home")}><Icon name="back" size={17} /> Home</button>
 
-        <div className={styles.screenHeading}><span>YOUR CARD</span><h1>Spend with clarity.</h1><p>A preview of how an Aurevia card could fit into your account.</p></div>
+        <div className={styles.screenHeading}><span>YOUR CARD</span><h1>Spend with clarity.</h1><p>A preview of how a Teslavest card could fit into your account.</p></div>
 
-        <div className={styles.previewCard}><div className={styles.previewCardTop}><span>AUREVIA</span></div><div className={styles.previewCardChip} /><strong>•••• &nbsp; •••• &nbsp; •••• &nbsp; 0000</strong><div className={styles.previewCardBottom}><span>PREVIEW CARD</span><span>USD</span></div></div>
+        <div className={styles.previewCard}><div className={styles.previewCardTop}><span>Teslavest</span></div><div className={styles.previewCardChip} /><strong>•••• &nbsp; •••• &nbsp; •••• &nbsp; 0000</strong><div className={styles.previewCardBottom}><span>PREVIEW CARD</span><span>USD</span></div></div>
 
         <div className={styles.cardInfo}><Icon name="card" size={23} /><div><strong>Card preview only</strong><p>No card has been issued. Payments, card details, and spending controls need a licensed card provider and a secure backend.</p></div></div>
 

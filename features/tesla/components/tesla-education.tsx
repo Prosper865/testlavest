@@ -1,5 +1,6 @@
 import { teslaBusinesses, tesla101 } from "../content";
 import styles from "./tesla.module.css";
+import { Icon as UiIcon } from "@/components/ui";
 
 type BusinessIcon = (typeof teslaBusinesses)[number]["icon"];
 
@@ -40,7 +41,7 @@ export function Tesla101() {
         ))}
       </div>
       <aside className={styles.risk} aria-label="Risk warning">
-        <b>⚠ Know the risks</b>
+        <b><UiIcon name="alert" /> Know the risks</b>
         <p>Investing in a single stock like TSLA is high risk. Prices can fall quickly and you may get back less than you invest. Past performance does not predict future returns.</p>
         <p>This platform provides information and tools, not personal investment advice. Consider your goals and whether you can afford losses before investing, and seek independent advice if you are unsure.</p>
       </aside>

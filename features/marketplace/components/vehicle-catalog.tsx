@@ -7,6 +7,7 @@ import { money } from "@/lib/format";
 import { RESERVATION_DEPOSIT, vehicles, type Condition } from "../vehicles";
 import { VehicleCard } from "./vehicle-card";
 import styles from "./marketplace.module.css";
+import { Icon } from "@/components/ui";
 
 const conditions = ["All", "New", "Pre-owned"] as const;
 type Sort = "featured" | "price-asc" | "price-desc" | "range";
@@ -43,16 +44,16 @@ export function VehicleCatalog({ onSaveFor }: { onSaveFor?: (vehicleId: string) 
             <VehicleCard key={vehicle.id} vehicle={vehicle}>
               {reserved ? (
                 <>
-                  <p className={styles.reserved}>✓ Reserved with a {money(RESERVATION_DEPOSIT)} deposit</p>
+                  <p className={styles.reserved}><Icon name="check" /> Reserved with a {money(RESERVATION_DEPOSIT)} deposit</p>
                   <Button variant="outline" size="sm" block onClick={async () => setNotice((await portfolioActions.cancelReservation(vehicle.id)).message)}>Cancel reservation</Button>
                 </>
               ) : (
-                <Button size="sm" block arrow="↗" onClick={async () => setNotice((await portfolioActions.reserveVehicle(vehicle.id)).message)}>
+                <Button size="sm" block arrow="arrow-up-right" onClick={async () => setNotice((await portfolioActions.reserveVehicle(vehicle.id)).message)}>
                   Reserve · {money(RESERVATION_DEPOSIT)} refundable
                 </Button>
               )}
               {onSaveFor && !reserved && (
-                <button type="button" className={styles.saveButton} onClick={() => onSaveFor(vehicle.id)}>Not ready yet? Save for this car →</button>
+                <button type="button" className={styles.saveButton} onClick={() => onSaveFor(vehicle.id)}>Not ready yet? Save for this car <Icon name="arrow-right" /></button>
               )}
             </VehicleCard>
           );

@@ -8,13 +8,14 @@ import { PriceChange } from "@/features/market/components/price-change";
 import { usePortfolioValuation } from "@/features/portfolio/valuation";
 import { formatAmount, money } from "@/lib/format";
 import styles from "./crypto.module.css";
+import { Icon } from "@/components/ui";
 
 export function CryptoHoldings() {
   const { portfolio, quotes, crypto } = usePortfolioValuation();
   const held = cryptoAssets.filter(asset => (portfolio.crypto[asset.symbol] ?? 0) > 0);
   return (
     <Panel aria-labelledby="crypto-holdings-heading">
-      <PanelHeader title={<span id="crypto-holdings-heading">Crypto holdings · {money(crypto)}</span>} action={<Link href="/wallet" className="accent-text muted">Deposit &amp; withdraw →</Link>} />
+      <PanelHeader title={<span id="crypto-holdings-heading">Crypto holdings · {money(crypto)}</span>} action={<Link href="/wallet" className="accent-text muted">Deposit &amp; withdraw <Icon name="arrow-right" /></Link>} />
       {held.length === 0 ? (
         <EmptyState>You don’t hold any crypto yet. Pick a coin above to make your first buy.</EmptyState>
       ) : (

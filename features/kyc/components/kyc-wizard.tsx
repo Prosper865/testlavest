@@ -6,6 +6,7 @@ import { submitKyc } from "../actions";
 import { ACCEPTED_UPLOADS, countries, documentTypes, MAX_UPLOAD_BYTES, MAX_UPLOAD_MB, sourcesOfFunds } from "../constants";
 import type { KycField } from "../schemas";
 import styles from "./kyc.module.css";
+import { Icon } from "@/components/ui";
 
 type Values = Record<Exclude<KycField, "documentFile" | "selfieFile" | "consent">, string>;
 
@@ -31,7 +32,7 @@ function FileDrop({ label, hint, file, onChange, error }: { label: string; hint:
       <label>{label}</label>
       <div className={styles.drop}>
         {/* eslint-disable-next-line @next/next/no-img-element -- local object URL preview */}
-        {file && preview ? <img src={preview} alt="" /> : <span className={styles.dropIcon} aria-hidden="true">{file ? "📄" : "↑"}</span>}
+        {file && preview ? <img src={preview} alt="" /> : <span className={styles.dropIcon} aria-hidden="true"><Icon name={file ? "file" : "upload"} /></span>}
         <div>
           <b>{file ? file.name : "Choose a file or drag it here"}</b>
           <small>{file ? `${(file.size / 1024 / 1024).toFixed(2)} MB` : hint}</small>
@@ -122,7 +123,7 @@ export function KycWizard({ defaultName, rejectedNote }: { defaultName: string; 
       <ol className={styles.steps} aria-label="Verification steps">
         {steps.map((item, index) => (
           <li key={item.title} className={cn(styles.step, index < step && styles.done)} aria-current={index === step ? "step" : undefined}>
-            <span aria-hidden="true">{index < step ? "✓" : index + 1}</span>{item.title}
+            <span aria-hidden="true">{index < step ? <Icon name="check" /> : index + 1}</span>{item.title}
           </li>
         ))}
       </ol>

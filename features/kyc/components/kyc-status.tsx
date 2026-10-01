@@ -4,20 +4,21 @@ import { formatDateTime } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import type { KycStatus } from "@/lib/db/schema";
 import styles from "./kyc.module.css";
+import { Icon, type IconName } from "@/components/ui";
 
 type Props = { status: KycStatus; submittedAt: Date; reviewedAt: Date | null; reviewNote: string | null };
 
-const copy: Record<KycStatus, { icon: string; title: string; text: string }> = {
-  pending: { icon: "⏳", title: "Verification in review", text: "Thanks! Our team is reviewing your details. This usually takes less than one business day. You can explore the platform meanwhile; trading unlocks once you're approved." },
-  approved: { icon: "✓", title: "You're verified", text: "Your identity has been confirmed. Trading, transfers, and automated plans are now unlocked on your account." },
-  rejected: { icon: "!", title: "Verification not approved", text: "We couldn't verify your identity with the details provided. Review the note below and submit again." },
+const copy: Record<KycStatus, { icon: IconName; title: string; text: string }> = {
+  pending: { icon: "hourglass", title: "Verification in review", text: "Thanks! Our team is reviewing your details. This usually takes less than one business day. You can explore the platform meanwhile; trading unlocks once you're approved." },
+  approved: { icon: "check", title: "You're verified", text: "Your identity has been confirmed. Trading, transfers, and automated plans are now unlocked on your account." },
+  rejected: { icon: "alert", title: "Verification not approved", text: "We couldn't verify your identity with the details provided. Review the note below and submit again." },
 };
 
 export function KycStatusCard({ status, submittedAt, reviewedAt, reviewNote }: Props) {
   const content = copy[status];
   return (
     <section className={cn(styles.card, styles.status, styles[status])} aria-live="polite">
-      <div className={styles.statusIcon} aria-hidden="true">{content.icon}</div>
+      <div className={styles.statusIcon} aria-hidden="true"><Icon name={content.icon} /></div>
       <h1>{content.title}</h1>
       <p>{content.text}</p>
       {status === "rejected" && reviewNote && <p className={styles.note}><b>Reviewer note:</b> {reviewNote}</p>}

@@ -7,6 +7,7 @@ import { cryptoAssets, getCrypto, QuotePanel } from "@/features/market";
 import { NewsList } from "@/features/news";
 import { PriceAlerts } from "@/features/alerts";
 import styles from "../../platform.module.css";
+import { Icon } from "@/components/ui";
 
 export function generateStaticParams() {
   return cryptoAssets.map(asset => ({ symbol: asset.symbol }));
@@ -23,7 +24,7 @@ export default async function CoinPage({ params }: PageProps<"/crypto/[symbol]">
 
   return (
     <>
-      <Link href="/crypto" className={styles.back}>← All crypto</Link>
+      <Link href="/crypto" className={styles.back}><Icon name="arrow-left" /> All crypto</Link>
       <div className={styles.split}>
         <div className={styles.stack}>
           <QuotePanel symbol={asset.symbol} />

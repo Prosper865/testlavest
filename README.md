@@ -1,4 +1,4 @@
-# Aurevia Capital
+# Teslavest
 
 An investment broker platform prototype built with Next.js 16.3.6, React 19, TypeScript, and CSS Modules (Tailwind CSS 4 is available).
 

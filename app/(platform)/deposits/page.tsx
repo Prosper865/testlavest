@@ -6,6 +6,7 @@ import { listVisiblePlans } from "@/features/plans/queries";
 import { DepositCheckout } from "@/features/payments/deposit-checkout";
 import { PaymentHistory } from "@/features/payments/payment-history";
 import styles from "@/features/payments/checkout.module.css";
+import { Icon } from "@/components/ui";
 
 export const metadata = { title: "Deposit with a wallet" };
 
@@ -19,7 +20,7 @@ export default async function DepositsPage() {
       .orderBy(asc(schema.paymentMethods.name), asc(schema.paymentMethods.network)),
   ]);
   return <div className={styles.stack}>
-    <Link href="/dashboard">← Back to dashboard</Link>
+    <Link href="/dashboard"><Icon name="arrow-left" /> Back to dashboard</Link>
     <div><span className={styles.badge}> DEPOSIT</span><h1>wallet deposit</h1><p>Select your plan and the payment method, copy the receiveing address, and upload the payment screenshot </p></div>
     <DepositCheckout plans={plans.map(({ id, name, minInvestment, maxInvestment }) => ({ id, name, minInvestment, maxInvestment }))} methods={methods} submissionId={crypto.randomUUID()} />
     <PaymentHistory />

@@ -7,6 +7,7 @@ import { PriceChange } from "@/features/market/components/price-change";
 import { formatShares, money } from "@/lib/format";
 import { usePortfolioValuation } from "../valuation";
 import styles from "./portfolio.module.css";
+import { Icon } from "@/components/ui";
 
 export function HoldingsPanel() {
   const { portfolio, quotes } = usePortfolioValuation();
@@ -14,7 +15,7 @@ export function HoldingsPanel() {
   const positions = Object.entries(portfolio.holdings).filter(([symbol, shares]) => shares > 0 && quotes[symbol]);
   return (
     <Panel aria-labelledby="holdings-heading">
-      <PanelHeader title={<span id="holdings-heading">Stock holdings</span>} action={<Link href="/stocks" className="accent-text muted">Browse stocks →</Link>} />
+      <PanelHeader title={<span id="holdings-heading">Stock holdings</span>} action={<Link href="/stocks" className="accent-text muted">Browse stocks <Icon name="arrow-right" /></Link>} />
       {positions.length === 0 ? (
         <EmptyState>No holdings yet. Open a stock and place a buy order to get started.</EmptyState>
       ) : (

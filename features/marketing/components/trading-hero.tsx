@@ -6,6 +6,7 @@ import { ButtonLink } from "@/components/ui";
 import { cn } from "@/lib/utils";
 import { heroSlides as slides } from "../content";
 import styles from "./trading-hero.module.css";
+import { Icon } from "@/components/ui";
 
 const HERO_VIDEO = "/videos/bg1.webm";
 const HERO_POSTER = "/images/trading-floor.png";
@@ -94,7 +95,7 @@ export function TradingHero() {
         </div>
         <div className={styles.actions}>
           <ButtonLink href="/dashboard">Open the platform</ButtonLink>
-          <a className={styles.secondary} href="#products">Discover our products <span aria-hidden="true">→</span></a>
+          <a className={styles.secondary} href="#products">Discover our products <span aria-hidden="true"><Icon name="arrow-right" /></span></a>
         </div>
         <div className={styles.caption}><span className={styles.captionLine} /> ONE PERSPECTIVE. A WORLD OF OPPORTUNITY.</div>
         <div className={styles.controls}>
@@ -107,9 +108,9 @@ export function TradingHero() {
           </div>
           <span className={styles.category}>{slide.category}</span>
           <div className={styles.arrows}>
-            <button aria-label="Previous slide" onClick={() => go(active - 1)}>←</button>
-            <button aria-label={paused ? "Resume slideshow and video" : "Pause slideshow and video"} aria-pressed={paused} onClick={() => setPaused(!paused)}>{paused ? "▶" : "Ⅱ"}</button>
-            <button aria-label="Next slide" onClick={() => go(active + 1)}>→</button>
+            <button aria-label="Previous slide" onClick={() => go(active - 1)}><Icon name="arrow-left" /></button>
+            <button aria-label={paused ? "Resume slideshow and video" : "Pause slideshow and video"} aria-pressed={paused} onClick={() => setPaused(!paused)}><Icon name={paused ? "play" : "pause"} /></button>
+            <button aria-label="Next slide" onClick={() => go(active + 1)}><Icon name="arrow-right" /></button>
           </div>
         </div>
       </div>

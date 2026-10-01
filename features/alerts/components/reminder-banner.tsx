@@ -5,6 +5,7 @@ import { usePortfolio } from "@/features/portfolio/store";
 import { formatDate } from "@/lib/format";
 import { useNow } from "@/lib/use-now";
 import styles from "./alerts.module.css";
+import { Icon } from "@/components/ui";
 
 const DAY = 86_400_000;
 
@@ -22,7 +23,7 @@ export function ReminderBanner() {
       {upcoming.map(item => (
         <span key={item.id}><strong>{item.title}</strong> · {formatDate(item.date)}</span>
       ))}
-      <Link href="/tesla#key-dates" className="accent-text">View calendar →</Link>
+      <Link href="/tesla#key-dates" className="accent-text">View calendar <Icon name="arrow-right" /></Link>
     </aside>
   );
 }

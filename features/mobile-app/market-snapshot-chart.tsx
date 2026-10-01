@@ -15,6 +15,7 @@ import { barTimes, generateCandles, type Timeframe } from "@/features/market/his
 import { useQuote } from "@/features/market/quotes";
 import { money, percent } from "@/lib/format";
 import styles from "./market-snapshot-chart.module.css";
+import { Icon } from "@/components/ui";
 
 export type ChartRange = "1M" | "6M" | "1Y" | "ALL";
 const ranges: ChartRange[] = ["1M", "6M", "1Y", "ALL"];
@@ -99,7 +100,7 @@ export function MarketSnapshotChart({ onTrade }: { onTrade: () => void }) {
   }, [up]);
 
   return <div className={styles.snapshot}>
-    <div className={styles.heading}><div className={styles.asset}><span className={styles.logo}>T</span><div><strong>Tesla</strong><small>TSLA · SIMULATED</small></div></div><button type="button" onClick={onTrade}>Trade →</button></div>
+    <div className={styles.heading}><div className={styles.asset}><span className={styles.logo}>T</span><div><strong>Tesla</strong><small>TSLA · SIMULATED</small></div></div><button type="button" onClick={onTrade}>Trade <Icon name="arrow-right" /></button></div>
     <div className={styles.readout}><strong>{money(displayedPrice)}</strong><span className={change >= 0 ? styles.up : styles.down}>{percent(change)} <small>{hoveredPrice === null ? range : "at cursor"}</small></span></div>
     <div ref={container} className={styles.canvas} role="img" aria-label={`Tesla simulated price chart, ${range}, ${percent(periodChange)}. Touch or hover to inspect prices.`} onPointerLeave={() => setHoveredPrice(null)} />
     <div className={styles.ranges} role="group" aria-label="Chart period">{ranges.map(value => <button key={value} type="button" aria-pressed={range === value} className={range === value ? styles.selected : ""} onClick={() => { setRange(value); setHoveredPrice(null); }}>{value}</button>)}</div>

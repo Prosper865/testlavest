@@ -7,6 +7,7 @@ import { marketingNav } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { Brand } from "./brand";
 import styles from "./header.module.css";
+import { Icon } from "@/components/ui";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
@@ -29,7 +30,7 @@ export function SiteHeader() {
     <header ref={header} className={cn("shell", styles.header)}>
       <Brand />
       <button className={styles.menuToggle} aria-expanded={open} aria-controls="site-navigation" onClick={() => setOpen(!open)}>
-        Menu <span aria-hidden="true">{open ? "✕" : "☰"}</span>
+        Menu <span aria-hidden="true"><Icon name={open ? "close" : "menu"} /></span>
       </button>
       <nav id="site-navigation" className={cn(styles.nav, open && styles.navOpen)} aria-label="Main navigation">
         {marketingNav.map(link => <Link key={link.href} href={link.href} onClick={() => setOpen(false)}>{link.label}</Link>)}
