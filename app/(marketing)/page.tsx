@@ -28,7 +28,6 @@ export default function HomePage() {
         <ProductModules />
         <WhyUs />
         <CompanyBelt />
-        <InnovationCompanies />
         <GlobalMarkets />
         <PlansSection />
         <StrategiesSection />

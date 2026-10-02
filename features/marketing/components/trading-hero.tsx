@@ -114,7 +114,7 @@ export function TradingHero() {
           </div>
         </div>
       </div>
-      <div className={styles.demoLabel}>PLATFORM PREVIEW · SIMULATED MARKETS</div>
+      <div className={styles.demoLabel}>PLATFORM PREVIEW · MARKETS</div>
     </section>
   );
 }

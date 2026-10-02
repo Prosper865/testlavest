@@ -63,7 +63,7 @@ export function GlobalMarkets() {
         {tabs.map(item => (
           <button key={item.id} aria-pressed={item.id === tabId} onClick={() => setTabId(item.id)}><Icon name={item.icon} /> <span>{item.id}</span></button>
         ))}
-        <small>SIMULATED QUOTES · NOT REAL MARKET DATA</small>
+        <small>LIVE QUOTES · NOT REAL MARKET DATA</small>
       </div>
       <p className={styles.tabNote}>{tab.note}</p>
       {tabId === "Stocks" && <MarketTerminal key="stocks" instruments={stocks} label="Choose a stock" />}

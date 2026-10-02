@@ -168,9 +168,9 @@ export function PriceChart({ symbol, height = 420, defaultTimeframe = "3M" }: { 
         className={styles.canvas}
         style={{ "--chart-height": `${height}px` } as React.CSSProperties}
         role="img"
-        aria-label={`${symbol} ${type === "candles" ? "candlestick" : "line"} chart, ${periodLabel[timeframe]}, ${percent(periodChange)}. Simulated data.`}
+        aria-label={`${symbol} ${type === "candles" ? "candlestick" : "line"} chart, ${periodLabel[timeframe]}, ${percent(periodChange)}.`}
       />
-      <p className={styles.note}>Simulated price history · not real market data</p>
+      <p className={styles.note}>Price history · not real market data</p>
     </div>
   );
 }

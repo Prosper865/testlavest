@@ -22,10 +22,11 @@ export const marketingNav: NavLink[] = [
   { href: "/#products", label: "Products" },
   { href: "/tesla", label: "Tesla" },
   { href: "/#asset-markets", label: "Markets" },
+  { href: "/companies/spacex", label: "SpaceX" },
+  { href: "/companies/neuralink", label: "Neuralink" },
+  { href: "/companies/openai", label: "OpenAI" },
   { href: "/#news", label: "News" },
   { href: "/#plans", label: "Account plans" },
-  { href: "/#approach", label: "Our approach" },
-  { href: "/#learn", label: "Learn" },
 ];
 
 export const platformNav: NavLink[] = [

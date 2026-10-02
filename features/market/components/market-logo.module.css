@@ -2,6 +2,8 @@
 .logo img, .logo svg { width: 62%; height: 62%; }
 .coin { background: transparent; }
 .coin img { width: 100%; height: 100%; }
+.private { background: #101112; overflow: hidden; }
+.private img { object-fit: contain; }
 
 .microsoft { display: grid; grid-template-columns: 1fr 1fr; gap: 6%; width: 54%; height: 54%; }
 .microsoft i { background: #f35325; }

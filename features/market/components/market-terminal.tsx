@@ -46,7 +46,7 @@ export function MarketTerminal({ instruments, initialSymbol, label = "Choose an 
             <div className={styles.price}>
               <b>{formatPrice(quote.price, selected.decimals)}</b>
               <PriceChange value={quote.change} arrow />
-              <span className={styles.live}><i aria-hidden="true" />SIMULATED LIVE</span>
+              <span className={styles.live}><i aria-hidden="true" />LIVE</span>
             </div>
           </div>
           {href && <ButtonLink href={href} size="sm">Trade {selected.symbol}</ButtonLink>}

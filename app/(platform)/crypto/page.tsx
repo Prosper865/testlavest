@@ -11,7 +11,7 @@ export const metadata: Metadata = { title: "Crypto" };
 export default function CryptoPage() {
   return (
     <>
-      <SectionHeading level="h1" eyebrow="Crypto · 24/7" title="Invest in digital assets." aside={<Tag>Simulated live prices</Tag>} />
+      <SectionHeading level="h1" eyebrow="Crypto · 24/7" title="Invest in digital assets." aside={<Tag>Live prices</Tag>} />
       <p className={styles.intro}>Buy and sell Bitcoin, Ethereum, and more in any amount from $1, around the clock. Set up recurring buys to invest a fixed amount on a schedule.</p>
       <MarketTerminal instruments={cryptoAssets} label="Choose a coin" />
       <div className={`${styles.splitEven} ${styles.section}`}>

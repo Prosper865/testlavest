@@ -14,7 +14,7 @@ export function PortfolioOverview() {
     <Panel aria-label="Portfolio overview">
       <div className={styles.overviewTop}>
         <span>Total account value</span>
-        <Tag>Simulated live</Tag>
+        <Tag>Live</Tag>
       </div>
       <div className={styles.value}>{money(total)}</div>
       <SegmentedControl label="Chart period" options={chartRanges} value={range} onChange={setRange} className={styles.ranges} />

@@ -4,7 +4,7 @@
 // Logos: stocks render from Simple Icons (see logos.ts); coins and flags are SVGs in /public.
 
 export type InstrumentKind = "stock" | "crypto" | "forex";
-export type StockSector = "Technology" | "Communication" | "Finance" | "Consumer" | "Industrials";
+export type StockSector = "Technology" | "Communication" | "Finance" | "Consumer" | "Industrials" | "Pre-IPO";
 
 export type Instrument = {
   symbol: string;
@@ -25,6 +25,10 @@ export type Instrument = {
 
 const stock = (symbol: string, name: string, price: number, change: number, sector: StockSector, about: string): Instrument =>
   ({ symbol, name, kind: "stock", price, change, decimals: 2, sector, about });
+
+// Privately held companies: no public shares exist, so the ticker, price, and trading are simulated for the demo.
+const preIpo = (symbol: string, name: string, price: number, change: number, logo: string, about: string): Instrument =>
+  ({ symbol, name, kind: "stock", price, change, decimals: 2, sector: "Pre-IPO", logo, about: `${about} Privately held: there are no public shares, so this price and trading are simulated for the demo.` });
 
 const coin = (symbol: string, name: string, price: number, change: number, about: string): Instrument =>
   ({ symbol, name, kind: "crypto", price, change, decimals: price < 1 ? 4 : 2, logo: `/logos/crypto/${symbol.toLowerCase()}.svg`, about });
@@ -56,6 +60,9 @@ export const stocks: Instrument[] = [
   stock("KO", "Coca-Cola", 86.88, -0.34, "Consumer", "Beverages including soft drinks, water, and coffee."),
   stock("SPOT", "Spotify", 493.71, -0.76, "Communication", "Audio streaming for music and podcasts."),
   stock("BA", "Boeing", 188.19, 2.06, "Industrials", "Commercial aircraft, defense, and space systems."),
+  preIpo("SPACEX", "SpaceX", 185.4, 1.12, "/logos/companies/spacex.svg", "Reusable rockets, spacecraft, and the Starlink satellite network."),
+  preIpo("NEURALINK", "Neuralink", 42.75, -0.64, "/logos/companies/neuralink.png", "Implantable brain-computer interfaces."),
+  preIpo("OPENAI", "OpenAI", 128.3, 0.87, "/logos/companies/openai.svg", "AI research and products, including foundation models and ChatGPT."),
 ];
 
 export const cryptoAssets: Instrument[] = [
@@ -85,7 +92,7 @@ export const forexPairs: Instrument[] = [
 ];
 
 export const instruments = [...stocks, ...cryptoAssets, ...forexPairs];
-export const stockSectors: StockSector[] = ["Technology", "Communication", "Finance", "Consumer", "Industrials"];
+export const stockSectors: StockSector[] = ["Technology", "Communication", "Finance", "Consumer", "Industrials", "Pre-IPO"];
 
 const bySymbol = new Map(instruments.map(item => [item.symbol, item]));
 

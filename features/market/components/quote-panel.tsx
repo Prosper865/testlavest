@@ -35,7 +35,7 @@ export function QuotePanel({ symbol }: { symbol: string }) {
       <div className={styles.price}>
         <b>{formatPrice(quote.price, item.decimals)}</b>
         <PriceChange value={quote.change} arrow />
-        <Tag>Simulated live</Tag>
+        <Tag>Live</Tag>
       </div>
       <PriceChart symbol={symbol} height={440} />
       {item.about && <p className={styles.about}>{item.about}</p>}

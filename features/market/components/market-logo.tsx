@@ -18,7 +18,7 @@ export function MarketLogo({ symbol, className }: { symbol: string; className?: 
   }
   if (item?.logo) {
     return (
-      <span className={cn(styles.logo, styles.coin, className)}>
+      <span className={cn(styles.logo, item.sector === "Pre-IPO" ? styles.private : styles.coin, className)}>
         <Image src={item.logo} alt={label} width={43} height={43} />
       </span>
     );

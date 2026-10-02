@@ -29,6 +29,7 @@ export function StockCard({ stock, quote, watched, onToggleWatch }: Props) {
       </div>
       <h3>{stock.name}</h3>
       <p className="muted">{stock.symbol} <span>· {stock.sector}</span></p>
+      {stock.sector === "Pre-IPO" && <p className={styles.sampleLabel}>Simulated price · not publicly traded</p>}
       <div className={styles.price}>
         <b>{formatPrice(quote.price)}</b>
         <PriceChange value={quote.change} />
