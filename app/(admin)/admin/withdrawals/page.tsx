@@ -16,7 +16,7 @@ export default async function AdminWithdrawalsPage() {
     .orderBy(desc(schema.withdrawals.submittedAt));
   const ordered = [...rows.filter(row => row.withdrawal.status === "pending"), ...rows.filter(row => row.withdrawal.status !== "pending")];
   return <>
-    <PageHeader title="Withdrawal requests" description="Review the recipient’s bank details, then mark withdrawals as sent or reject them." />
+    <PageHeader title="Withdrawal requests" description="Review bank details, send an update to the user, or mark a withdrawal as sent." />
     <div className={styles.stack}>
       <p className={styles.notice}>{rows.filter(row => row.withdrawal.status === "pending").length} pending requests</p>
       {!rows.length && <Card title="No withdrawals yet"><p>User withdrawal requests will appear here.</p></Card>}
@@ -27,7 +27,8 @@ export default async function AdminWithdrawalsPage() {
             {[["Beneficiary name", request.beneficiaryName], ["Account number", request.accountNumber], ["Routing number", request.routingNumber], ["Bank name", request.bankName], ["Recipient address", request.recipientAddress], ["Bank address", request.bankAddress]].map(([label, value]) => <div key={label}><dt className={styles.muted}>{label}</dt><dd style={{ whiteSpace: "pre-wrap", overflowWrap: "anywhere", margin: "6px 0 0" }}>{value}</dd></div>)}
           </dl>
           <p className={styles.muted}>Requested {request.submittedAt.toISOString().replace("T", " ").slice(0, 16)} UTC</p>
-          {request.status === "pending" ? <WithdrawalReviewForm id={request.id} amountCents={request.amountCents} /> : <p>{request.status === "sent" ? "Sent — balance deducted." : "Rejected — no deduction."}{request.reviewNote && ` Note: ${request.reviewNote}`}</p>}
+          {request.status === "pending" && request.reviewNote && <p className={styles.notice} style={{ whiteSpace: "pre-wrap", overflowWrap: "anywhere" }}><b>Latest update to user:</b> {request.reviewNote}</p>}
+          {request.status === "pending" ? <WithdrawalReviewForm id={request.id} /> : <p>{request.status === "sent" ? "Sent." : "Rejected."}{request.reviewNote && ` Note: ${request.reviewNote}`}</p>}
         </div>
       </Card>)}
     </div>

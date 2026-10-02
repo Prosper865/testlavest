@@ -35,7 +35,7 @@ export function CheckoutForm({ plan, methods, submissionId }: {
     <input type="hidden" name="id" value={submissionId} />
     <input type="hidden" name="planId" value={plan.id} />
     <input type="hidden" name="address" value={method?.address ?? ""} />
-    <p className={styles.notice}>Payment only. Copy a sample address and upload a sample payment screenshot. No real transfer is required. Your balance updates after admin approval.</p>
+    <p className={styles.notice}>Copy the receiving address and upload your payment screenshot for admin review. Your balance updates after approval.</p>
     <label className={styles.field}>Plan amount (USD)
       <input type="number" name="amount" required min={plan.minInvestment} max={plan.maxInvestment ?? 100_000_000} step="1" value={amount} onChange={event => setAmount(event.target.value)} />
       <small className={styles.muted}>Minimum {money(plan.minInvestment)}{plan.maxInvestment !== null ? ` · Maximum ${money(plan.maxInvestment)}` : ""}</small>

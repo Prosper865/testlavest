@@ -38,6 +38,25 @@ export async function withdrawalHistory(db: Database, userId: string) {
 
 export class WithdrawalError extends Error {}
 
+/** Inform the user without completing the withdrawal or changing its reserved funds. */
+export async function messageWithdrawal(db: Database, adminId: string, id: string, message: string) {
+  const note = message.trim();
+  if (!note || note.length > 500) throw new WithdrawalError("Enter a message between 1 and 500 characters.");
+  return db.transaction(async tx => {
+    const admin = await tx.query.users.findFirst({ where: and(eq(users.id, adminId), eq(users.role, "admin"), eq(users.status, "active")) });
+    if (!admin) throw new WithdrawalError("Only an active admin can send withdrawal updates.");
+    const withdrawal = await tx.query.withdrawals.findFirst({ where: eq(withdrawals.id, id) });
+    if (!withdrawal || withdrawal.status !== "pending") return false;
+    await lockUser(tx, withdrawal.userId);
+    const updated = await tx.update(withdrawals).set({ reviewNote: note })
+      .where(and(eq(withdrawals.id, id), eq(withdrawals.status, "pending"))).returning({ id: withdrawals.id });
+    if (!updated.length) return false;
+    await tx.insert(auditLog).values({ id: crypto.randomUUID(), actorId: adminId, targetUserId: withdrawal.userId,
+      action: "withdrawal.message", detail: note, createdAt: new Date() });
+    return true;
+  });
+}
+
 export async function requestWithdrawal(db: Database, userId: string, input: WithdrawalInput) {
   return db.transaction(async tx => {
     await lockUser(tx, userId);

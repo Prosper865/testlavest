@@ -16,6 +16,7 @@ import {
 } from "@/features/marketing";
 import { NewsSection } from "@/features/news";
 import { PlansSection } from "@/features/plans";
+import { InnovationCompanies } from "@/features/marketing/components/innovation-companies";
 
 export default function HomePage() {
   return (
@@ -27,6 +28,7 @@ export default function HomePage() {
         <ProductModules />
         <WhyUs />
         <CompanyBelt />
+        <InnovationCompanies />
         <GlobalMarkets />
         <PlansSection />
         <StrategiesSection />

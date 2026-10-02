@@ -46,6 +46,7 @@ export function Empty({ title, children }: { title: string; children?: ReactNode
 const auditText: Record<string, (actor: string, target: string, detail: string | null) => string> = {
   "user.profit_updated": (actor, target, detail) => `${actor} updated ${target}'s profit: ${detail}`,
   "withdrawal.requested": (_actor, target, detail) => `${target} requested a withdrawal: ${detail}`,
+  "withdrawal.message": (actor, target, detail) => `${actor} sent ${target} a withdrawal update: ${detail}`,
   "withdrawal.sent": (actor, target, detail) => `${actor} marked ${target}'s withdrawal as sent: ${detail}`,
   "withdrawal.rejected": (actor, target, detail) => `${actor} rejected ${target}'s withdrawal: ${detail}`,
   "plan_payment.submitted": (_actor, target, detail) => `${target} submitted a plan payment: ${detail}`,

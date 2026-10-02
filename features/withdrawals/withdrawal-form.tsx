@@ -21,7 +21,6 @@ export function WithdrawalForm({ requestId }: { requestId: string }) {
   const { planPayments, paymentSyncError } = useAccount();
   return <div className={styles.card}>
     <h2>Request a withdrawal</h2>
-    <p className={styles.notice}>Withdrawal only. Your balance is deducted when an admin marks the request as sent. No real bank transfer takes place.</p>
     <div className={styles.grid}>
       <div><span className={styles.muted}>Plan balance</span><strong className={styles.amount}>{money(planPayments.balanceAmount)}</strong></div>
       <div><span className={styles.muted}>Pending requests</span><strong className={styles.amount}>{money(planPayments.pendingWithdrawalAmount)}</strong></div>

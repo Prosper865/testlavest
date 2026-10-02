@@ -16,7 +16,7 @@ export function PaymentHistory() {
       <span className={`${styles.badge} ${styles[payment.status]}`}>{payment.status === "pending" ? "Under review" : payment.status === "approved" ? "Approved · Active plan" : "Rejected"}</span>
       <h3>{payment.planName}</h3><strong className={styles.amount}>{money(payment.amount)}</strong>
       <p>{payment.methodName} · {payment.network}</p>
-      <p>{payment.status === "pending" ? "Your screenshot has been submitted. Your balance will update after approval." : payment.status === "approved" ? "This payment was credited to your investment balance. Sent withdrawals are deducted from the balance above." : "No balance was added. You can submit a new screenshot for this plan."}</p>
+      <p>{payment.status === "pending" ? "Your screenshot has been submitted. Your balance will update after approval." : payment.status === "approved" ? "This payment was credited to your investment balance. Sent withdrawals are reflected in the balance above." : "No balance was added. You can submit a new screenshot for this plan."}</p>
       {payment.reviewNote && <p><b>Admin note:</b> {payment.reviewNote}</p>}
       <div className={styles.actions}>
         <a href={`/api/plan-payments/${payment.id}/receipt`} target="_blank" rel="noreferrer" className={styles.secondary}>View screenshot</a>
