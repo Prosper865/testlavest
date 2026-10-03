@@ -162,15 +162,6 @@ export const portfolioActions = {
     return perform("processDuePlans", []);
   },
 
-  /** Moves a goal's savings to cash and reserves the vehicle with the deposit. */
-  completeGoal(id: string) {
-    return perform("completeGoal", [id]);
-  },
-
-  reserveVehicle(vehicleId: string) {
-    return perform("reserveVehicle", [vehicleId]);
-  },
-
   cancelReservation(vehicleId: string) {
     return perform("cancelReservation", [vehicleId]);
   },

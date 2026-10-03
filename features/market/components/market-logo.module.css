@@ -5,11 +5,6 @@
 .private { background: #101112; overflow: hidden; }
 .private img { object-fit: contain; }
 
-.microsoft { display: grid; grid-template-columns: 1fr 1fr; gap: 6%; width: 54%; height: 54%; }
-.microsoft i { background: #f35325; }
-.microsoft i:nth-child(2) { background: #81bc06; }
-.microsoft i:nth-child(3) { background: #05a6f0; }
-.microsoft i:nth-child(4) { background: #ffba08; }
 
 /* Forex: two overlapping round flags */
 .pair { position: relative; background: transparent; }

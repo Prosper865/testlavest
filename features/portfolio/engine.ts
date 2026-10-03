@@ -189,34 +189,7 @@ const portfolioActions = {
     if (entries.length) commit({ ...state, ...balances, cash, plans, activity: [...entries.reverse(), ...state.activity].slice(0, 60) });
   },
 
-  /** Moves a goal's savings to cash and reserves the vehicle with the deposit. */
-  completeGoal(id: string, deposit: number): ActionResult {
-    if (!tradingEnabled) return fail(VERIFY_TO_TRADE);
-    const plan = state.plans.find(item => item.id === id);
-    if (!plan?.goal) return fail("Goal not found.");
-    const { vehicleId, vehicleName } = plan.goal;
-    const cash = roundCents(state.cash + plan.invested);
-    if (state.reservations.some(item => item.vehicleId === vehicleId)) return fail("You already reserved this vehicle.");
-    if (deposit > cash) return fail("Not enough cash for the reservation deposit.");
-    const message = `Moved ${money(plan.invested)} of savings to cash and reserved your ${vehicleName}.`;
-    commit(withActivity({
-      ...state,
-      cash: roundCents(cash - deposit),
-      plans: state.plans.filter(item => item.id !== id),
-      reservations: [...state.reservations, { vehicleId, deposit, time: Date.now() }],
-    }, log("marketplace", message)));
-    return { ok: true, message };
-  },
-
-  reserveVehicle(vehicleId: string, vehicleName: string, deposit: number): ActionResult {
-    if (!tradingEnabled) return fail(VERIFY_TO_TRADE);
-    if (state.reservations.some(item => item.vehicleId === vehicleId)) return fail("You already reserved this vehicle.");
-    if (deposit > state.cash) return fail("Not enough cash for the reservation deposit.");
-    const message = `Reserved ${vehicleName} with a ${money(deposit)} refundable deposit.`;
-    commit(withActivity({ ...state, cash: roundCents(state.cash - deposit), reservations: [...state.reservations, { vehicleId, deposit, time: Date.now() }] }, log("marketplace", message)));
-    return { ok: true, message };
-  },
-
+  /** Reservations can no longer be made; this stays so earlier deposits can still be refunded. */
   cancelReservation(vehicleId: string, vehicleName: string): ActionResult {
     const reservation = state.reservations.find(item => item.vehicleId === vehicleId);
     if (!reservation) return fail("Reservation not found.");

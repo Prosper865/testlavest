@@ -14,6 +14,8 @@ const nav: { href: string; label: string; icon: IconName; exact?: boolean }[] = 
   { href: "/admin/kyc", label: "KYC reviews", icon: "kyc" },
   { href: "/admin/users", label: "Users", icon: "users" },
   { href: "/admin/plans", label: "Investment plans", icon: "plans" },
+  { href: "/admin/marketplace", label: "Marketplace cars", icon: "car" },
+  { href: "/admin/vehicle-orders", label: "Car orders", icon: "payments" },
   { href: "/admin/payments", label: "Payment methods", icon: "payments" },
   { href: "/admin/plan-payments", label: "Payment reviews", icon: "payments" },
   { href: "/admin/withdrawals", label: "Withdrawals", icon: "payments" },

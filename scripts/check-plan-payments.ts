@@ -5,6 +5,7 @@ import { migrate } from "drizzle-orm/pglite/migrator";
 import { eq } from "drizzle-orm";
 import * as schema from "../lib/db/schema";
 import { paymentSummary, reviewPlanPayment, submitPlanPayment } from "../features/payments/plan-payment-service";
+import { listUserOrders, reviewVehicleOrder, submitVehicleOrder } from "../features/payments/vehicle-order-service";
 import { receiptType } from "../features/payments/receipt";
 
 const client = new PGlite();
@@ -51,7 +52,40 @@ try {
   assert.ok(summary.payments.every(payment => !("screenshotKey" in payment)), "Summary must not expose receipt storage keys");
   const receipt = await db.query.planPayments.findFirst({ where: eq(schema.planPayments.id, id) });
   assert.equal(receipt!.screenshotKey, input.screenshotKey);
+  // Bank transfers: the payment keeps a readable copy of the account details, even after the bank is edited.
+  const [otherPlan] = await db.insert(schema.investmentPlans).values({ id: crypto.randomUUID(), name: "Bank plan", tagline: "t", minInvestment: 100, maxInvestment: null, duration: "d", withdrawals: "w", riskLevel: "low", expectedReturn: "r", fee: "f", features: ["x"], createdAt: new Date(), updatedAt: new Date() }).returning();
+  const [bank] = await db.insert(schema.paymentMethods).values({ id: crypto.randomUUID(), kind: "bank", name: "Demo Bank", network: "Bank transfer", address: "0123456789", accountName: "Demo Holder", routingNumber: "021000021", updatedAt: new Date() }).returning();
+  const bankInput = { id: crypto.randomUUID(), planId: otherPlan.id, methodId: bank.id, amount: 250, address: "0123456789", screenshotKey: "receipts/bank.png", screenshotType: "image/png" };
+  const bankId = await submitPlanPayment(db, userId, bankInput);
+  await db.update(schema.paymentMethods).set({ address: "9999999999", accountName: "Someone Else" }).where(eq(schema.paymentMethods.id, bank.id));
+  const bankPayment = (await paymentSummary(db, userId)).payments.find(payment => payment.id === bankId)!;
+  assert.equal(bankPayment.network, "Bank transfer");
+  assert.equal(bankPayment.methodName, "Demo Bank");
+  assert.equal(bankPayment.address, "Demo Holder · Account 0123456789 · Routing 021000021");
+  await assert.rejects(submitPlanPayment(db, otherId, { ...bankInput, id: crypto.randomUUID() }), /address has changed/);
+  // Car orders: price comes from the listing, one pending order per car, admin review, no balance change.
+  const car = (await db.select().from(schema.vehicles))[0];
+  const orderInput = { id: crypto.randomUUID(), vehicleId: car.id, methodId: bank.id, address: "9999999999", screenshotKey: "orders/test.png", screenshotType: "image/png" };
+  await assert.rejects(submitVehicleOrder(db, userId, { ...orderInput, vehicleId: "no-such-car" }), /no longer available/);
+  await assert.rejects(submitVehicleOrder(db, userId, { ...orderInput, address: "OLD" }), /details have changed/);
+  const orderId = await submitVehicleOrder(db, userId, orderInput);
+  assert.equal(await submitVehicleOrder(db, userId, orderInput), orderId, "Order retries must be idempotent");
+  assert.equal(await submitVehicleOrder(db, userId, { ...orderInput, id: crypto.randomUUID() }), orderId, "Only one pending order per car");
+  await assert.rejects(submitVehicleOrder(db, otherId, orderInput), /Invalid submission/);
+  const [myOrder] = await listUserOrders(db, userId);
+  assert.equal(myOrder.price, car.price);
+  assert.equal(myOrder.vehicleName, `${car.year} ${car.model} ${car.trim}`);
+  assert.equal((await listUserOrders(db, otherId)).length, 0, "Orders are private to their owner");
+  assert.ok(!("screenshotKey" in myOrder), "Order lists must not expose storage keys");
+  const balanceBefore = (await paymentSummary(db, userId)).approvedAmount;
+  assert.equal(await reviewVehicleOrder(db, userId, orderId, "approved", ""), false, "Users cannot review orders");
+  assert.equal(await reviewVehicleOrder(db, adminId, orderId, "approved", "Verified"), true);
+  assert.equal(await reviewVehicleOrder(db, adminId, orderId, "rejected", ""), false, "Completed order reviews cannot change");
+  assert.equal((await paymentSummary(db, userId)).approvedAmount, balanceBefore, "Approving a car order never changes the plan balance");
+  await db.update(schema.vehicles).set({ price: car.price + 1000, visible: false }).where(eq(schema.vehicles.id, car.id));
+  assert.equal((await listUserOrders(db, userId))[0].price, car.price, "A later price change cannot alter an existing order");
+  await assert.rejects(submitVehicleOrder(db, userId, { ...orderInput, id: crypto.randomUUID() }), /no longer available/, "Hidden cars cannot be ordered");
   await migrate(db, { migrationsFolder: "./migrations" });
   assert.equal((await paymentSummary(db, userId)).approvedAmount, input.amount);
-  console.log("Plan payment checks passed: limits, unavailable wallets, stale addresses, receipt types, idempotency, admin review, account isolation, rejection/resubmission, durable balance, and receipt persistence.");
+  console.log("Plan payment checks passed: limits, bank transfers, car orders, unavailable wallets, stale addresses, receipt types, idempotency, admin review, account isolation, rejection/resubmission, durable balance, and receipt persistence.");
 } finally { client.close(); }

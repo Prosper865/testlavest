@@ -22,6 +22,19 @@
 .wallet input { margin-top: 4px; accent-color: #b62b45; }
 .wallet span { min-width: 0; }
 .wallet small { display: block; margin-top: 5px; color: #655e6a; }
+.orderTotal { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 16px; padding: 16px; border-radius: 12px; background: #f6f3f7; }
+.orderTotal b { font-size: 22px; font-weight: 650; }
+.kinds { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 10px; }
+.kind { display: flex; align-items: flex-start; gap: 12px; border: 1px solid #ded7e1; padding: 16px; border-radius: 12px; cursor: pointer; }
+.kind:has(input:checked) { background: #fbf1f3; border-color: #b62b45; }
+.kind input { margin-top: 4px; accent-color: #b62b45; }
+.kind small { display: block; margin-top: 5px; color: #655e6a; }
+.bankDetails { margin: 12px 0; padding: 4px 16px; background: #f6f3f7; border-radius: 10px; }
+.bankDetails > div { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; padding: 12px 0; border-bottom: 1px solid #e8e4e8; font-size: 14px; }
+.bankDetails > div:last-child { border-bottom: 0; }
+.bankDetails dt { color: #655e6a; }
+.bankDetails dd { margin: 0; font-weight: 600; overflow-wrap: anywhere; text-align: right; }
+.copyLink { margin-left: 12px; border: 0; background: none; padding: 0; color: #b62b45; font: inherit; font-size: 12px; font-weight: 600; cursor: pointer; }
 .address { display: block; overflow-wrap: anywhere; padding: 16px; background: #f6f3f7; border-radius: 10px; font-size: 14px; margin: 12px 0; user-select: all; }
 .button, .secondary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 18px; min-height: 44px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; }
 .button { background: #252129; border: 1px solid #252129; color: white; }

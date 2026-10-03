@@ -38,31 +38,7 @@ const pair = (symbol: string, name: string, price: number, change: number, flags
 
 export const stocks: Instrument[] = [
   stock("TSLA", "Tesla", 354.4, -0.85, "Consumer", "Electric vehicles, energy storage, and solar products."),
-  stock("AAPL", "Apple Inc.", 330.76, -2.26, "Technology", "Consumer devices, software, and services."),
-  stock("NVDA", "NVIDIA", 228.37, -0.21, "Technology", "Accelerated computing and graphics processors."),
-  stock("MSFT", "Microsoft", 510.65, 0.28, "Technology", "Cloud platforms, productivity software, and devices."),
-  stock("GOOGL", "Alphabet (Google)", 340.87, -0.55, "Communication", "Search, advertising, cloud, and the Android and YouTube platforms."),
-  stock("META", "Meta Platforms", 733.57, 2.51, "Communication", "Social apps including Facebook, Instagram, and WhatsApp."),
-  stock("NFLX", "Netflix", 70.46, 1.78, "Communication", "Subscription streaming entertainment."),
-  stock("AMD", "AMD", 609.68, 0.3, "Technology", "Processors and graphics chips for PCs, consoles, and data centers."),
-  stock("INTC", "Intel", 116.13, 0.09, "Technology", "Semiconductor design and manufacturing."),
-  stock("SHOP", "Shopify", 148.51, 3.12, "Technology", "Commerce software for online and in-person merchants."),
-  stock("V", "Visa", 367.32, -0.11, "Finance", "Global card payments network."),
-  stock("MA", "Mastercard", 565.04, -0.57, "Finance", "Global payments technology and card network."),
-  stock("PYPL", "PayPal", 53.88, -0.74, "Finance", "Digital payments and wallets, including Venmo."),
-  stock("COIN", "Coinbase", 189.71, -1.08, "Finance", "Cryptocurrency exchange and custody platform."),
-  stock("UBER", "Uber", 69.63, 2.16, "Consumer", "Ride-hailing, delivery, and freight marketplaces."),
-  stock("ABNB", "Airbnb", 157.62, 0.99, "Consumer", "Marketplace for short-term stays and experiences."),
-  stock("TM", "Toyota", 186.73, -0.83, "Consumer", "Automaker spanning hybrids, EVs, and conventional vehicles."),
-  stock("NKE", "Nike", 35.82, -1.57, "Consumer", "Athletic footwear, apparel, and equipment."),
-  stock("SBUX", "Starbucks", 95.49, 0.23, "Consumer", "Coffeehouse chain and consumer packaged coffee."),
-  stock("MCD", "McDonald's", 234.49, 0.38, "Consumer", "Global quick-service restaurant franchisor."),
-  stock("KO", "Coca-Cola", 86.88, -0.34, "Consumer", "Beverages including soft drinks, water, and coffee."),
-  stock("SPOT", "Spotify", 493.71, -0.76, "Communication", "Audio streaming for music and podcasts."),
-  stock("BA", "Boeing", 188.19, 2.06, "Industrials", "Commercial aircraft, defense, and space systems."),
   preIpo("SPACEX", "SpaceX", 185.4, 1.12, "/logos/companies/spacex.svg", "Reusable rockets, spacecraft, and the Starlink satellite network."),
-  preIpo("NEURALINK", "Neuralink", 42.75, -0.64, "/logos/companies/neuralink.png", "Implantable brain-computer interfaces."),
-  preIpo("OPENAI", "OpenAI", 128.3, 0.87, "/logos/companies/openai.svg", "AI research and products, including foundation models and ChatGPT."),
 ];
 
 export const cryptoAssets: Instrument[] = [
@@ -92,7 +68,7 @@ export const forexPairs: Instrument[] = [
 ];
 
 export const instruments = [...stocks, ...cryptoAssets, ...forexPairs];
-export const stockSectors: StockSector[] = ["Technology", "Communication", "Finance", "Consumer", "Industrials", "Pre-IPO"];
+export const stockSectors = [...new Set(stocks.map(item => item.sector).filter((sector): sector is StockSector => Boolean(sector)))];
 
 const bySymbol = new Map(instruments.map(item => [item.symbol, item]));
 

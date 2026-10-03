@@ -23,13 +23,6 @@ export function MarketLogo({ symbol, className }: { symbol: string; className?: 
       </span>
     );
   }
-  if (symbol === "MSFT") {
-    return (
-      <span className={cn(styles.logo, className)}>
-        <span className={styles.microsoft} role="img" aria-label={label}><i /><i /><i /><i /></span>
-      </span>
-    );
-  }
   const icon = companyLogos[symbol];
   return (
     <span className={cn(styles.logo, className)}>

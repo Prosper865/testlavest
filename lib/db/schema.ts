@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { bigint, boolean, index, integer, jsonb, pgTable, text, timestamp, uniqueIndex } from "drizzle-orm/pg-core";
+import { bigint, boolean, index, integer, jsonb, pgTable, real, text, timestamp, uniqueIndex } from "drizzle-orm/pg-core";
 export type Role = "user" | "admin";
 export type AccountStatus = "active" | "suspended";
 export type KycStatus = "pending" | "approved" | "rejected";
@@ -93,7 +93,16 @@ export const paymentMethods = pgTable("payment_methods", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),
   network: text("network").notNull(),
+  /** Wallet address for crypto; the account number for a bank account. */
   address: text("address").notNull().default(""),
+  /** "wallet" = crypto address, "bank" = bank transfer details (name = bank name). */
+  kind: text("kind").$type<"wallet" | "bank">().notNull().default("wallet"),
+  /** Bank accounts only: the name on the account. */
+  accountName: text("account_name"),
+  /** Bank accounts only: routing number, sort code, or SWIFT/BIC. */
+  routingNumber: text("routing_number"),
+  /** Bank accounts only: anything the payer should know, e.g. which reference to use. */
+  instructions: text("instructions"),
   updatedAt: timestamp("updated_at", { withTimezone: true, mode: "date" }).notNull(),
 });
 
@@ -142,3 +151,60 @@ export const withdrawals = pgTable("withdrawals", {
 
 export type KycSubmission = typeof kycSubmissions.$inferSelect;
 export type AuditEntry = typeof auditLog.$inferSelect;
+
+export type VehicleCondition = "New" | "Pre-owned";
+
+/** Marketplace car listings. Managed by admins; reservations and savings goals refer to them by id. */
+export const vehicles = pgTable("vehicles", {
+  id: text("id").primaryKey(),
+  model: text("model").notNull(),
+  trim: text("trim").notNull(),
+  year: integer("year").notNull(),
+  condition: text("condition").$type<VehicleCondition>().notNull(),
+  /** Whole US dollars. */
+  price: integer("price").notNull(),
+  rangeMiles: integer("range_miles").notNull(),
+  zeroToSixty: real("zero_to_sixty").notNull(),
+  /** Odometer miles; null for new cars. */
+  mileage: integer("mileage"),
+  color: text("color").notNull(),
+  /** Paint swatch for the card artwork when there is no photo. */
+  swatch: text("swatch").notNull(),
+  highlight: text("highlight").notNull(),
+  /** Public photo URL (Cloudinary upload or an external link). */
+  imageUrl: text("image_url"),
+  visible: boolean("visible").notNull().default(true),
+  sortOrder: integer("sort_order").notNull().default(0),
+  createdAt: timestamp("created_at", { withTimezone: true, mode: "date" }).notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true, mode: "date" }).notNull(),
+}, table => [index("vehicles_order_idx").on(table.sortOrder)]);
+
+export type Vehicle = typeof vehicles.$inferSelect;
+
+/** A car order paid by wallet or bank transfer and reviewed by an admin. Details are copied at order time. */
+export const vehicleOrders = pgTable("vehicle_orders", {
+  id: text("id").primaryKey(),
+  userId: text("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  vehicleId: text("vehicle_id").references(() => vehicles.id, { onDelete: "set null" }),
+  vehicleName: text("vehicle_name").notNull(),
+  /** Whole US dollars, copied from the listing when the order was placed. */
+  price: integer("price").notNull(),
+  methodName: text("method_name").notNull(),
+  network: text("network").notNull(),
+  /** Wallet address, or a readable copy of the bank details. */
+  address: text("address").notNull(),
+  /** Cloudinary storage key for the proof of payment (see lib/cloudinary.ts). */
+  screenshotKey: text("screenshot_key").notNull(),
+  screenshotType: text("screenshot_type").notNull(),
+  status: text("status").$type<"pending" | "approved" | "rejected">().notNull().default("pending"),
+  submittedAt: timestamp("submitted_at", { withTimezone: true, mode: "date" }).notNull(),
+  reviewedAt: timestamp("reviewed_at", { withTimezone: true, mode: "date" }),
+  reviewedBy: text("reviewed_by").references(() => users.id, { onDelete: "set null" }),
+  reviewNote: text("review_note"),
+}, table => [
+  index("vehicle_orders_user_idx").on(table.userId),
+  index("vehicle_orders_status_idx").on(table.status),
+  uniqueIndex("vehicle_orders_pending_idx").on(table.userId, table.vehicleId).where(sql`${table.status} = 'pending'`),
+]);
+
+export type VehicleOrder = typeof vehicleOrders.$inferSelect;

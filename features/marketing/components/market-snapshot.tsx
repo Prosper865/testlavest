@@ -12,7 +12,7 @@ import styles from "./market-snapshot.module.css";
 import { Icon } from "@/components/ui";
 
 // Tesla leads, then stocks and crypto alternate: one platform for both markets.
-const order = ["TSLA", "BTC", "NVDA", "ETH", "AAPL", "SOL", "MSFT", "BNB", "GOOGL", "XRP", "META", "DOGE", "AMD", "ADA", "NFLX", "AVAX", "COIN", "LINK", "V"];
+const order = ["TSLA", "BTC", "SPACEX", "ETH", "SOL", "BNB", "XRP", "DOGE", "ADA", "AVAX", "LINK"];
 const items = order.map(symbol => getInstrument(symbol)).filter((item): item is Instrument => Boolean(item));
 
 function TickerList({ duplicate = false }: { duplicate?: boolean }) {

@@ -1,27 +1,20 @@
 import Link from "next/link";
-import { asc, ne } from "drizzle-orm";
 import { requireUser } from "@/lib/auth/dal";
-import { getDb, schema } from "@/lib/db";
 import { listVisiblePlans } from "@/features/plans/queries";
 import { DepositCheckout } from "@/features/payments/deposit-checkout";
+import { listPayableMethods } from "@/features/payments/method-queries";
 import { PaymentHistory } from "@/features/payments/payment-history";
 import styles from "@/features/payments/checkout.module.css";
 import { Icon } from "@/components/ui";
 
-export const metadata = { title: "Deposit with a wallet" };
+export const metadata = { title: "Add funds" };
 
 export default async function DepositsPage() {
   await requireUser("/deposits");
-  const db = await getDb();
-  const [plans, methods] = await Promise.all([
-    listVisiblePlans(),
-    db.select({ id: schema.paymentMethods.id, name: schema.paymentMethods.name, network: schema.paymentMethods.network, address: schema.paymentMethods.address })
-      .from(schema.paymentMethods).where(ne(schema.paymentMethods.address, ""))
-      .orderBy(asc(schema.paymentMethods.name), asc(schema.paymentMethods.network)),
-  ]);
+  const [plans, methods] = await Promise.all([listVisiblePlans(), listPayableMethods()]);
   return <div className={styles.stack}>
     <Link href="/dashboard"><Icon name="arrow-left" /> Back to dashboard</Link>
-    <div><span className={styles.badge}> DEPOSIT</span><h1>wallet deposit</h1><p>Select your plan and the payment method, copy the receiveing address, and upload the payment screenshot </p></div>
+    <div><span className={styles.badge}> DEPOSIT</span><h1>Add funds</h1><p>Select your plan, pay by crypto wallet or bank transfer, and upload your proof of payment.</p></div>
     <DepositCheckout plans={plans.map(({ id, name, minInvestment, maxInvestment }) => ({ id, name, minInvestment, maxInvestment }))} methods={methods} submissionId={crypto.randomUUID()} />
     <PaymentHistory />
   </div>;

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { PriceAlerts } from "@/features/alerts";
 import { PlanList, RecurringBuyForm } from "@/features/investments";
 import { QuotePanel } from "@/features/market";
-import { SavingsGoalPlanner, SavingsGoalsList } from "@/features/marketplace";
+import { listVehicles, SavingsGoalPlanner, SavingsGoalsList, VehiclesProvider } from "@/features/marketplace";
 import { NewsList } from "@/features/news";
 import { OrderTicket } from "@/features/stocks";
 import { buildKeyDates, CompanySnapshot, getTeslaData, KeyDatesPanel, Tesla101, TeslaBusinesses, TeslaHeader } from "@/features/tesla";
@@ -12,7 +12,7 @@ import styles from "../platform.module.css";
 export const metadata: Metadata = { title: "Tesla hub" };
 
 export default async function TeslaPage() {
-  const data = await getTeslaData();
+  const [data, vehicles] = await Promise.all([getTeslaData(), listVehicles()]);
   const events = buildKeyDates(data);
 
   return (
@@ -41,10 +41,12 @@ export default async function TeslaPage() {
       <TeslaBusinesses />
 
       <h2 id="save" className={teslaStyles.sectionTitle}>Save for your Tesla</h2>
-      <div className={styles.split}>
-        <SavingsGoalsList />
-        <SavingsGoalPlanner />
-      </div>
+      <VehiclesProvider vehicles={vehicles}>
+        <div className={styles.split}>
+          <SavingsGoalsList />
+          <SavingsGoalPlanner />
+        </div>
+      </VehiclesProvider>
 
       <h2 className={teslaStyles.sectionTitle}>Tesla news</h2>
       <NewsList symbol="TSLA" title="Latest Tesla headlines" limit={6} />

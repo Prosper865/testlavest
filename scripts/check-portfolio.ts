@@ -42,7 +42,7 @@ try {
   await assert.rejects(command("tradeStockDollars", ["TSLA", "Buy", 850]), /buying power/);
   await assert.rejects(requestWithdrawal(db, userId, { ...withdrawal, id: crypto.randomUUID(), amount: 85000 }), /exceeds/);
   await assert.rejects(command("sellCrypto", ["ETH", 1]), /balance/);
-  await assert.rejects(command("tradeStock", ["AAPL", "Sell", 1]), /enough shares/);
+  await assert.rejects(command("tradeStock", ["SPACEX", "Sell", 1]), /enough shares/);
   for (const args of [["BTC", -1], ["BTC", NaN], ["BTC", 1.001], ["unknown", 1], ["TSLA", 1]]) await assert.rejects(command("buyCrypto", args));
   await assert.rejects(command("addCash", [1000]), /Unsupported/);
   await assert.rejects(command("buyCrypto", ["BTC", 1, 0.01]), "Client cannot choose the price");
@@ -65,12 +65,22 @@ try {
   await reviewWithdrawal(db, adminId, withdrawal.id, "sent", "");
   assert.equal((await paymentSummary(db, userId)).balanceAmount, summary.availableWithdrawalAmount);
   await updateUserProfit(db, adminId, { userId, expectedCents: 0, profit: 100000 });
-  const beforeReserve = (await paymentSummary(db, userId)).balanceAmount;
-  await command("reserveVehicle", ["model-3-lr"]);
-  assert.equal((await paymentSummary(db, userId)).balanceAmount, beforeReserve - 1000);
+  const beforePurchase = (await paymentSummary(db, userId)).balanceAmount;
+  await command("buyCrypto", ["ETH", 1000]);
+  assert.equal((await paymentSummary(db, userId)).balanceAmount, beforePurchase - 1000);
   await assert.rejects(updateUserProfit(db, adminId, { userId, expectedCents: 100000, profit: 0 }), /purchases/);
+  // Reservations were replaced by car orders: nothing can be reserved or completed any more.
+  await assert.rejects(command("reserveVehicle", ["model-3-lr"]), /Unsupported/);
+  await assert.rejects(command("completeGoal", ["anything"]), /Unsupported/);
+  // A deposit from an earlier reservation is still refundable. Simulate one by recording it directly.
+  const [holder] = await db.select().from(schema.users).where(eq(schema.users.id, userId));
+  const held = JSON.parse(holder.portfolioJson!);
+  held.reservations = [{ vehicleId: "model-3-lr", deposit: 1000, time: Date.now() }];
+  await db.update(schema.users).set({ portfolioJson: JSON.stringify(held), portfolioSpentCents: holder.portfolioSpentCents + 100000, portfolioVersion: holder.portfolioVersion + 1 }).where(eq(schema.users.id, userId));
+  const withDeposit = (await paymentSummary(db, userId)).balanceAmount;
+  assert.equal(withDeposit, beforePurchase - 2000);
   await command("cancelReservation", ["model-3-lr"]);
-  assert.equal((await paymentSummary(db, userId)).balanceAmount, beforeReserve);
+  assert.equal((await paymentSummary(db, userId)).balanceAmount, withDeposit + 1000);
   await assert.rejects(command("cancelReservation", ["model-3-lr"]), /not found/);
   await client.exec("CREATE OR REPLACE FUNCTION fail_trade_audit() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN RAISE EXCEPTION 'rollback'; END $$; CREATE TRIGGER fail_trade_audit BEFORE INSERT ON audit_log FOR EACH ROW WHEN (NEW.action LIKE 'portfolio.%') EXECUTE FUNCTION fail_trade_audit();");
   const beforeFailure = await paymentSummary(db, userId);

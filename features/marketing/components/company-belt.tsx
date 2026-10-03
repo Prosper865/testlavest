@@ -2,7 +2,7 @@ import { MarketLogo } from "@/features/market/components/market-logo";
 import { cn } from "@/lib/utils";
 import styles from "./markets.module.css";
 
-const companies = [["TSLA", "TESLA"], ["NVDA", "NVIDIA"], ["AAPL", "Apple"], ["MSFT", "Microsoft"], ["V", "VISA"]];
+const companies = [["TSLA", "TESLA"], ["SPACEX", "SpaceX"]];
 
 export function CompanyBelt() {
   return (

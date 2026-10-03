@@ -1,9 +1,10 @@
 import Link from "next/link";
-import { and, eq, ne } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import { requireUser } from "@/lib/auth/dal";
 import { getDb, schema } from "@/lib/db";
 import { CheckoutForm } from "@/features/payments/checkout-form";
+import { listPayableMethods } from "@/features/payments/method-queries";
 import { money } from "@/lib/format";
 import styles from "@/features/payments/checkout.module.css";
 import { Icon } from "@/components/ui";
@@ -17,8 +18,7 @@ export default async function PlanCheckoutPage({ params }: { params: Promise<{ i
   const plan = await db.query.investmentPlans.findFirst({ where: and(eq(schema.investmentPlans.id, id), eq(schema.investmentPlans.visible, true)) });
   if (!plan) notFound();
   const [methods, pending] = await Promise.all([
-    db.select({ id: schema.paymentMethods.id, name: schema.paymentMethods.name, network: schema.paymentMethods.network, address: schema.paymentMethods.address })
-      .from(schema.paymentMethods).where(ne(schema.paymentMethods.address, "")),
+    listPayableMethods(),
     db.select({ id: schema.planPayments.id }).from(schema.planPayments).where(and(eq(schema.planPayments.userId, user.id), eq(schema.planPayments.planId, id), eq(schema.planPayments.status, "pending"))),
   ]);
   return <div className={styles.stack}>

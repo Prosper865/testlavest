@@ -5,11 +5,19 @@
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); gap: 20px; }
 
 .card { min-width: 0; display: flex; flex-direction: column; border: 1px solid var(--card-line); border-radius: 10px; overflow: hidden; background: #fff; }
+.orderLayout { display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: 24px; align-items: start; }
+@media (max-width: 800px) { .orderLayout { grid-template-columns: minmax(0, 1fr); } }
+@container mobile-app (max-width: 800px) { .orderLayout { grid-template-columns: minmax(0, 1fr); } }
+
 .art { position: relative; height: 170px; padding: 18px 20px; background: linear-gradient(160deg, #2a1318, #140a0d 70%); color: #fff; overflow: hidden; }
 .art > span { position: relative; z-index: 1; font-size: 10px; letter-spacing: 1.3px; color: #f2d4dd; }
 .art > b { position: absolute; z-index: 1; left: 20px; right: 20px; bottom: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 28px; font-weight: 500; letter-spacing: -1px; }
 .art img { position: absolute; top: 16px; right: 18px; width: 22px; height: 22px; filter: invert(1); opacity: .9; }
 .paint { position: absolute; right: -40px; bottom: -70px; width: 230px; height: 170px; border-radius: 50%; opacity: .9; box-shadow: inset -20px -20px 40px #0006, 0 0 60px #0005; }
+/* Admin-uploaded photo fills the artwork; a soft gradient keeps the text readable. */
+.art img.photo { top: 0; right: 0; width: 100%; height: 100%; object-fit: cover; filter: none; opacity: 1; }
+.art:has(.photo)::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, #0008, #0000 42%, #000a); }
+.art > img:not(.photo) { z-index: 1; }
 
 .body { display: flex; flex-direction: column; flex: 1; padding: 20px; }
 .body h3 { font-size: 15px; font-weight: 500; }

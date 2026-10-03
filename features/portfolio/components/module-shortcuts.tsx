@@ -13,7 +13,7 @@ export function ModuleShortcuts() {
     { href: "/stocks", label: "Realtime", title: "Stocks", value: money(stocks), note: `${portfolio.watchlist.length} on watchlist` },
     { href: "/crypto", label: "24/7", title: "Crypto", value: money(crypto), note: "Buy, sell, and recurring buys" },
     { href: "/wallet", label: "Transfers", title: "Wallet", value: money(portfolio.cash), note: "Cash, deposits, withdrawals" },
-    { href: "/marketplace", label: "Tesla", title: "Marketplace", value: `${portfolio.reservations.length}`, note: "Vehicle reservations" },
+    { href: "/marketplace", label: "Tesla", title: "Marketplace", value: "Shop", note: "Buy a Tesla online" },
   ];
   return (
     <nav className={styles.shortcuts} aria-label="Platform modules">

@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { Button, SegmentedControl, StatusMessage } from "@/components/ui";
-import { portfolioActions, usePortfolio } from "@/features/portfolio/store";
+import { ButtonLink, EmptyState, SegmentedControl } from "@/components/ui";
 import { money } from "@/lib/format";
-import { RESERVATION_DEPOSIT, vehicles, type Condition } from "../vehicles";
+import type { Condition } from "../vehicles";
 import { VehicleCard } from "./vehicle-card";
+import { useVehicles } from "./vehicles-provider";
 import styles from "./marketplace.module.css";
 import { Icon } from "@/components/ui";
 
@@ -15,10 +15,9 @@ type Sort = "featured" | "price-asc" | "price-desc" | "range";
 export function VehicleCatalog({ onSaveFor }: { onSaveFor?: (vehicleId: string) => void }) {
   const [condition, setCondition] = useState<"All" | Condition>("All");
   const [sort, setSort] = useState<Sort>("featured");
-  const [notice, setNotice] = useState("");
-  const { reservations } = usePortfolio();
+  const { listed } = useVehicles();
 
-  const list = vehicles
+  const list = listed
     .filter(vehicle => condition === "All" || vehicle.condition === condition)
     .toSorted((a, b) => sort === "price-asc" ? a.price - b.price : sort === "price-desc" ? b.price - a.price : sort === "range" ? b.rangeMiles - a.rangeMiles : 0);
 
@@ -36,30 +35,18 @@ export function VehicleCatalog({ onSaveFor }: { onSaveFor?: (vehicleId: string) 
           </select>
         </label>
       </div>
-      <StatusMessage>{notice}</StatusMessage>
+      {list.length === 0 && <EmptyState>No cars are listed right now. Check back soon.</EmptyState>}
       <div className={styles.grid}>
-        {list.map(vehicle => {
-          const reserved = reservations.some(item => item.vehicleId === vehicle.id);
-          return (
-            <VehicleCard key={vehicle.id} vehicle={vehicle}>
-              {reserved ? (
-                <>
-                  <p className={styles.reserved}><Icon name="check" /> Reserved with a {money(RESERVATION_DEPOSIT)} deposit</p>
-                  <Button variant="outline" size="sm" block onClick={async () => setNotice((await portfolioActions.cancelReservation(vehicle.id)).message)}>Cancel reservation</Button>
-                </>
-              ) : (
-                <Button size="sm" block arrow="arrow-up-right" onClick={async () => setNotice((await portfolioActions.reserveVehicle(vehicle.id)).message)}>
-                  Reserve · {money(RESERVATION_DEPOSIT)} refundable
-                </Button>
-              )}
-              {onSaveFor && !reserved && (
-                <button type="button" className={styles.saveButton} onClick={() => onSaveFor(vehicle.id)}>Not ready yet? Save for this car <Icon name="arrow-right" /></button>
-              )}
-            </VehicleCard>
-          );
-        })}
+        {list.map(vehicle => (
+          <VehicleCard key={vehicle.id} vehicle={vehicle}>
+            <ButtonLink size="sm" block href={`/marketplace/${vehicle.id}/order`} arrow="arrow-up-right">Buy · {money(vehicle.price)}</ButtonLink>
+            {onSaveFor && (
+              <button type="button" className={styles.saveButton} onClick={() => onSaveFor(vehicle.id)}>Not ready yet? Save for this car <Icon name="arrow-right" /></button>
+            )}
+          </VehicleCard>
+        ))}
       </div>
-      <p className={styles.disclaimer}>Illustrative prices and specifications for a curated selection. Reservations use funds and are fully refundable. Tesla is a trademark of Tesla, Inc.; no affiliation or endorsement is implied.</p>
+      <p className={styles.disclaimer}>Illustrative prices and specifications for a curated selection. Orders are confirmed after your payment is reviewed. Tesla is a trademark of Tesla, Inc.; no affiliation or endorsement is implied.</p>
     </>
   );
 }

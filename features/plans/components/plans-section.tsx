@@ -11,7 +11,7 @@ export async function PlansSection() {
       <div className="shell">
         <div className={styles.heading}>
           <Eyebrow dot>Investment plans</Eyebrow>
-          <h2 id="plans-heading">Choose how you grow.<br /><span>Start from $100.</span></h2>
+          <h2 id="plans-heading">Choose how you grow.</h2>
           <p>Clear minimums, fees, and withdrawal terms for every plan. Pick the one that matches your goals and how much risk you&apos;re comfortable with.</p>
           <span className={styles.demoTag}>Plans · figures are illustrative</span>
         </div>

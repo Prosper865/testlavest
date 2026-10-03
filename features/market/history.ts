@@ -23,7 +23,7 @@ const specs: Record<Timeframe, Spec> = {
 };
 
 const dailyVolatility: Record<InstrumentKind, number> = { stock: 0.019, crypto: 0.034, forex: 0.005 };
-const dailyVolume: Record<string, number> = { TSLA: 95e6, AAPL: 55e6, NVDA: 240e6, MSFT: 21e6, AMZN: 42e6, JPM: 9e6, V: 7e6, BTC: 32e3, ETH: 410e3, SOL: 3.1e6, XRP: 2.4e9, ADA: 1.1e9, DOGE: 6.5e9 };
+const dailyVolume: Record<string, number> = { TSLA: 95e6, BTC: 32e3, ETH: 410e3, SOL: 3.1e6, XRP: 2.4e9, ADA: 1.1e9, DOGE: 6.5e9 };
 
 function seeded(seed: string) {
   let h = 1779033703 ^ seed.length;

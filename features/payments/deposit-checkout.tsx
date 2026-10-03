@@ -2,16 +2,17 @@
 
 import { useState } from "react";
 import { useAccount } from "@/features/account";
-import type { InvestmentPlan, PaymentMethod } from "@/lib/db/schema";
+import type { InvestmentPlan } from "@/lib/db/schema";
 import { money } from "@/lib/format";
 import { CheckoutForm } from "./checkout-form";
+import type { PayMethod } from "./methods";
 import styles from "./checkout.module.css";
 
 type Plan = Pick<InvestmentPlan, "id" | "name" | "minInvestment" | "maxInvestment">;
 
 export function DepositCheckout({ plans, methods, submissionId }: {
   plans: Plan[];
-  methods: Pick<PaymentMethod, "id" | "name" | "network" | "address">[];
+  methods: PayMethod[];
   submissionId: string;
 }) {
   const { planPayments } = useAccount();
@@ -19,7 +20,7 @@ export function DepositCheckout({ plans, methods, submissionId }: {
   const selected = plans.find(plan => plan.id === selectedId);
   const pending = planPayments.payments.some(payment => payment.planId === selectedId && payment.status === "pending");
   if (!selected) return <p className={styles.notice}>No plans are available for deposits yet. Please check back soon.</p>;
-  return <section className={styles.card} aria-label="Wallet deposit">
+  return <section className={styles.card} aria-label="Deposit">
     <label className={styles.field} htmlFor="deposit-plan">Deposit for plan
       <select id="deposit-plan" value={selectedId} onChange={event => setSelectedId(event.target.value)}>
         {plans.map(plan => <option key={plan.id} value={plan.id}>{plan.name} · from {money(plan.minInvestment)}</option>)}

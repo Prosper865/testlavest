@@ -1,16 +1,22 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
 import { money } from "@/lib/format";
-import type { Vehicle } from "../vehicles";
+import { vehicleName, type Vehicle } from "../vehicles";
 import styles from "./marketplace.module.css";
 
 export function VehicleCard({ vehicle, children }: { vehicle: Vehicle; children?: ReactNode }) {
   return (
     <article className={styles.card}>
       <div className={styles.art}>
+        {vehicle.imageUrl ? (
+          // Admin-supplied photos can come from any https host, so this is a plain <img>.
+          // eslint-disable-next-line @next/next/no-img-element
+          <img className={styles.photo} src={vehicle.imageUrl} alt={vehicleName(vehicle)} loading="lazy" />
+        ) : (
+          <i className={styles.paint} style={{ background: vehicle.swatch }} aria-hidden="true" />
+        )}
         <span>{vehicle.condition.toUpperCase()} · {vehicle.year}</span>
         <Image src="/logos/tesla.svg" alt="" width={22} height={22} />
-        <i className={styles.paint} style={{ background: vehicle.swatch }} aria-hidden="true" />
         <b>{vehicle.model}</b>
       </div>
       <div className={styles.body}>

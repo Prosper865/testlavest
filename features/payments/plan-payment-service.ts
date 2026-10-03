@@ -3,6 +3,7 @@ import type { Database } from "@/lib/db/types";
 import * as schema from "@/lib/db/schema";
 import { withdrawalBalance, withdrawalHistory } from "@/features/withdrawals/service";
 import { type PortfolioState } from "@/features/portfolio/model";
+import { bankSummary } from "./methods";
 
 const payments = schema.planPayments;
 
@@ -52,12 +53,14 @@ export async function submitPlanPayment(db: Database, userId: string, input: {
     const method = await tx.query.paymentMethods.findFirst({ where: eq(schema.paymentMethods.id, input.methodId) });
     if (!method?.address.trim()) throw new Error("This payment method is no longer available.");
     if (method.address !== input.address) throw new Error("The receiving address has changed. Refresh the page before submitting.");
+    // Banks save a readable copy of the account details instead of a wallet address.
+    const details = method.kind === "bank" ? bankSummary(method) : method.address;
     const pending = await tx.select({ id: payments.id }).from(payments)
       .where(and(eq(payments.userId, userId), eq(payments.planId, input.planId), eq(payments.status, "pending")));
     if (pending.length) return pending[0].id;
     await tx.insert(payments).values({
       id: input.id, userId, planId: plan.id, planName: plan.name, amount: input.amount,
-      methodName: method.name, network: method.network, address: method.address,
+      methodName: method.name, network: method.network, address: details,
       screenshotKey: input.screenshotKey, screenshotType: input.screenshotType, submittedAt: new Date(),
     });
     await tx.insert(schema.auditLog).values({ id: crypto.randomUUID(), actorId: userId, targetUserId: userId,

@@ -15,6 +15,27 @@
       "when": 1790865808838,
       "tag": "0001_cloudinary_receipts",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1791008497984,
+      "tag": "0002_vehicles",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1791015211610,
+      "tag": "0003_bank_transfers",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1791015555509,
+      "tag": "0004_vehicle_orders",
+      "breakpoints": true
     }
   ]
 }

@@ -4,6 +4,7 @@
 // from server actions, after the whole form has been validated, as "authenticated" raw assets: the
 // exact bytes are kept and nothing is publicly reachable. Route handlers check access, then fetch
 // the file through a signed URL and stream it to the browser.
+// The one exception is uploadPublicImage, for marketing images such as marketplace car photos.
 
 import { v2 as cloudinary, type UploadApiResponse } from "cloudinary";
 
@@ -47,4 +48,15 @@ export async function deletePrivateFile(key: string) {
   } catch (error) {
     console.error("Could not delete Cloudinary file", key, error);
   }
+}
+
+/** Uploads a public image (e.g. a marketplace car photo) and returns its HTTPS URL. */
+export async function uploadPublicImage(bytes: Uint8Array, folder: string) {
+  const result = await new Promise<UploadApiResponse>((resolve, reject) => {
+    client().uploader.upload_stream(
+      { resource_type: "image", type: "upload", folder: `${root()}/${folder}`, public_id: crypto.randomUUID(), overwrite: false },
+      (error, response) => (error || !response ? reject(error ?? new Error("Upload failed")) : resolve(response)),
+    ).end(Buffer.from(bytes));
+  });
+  return result.secure_url;
 }

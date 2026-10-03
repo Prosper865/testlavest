@@ -48,7 +48,7 @@ export const initialPortfolio: PortfolioState = {
   deposits: 0,
   holdings: {},
   crypto: {},
-  watchlist: ["AAPL", "NVDA", "TSLA"],
+  watchlist: ["TSLA", "SPACEX"],
   plans: [],
   reservations: [],
   alerts: [],

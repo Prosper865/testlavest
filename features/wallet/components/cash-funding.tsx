@@ -11,9 +11,9 @@ export function CashFunding() {
     <Panel aria-labelledby="cash-heading">
       <PanelHeader title={<span id="cash-heading">Plan balance</span>} />
       <div className={styles.total}>{money(planPayments.balanceAmount)}</div>
-      <p className="muted">Choose a receiving wallet and submit a payment screenshot. Your balance updates after admin approval.</p>
+      <p className="muted">Pay by crypto wallet or bank transfer and submit your proof of payment. Your balance updates after admin approval.</p>
       <div className={styles.cash}>
-        <ButtonLink href="/deposits">Deposit with a wallet</ButtonLink>
+        <ButtonLink href="/deposits">Add funds</ButtonLink>
         <ButtonLink href="/withdrawals" variant="outline">Withdraw</ButtonLink>
       </div>
     </Panel>

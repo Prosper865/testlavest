@@ -6,7 +6,7 @@ import { lockUser, withdrawalBalance } from "@/features/withdrawals/service";
 import { getInstrument } from "@/features/market/instruments";
 import { simulationQuotes } from "@/features/market/simulation";
 import { getStrategy } from "@/features/investments/strategies";
-import { getVehicle, vehicleName, RESERVATION_DEPOSIT } from "@/features/marketplace/vehicles";
+import { vehicleName } from "@/features/marketplace/vehicles";
 import { createPortfolioEngine } from "./engine";
 import { initialPortfolio, type ActionResult, type PortfolioState } from "./model";
 
@@ -69,8 +69,8 @@ export async function transactPortfolio(db: Database, userId: string, raw: unkno
         if (usd > balance.availableCents / 100) throw new PortfolioError("Not enough available balance for the first contribution.");
         if (engine.getState().plans.length >= 100) throw new PortfolioError("Close an existing plan before adding another.");
         if (goalId) {
-          const vehicle = getVehicle(goalId);
-          if (!vehicle || asset) throw new PortfolioError("Choose a supported savings goal.");
+          const vehicle = await tx.query.vehicles.findFirst({ where: eq(schema.vehicles.id, goalId) });
+          if (!vehicle?.visible || asset) throw new PortfolioError("Choose a supported savings goal.");
           result = actions.createPlan(`goal:${vehicle.id}`, vehicleName(vehicle), usd, frequency, undefined, { vehicleId: vehicle.id, vehicleName: vehicleName(vehicle), target: vehicle.price });
         } else if (asset) {
           const item = getInstrument(asset);
@@ -83,11 +83,10 @@ export async function transactPortfolio(db: Database, userId: string, raw: unkno
         }
         break;
       }
-      case "contribute": case "removePlan": case "togglePlan": case "completeGoal": {
+      case "contribute": case "removePlan": case "togglePlan": {
         const [id] = z.tuple([name]).parse(input.args);
         if (!engine.getState().plans.some(plan => plan.id === id)) throw new PortfolioError("Plan not found.");
-        if (input.command === "completeGoal") result = actions.completeGoal(id, RESERVATION_DEPOSIT);
-        else if (input.command === "togglePlan") { actions.togglePlan(id); result = { ok: true, message: "Plan updated." }; }
+        if (input.command === "togglePlan") { actions.togglePlan(id); result = { ok: true, message: "Plan updated." }; }
         else result = actions[input.command](id);
         break;
       }
@@ -95,11 +94,11 @@ export async function transactPortfolio(db: Database, userId: string, raw: unkno
         z.tuple([]).parse(input.args);
         actions.processDuePlans();
         result = { ok: true, message: "Scheduled contributions checked." }; break;
-      case "reserveVehicle": case "cancelReservation": {
+      case "cancelReservation": {
+        // Reservations can no longer be made, but earlier deposits stay refundable, even if the listing was removed.
         const [id] = z.tuple([name]).parse(input.args);
-        const vehicle = getVehicle(id);
-        if (!vehicle) throw new PortfolioError("Vehicle not found.");
-        result = input.command === "reserveVehicle" ? actions.reserveVehicle(id, vehicleName(vehicle), RESERVATION_DEPOSIT) : actions.cancelReservation(id, vehicleName(vehicle));
+        const vehicle = await tx.query.vehicles.findFirst({ where: eq(schema.vehicles.id, id) });
+        result = actions.cancelReservation(id, vehicle ? vehicleName(vehicle) : "removed listing");
         break;
       }
       default: throw new PortfolioError("Unsupported account transaction.");
