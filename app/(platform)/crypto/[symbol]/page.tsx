@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CryptoOrderTicket } from "@/features/crypto";
-import { PlanList, RecurringBuyForm } from "@/features/investments";
 import { cryptoAssets, getCrypto, QuotePanel } from "@/features/market";
 import { NewsList } from "@/features/news";
 import { PriceAlerts } from "@/features/alerts";
@@ -28,11 +27,9 @@ export default async function CoinPage({ params }: PageProps<"/crypto/[symbol]">
       <div className={styles.split}>
         <div className={styles.stack}>
           <QuotePanel symbol={asset.symbol} />
-          <PlanList title={`Your recurring ${asset.symbol} buys`} asset={asset.symbol} emptyText={`No recurring ${asset.symbol} buys yet.`} />
         </div>
         <div className={styles.stack}>
           <CryptoOrderTicket symbol={asset.symbol} />
-          <RecurringBuyForm symbol={asset.symbol} />
           <PriceAlerts symbol={asset.symbol} />
           <NewsList symbol={asset.symbol} title={`${asset.name} news`} />
         </div>

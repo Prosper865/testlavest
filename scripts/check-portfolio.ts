@@ -18,9 +18,9 @@ try {
     await db.insert(schema.users).values({ id, role, name: role, email: `${id}@example.test`, passwordHash: "test-only", createdAt: new Date() });
   }
   const command = (command: string, args: unknown[], id = crypto.randomUUID()) => transactPortfolio(db, userId, { id, command, args });
-  await assert.rejects(command("buyCrypto", ["BTC", 100]), /Verify/);
+  await assert.rejects(command("tradeStockDollars", ["TSLA", "Buy", 100]), /Verify/);
   await db.insert(schema.kycSubmissions).values({ id: crypto.randomUUID(), userId, status: "approved", legalName: "Demo User", dateOfBirth: "1990-01-01", nationality: "US", phone: "0000000000", addressLine: "Demo", city: "Demo", postalCode: "00000", country: "US", occupation: "Test", sourceOfFunds: "Test", documentType: "passport", documentLast4: "0000", documentFile: "test", selfieFile: "test", submittedAt: new Date() });
-  await assert.rejects(command("buyCrypto", ["BTC", 100]), /buying power/);
+  await assert.rejects(command("tradeStockDollars", ["TSLA", "Buy", 100]), /buying power/);
   await db.insert(schema.planPayments).values({ id: crypto.randomUUID(), userId, planName: "Demo deposit", amount: 2000, methodName: "Demo", network: "Demo", address: "Demo", screenshotKey: "test-receipt", screenshotType: "image/png", status: "approved", submittedAt: new Date() });
   const stockId = crypto.randomUUID();
   await command("tradeStockDollars", ["TSLA", "Buy", 100.25], stockId);
@@ -32,10 +32,10 @@ try {
   assert.deepEqual(await paymentSummary(db, userId), summary, "A duplicate request must not debit twice");
   assert.equal((await paymentSummary(db, otherId)).balanceAmount, 0);
   assert.deepEqual((await paymentSummary(db, otherId)).portfolio.holdings, {});
-  await command("buyCrypto", ["BTC", 50.5]);
+  await command("tradeStockDollars", ["SPACEX", "Buy", 50.5]);
   summary = await paymentSummary(db, userId);
   assert.equal(summary.balanceAmount, 1849.25);
-  assert.ok(summary.portfolio.crypto.BTC > 0);
+  assert.ok(summary.portfolio.holdings.SPACEX > 0);
   const withdrawal = { id: crypto.randomUUID(), amount: 100000, beneficiaryName: "Demo", accountNumber: "12345678", routingNumber: "000000000", bankName: "Demo", recipientAddress: "Demo", bankAddress: "Demo" };
   await requestWithdrawal(db, userId, withdrawal);
   assert.equal((await paymentSummary(db, userId)).availableWithdrawalAmount, 849.25);
@@ -43,7 +43,10 @@ try {
   await assert.rejects(requestWithdrawal(db, userId, { ...withdrawal, id: crypto.randomUUID(), amount: 85000 }), /exceeds/);
   await assert.rejects(command("sellCrypto", ["ETH", 1]), /balance/);
   await assert.rejects(command("tradeStock", ["SPACEX", "Sell", 1]), /enough shares/);
-  for (const args of [["BTC", -1], ["BTC", NaN], ["BTC", 1.001], ["unknown", 1], ["TSLA", 1]]) await assert.rejects(command("buyCrypto", args));
+  // Crypto is closed: nothing can buy it, send it out, or start a recurring buy of it. Only Tesla and SpaceX are open.
+  for (const args of [["BTC", 50], ["BTC", -1], ["unknown", 1], ["TSLA", 1]]) await assert.rejects(command("buyCrypto", args), /Only Tesla and SpaceX/);
+  await assert.rejects(command("withdrawCrypto", ["BTC", 1, "bc1-demo-destination-address"]), /Only Tesla and SpaceX/);
+  await assert.rejects(command("createPlan", ["asset:BTC", 25, "weekly", "BTC", null]), /Only Tesla and SpaceX/);
   await assert.rejects(command("addCash", [1000]), /Unsupported/);
   await assert.rejects(command("buyCrypto", ["BTC", 1, 0.01]), "Client cannot choose the price");
   await command("createPlan", ["foundations", 25, "weekly", null, null]);
@@ -58,15 +61,14 @@ try {
   await command("removePlan", [plan.id]);
   assert.equal((await paymentSummary(db, userId)).availableWithdrawalAmount, 849.25);
   await assert.rejects(command("removePlan", [plan.id]), /not found/);
-  await command("sellCrypto", ["BTC", summary.portfolio.crypto.BTC]);
+  await command("tradeStockDollars", ["SPACEX", "Sell", 25]);
   summary = await paymentSummary(db, userId);
-  assert.equal(summary.portfolio.crypto.BTC, 0);
-  assert.ok(summary.availableWithdrawalAmount > 899 && summary.availableWithdrawalAmount < 901);
+  assert.equal(summary.availableWithdrawalAmount, 874.25);
   await reviewWithdrawal(db, adminId, withdrawal.id, "sent", "");
   assert.equal((await paymentSummary(db, userId)).balanceAmount, summary.availableWithdrawalAmount);
   await updateUserProfit(db, adminId, { userId, expectedCents: 0, profit: 100000 });
   const beforePurchase = (await paymentSummary(db, userId)).balanceAmount;
-  await command("buyCrypto", ["ETH", 1000]);
+  await command("tradeStockDollars", ["SPACEX", "Buy", 1000]);
   assert.equal((await paymentSummary(db, userId)).balanceAmount, beforePurchase - 1000);
   await assert.rejects(updateUserProfit(db, adminId, { userId, expectedCents: 100000, profit: 0 }), /purchases/);
   // Reservations were replaced by car orders: nothing can be reserved or completed any more.
@@ -84,11 +86,11 @@ try {
   await assert.rejects(command("cancelReservation", ["model-3-lr"]), /not found/);
   await client.exec("CREATE OR REPLACE FUNCTION fail_trade_audit() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN RAISE EXCEPTION 'rollback'; END $$; CREATE TRIGGER fail_trade_audit BEFORE INSERT ON audit_log FOR EACH ROW WHEN (NEW.action LIKE 'portfolio.%') EXECUTE FUNCTION fail_trade_audit();");
   const beforeFailure = await paymentSummary(db, userId);
-  await assert.rejects(command("buyCrypto", ["ETH", 25]));
+  await assert.rejects(command("tradeStockDollars", ["TSLA", "Buy", 25]));
   assert.deepEqual(await paymentSummary(db, userId), beforeFailure, "Audit failure rolls back holdings and cash together");
   await client.exec("DROP TRIGGER fail_trade_audit ON audit_log");
   await db.update(schema.users).set({ status: "suspended" }).where(eq(schema.users.id, userId));
-  await assert.rejects(command("buyCrypto", ["ETH", 25]), /unavailable/);
+  await assert.rejects(command("tradeStockDollars", ["TSLA", "Buy", 25]), /unavailable/);
   await migrate(db, { migrationsFolder: "./migrations" });
   assert.deepEqual(await paymentSummary(db, userId), beforeFailure, "Saved holdings survive repeated initialization");
   console.log("Portfolio checks passed: deposit-funded purchases, stocks and crypto, exact cents, user isolation, duplicate requests, server prices, overspending, withdrawal reserves, sales, recurring plans, reservations/refunds, profit coverage, authorization, persistence, atomic rollback.");

@@ -1,4 +1,4 @@
-import { getInstrument } from "@/features/market/instruments";
+import { CLOSED_MESSAGE, getInstrument } from "@/features/market/instruments";
 import { simulationQuotes } from "@/features/market/simulation";
 import { roundCents, money, formatAmount, formatPrice, formatShares } from "@/lib/format";
 import { createId } from "@/lib/utils";
@@ -24,6 +24,8 @@ const fail = (message: string): ActionResult => ({ ok: false, message });
 const roundShares = (value: number) => Math.round(value * 1e12) / 1e12;
 const capitalize = (text: string) => text.replace(/^./, c => c.toUpperCase());
 const goalReached = (plan: RecurringPlan) => Boolean(plan.goal && plan.invested >= plan.goal.target);
+/** Recurring buys of crypto stop while crypto is closed, so older plans quietly wait instead of buying. */
+const closedAsset = (plan: RecurringPlan) => Boolean(plan.asset && getInstrument(plan.asset)?.kind !== "stock");
 
 type Balances = { holdings: Record<string, number>; crypto: Record<string, number> };
 
@@ -153,6 +155,7 @@ const portfolioActions = {
     const plan = state.plans.find(item => item.id === id);
     if (!plan) return fail("Plan not found.");
     if (goalReached(plan)) return fail("You already reached this goal.");
+    if (closedAsset(plan)) return fail(`This asset is not available. ${CLOSED_MESSAGE}`);
     if (plan.amount > state.cash) return fail("Not enough cash for this contribution.");
     const { holdings, crypto, entry } = runContribution(plan, state);
     commit(withActivity({
@@ -174,7 +177,7 @@ const portfolioActions = {
     const entries: Activity[] = [];
     const plans = state.plans.map(plan => {
       const next = { ...plan };
-      while (entries.length < 100 && next.status === "active" && next.nextRun <= now && next.amount <= cash && !goalReached(next)) {
+      while (entries.length < 100 && next.status === "active" && next.nextRun <= now && next.amount <= cash && !goalReached(next) && !closedAsset(next)) {
         const { entry, ...updated } = runContribution(next, balances, "Automatic ");
         balances = updated;
         cash = roundCents(cash - next.amount);

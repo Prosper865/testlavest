@@ -16,7 +16,7 @@ import { logout } from "@/features/auth/actions";
 
 import { MarketLogo } from "@/features/market/components/market-logo";
 
-import { cryptoAssets, forexPairs, stocks, type Instrument } from "@/features/market/instruments";
+import { cryptoAssets, forexPairs, isOpenForTrading, stocks, type Instrument } from "@/features/market/instruments";
 
 import { strategies } from "@/features/investments/strategies";
 
@@ -208,7 +208,7 @@ export default function MobileApp({ availablePlans }: { availablePlans: { id: st
 
         <SectionTitle title="My assets" action="See all" onAction={() => go("wallet")} />
 
-        <div className={styles.assetList}>{homeAssets.length ? homeAssets.map(asset => <AssetRow key={asset.symbol} asset={asset} price={quotes[asset.symbol].price} change={quotes[asset.symbol].change} detail={asset.kind === "stock" ? `${formatAmount(portfolio.holdings[asset.symbol])} shares` : `${formatAmount(portfolio.crypto[asset.symbol])} ${asset.symbol}`} onClick={() => selectTrade(asset.symbol)} />) : <div className={styles.emptyAssets}><p>No assets yet. Deposit funds, then explore stocks and crypto.</p><button type="button" onClick={() => openWalletFlow("cash")}>Deposit <Icon name="arrow" size={15} /></button></div>}</div>
+        <div className={styles.assetList}>{homeAssets.length ? homeAssets.map(asset => <AssetRow key={asset.symbol} asset={asset} price={quotes[asset.symbol].price} change={quotes[asset.symbol].change} detail={asset.kind === "stock" ? `${formatAmount(portfolio.holdings[asset.symbol])} shares` : `${formatAmount(portfolio.crypto[asset.symbol])} ${asset.symbol}`} onClick={isOpenForTrading(asset) ? () => selectTrade(asset.symbol) : undefined} />) : <div className={styles.emptyAssets}><p>No assets yet. Deposit funds, then explore stocks and crypto.</p><button type="button" onClick={() => openWalletFlow("cash")}>Deposit <Icon name="arrow" size={15} /></button></div>}</div>
 
         <div className={styles.promoCard}><span>INVEST IN WHAT MOVES YOU</span><h2>Markets in your pocket.</h2><p>Explore stocks and crypto, then practice your next move with funds.</p><button onClick={() => go("markets")}>Explore markets <Icon name="arrow" size={16} /></button></div>
 
@@ -224,9 +224,9 @@ export default function MobileApp({ availablePlans }: { availablePlans: { id: st
 
         <div className={styles.categoryTabs} role="group" aria-label="Market category">{categories.map(value => <button key={value} aria-pressed={category === value} className={category === value ? styles.active : ""} onClick={() => setCategory(value)}>{value}</button>)}</div>
 
-        <div className={styles.listHeading}><span>{displayed.length} ASSETS</span><span>SIMULATED PRICES</span></div>
+        <div className={styles.listHeading}><span>{displayed.length} ASSETS</span><span>MARKET PRICES</span></div>
 
-        <div className={styles.assetList}>{displayed.map(asset => <AssetRow key={asset.symbol} asset={asset} price={quotes[asset.symbol].price} change={quotes[asset.symbol].change} detail={asset.symbol} onClick={() => asset.kind === "forex" ? setNotice("Forex pairs are for market discovery.") : selectTrade(asset.symbol)} />)}{displayed.length === 0 && <p className={styles.empty}>No assets found. Try a company name or ticker symbol.</p>}</div>
+        <div className={styles.assetList}>{displayed.map(asset => <AssetRow key={asset.symbol} asset={asset} price={quotes[asset.symbol].price} change={quotes[asset.symbol].change} detail={asset.symbol} onClick={isOpenForTrading(asset) ? () => selectTrade(asset.symbol) : undefined} />)}{displayed.length === 0 && <p className={styles.empty}>No assets found. Try a company name or ticker symbol.</p>}</div>
 
         {notice && <p className={styles.inlineNotice} role="status">{notice}</p>}
 
@@ -236,13 +236,13 @@ export default function MobileApp({ availablePlans }: { availablePlans: { id: st
 
       {tab === "trade" && <>
 
-        <div className={styles.screenHeading}><span>PRACTICE TRADING</span><h1>Make your move.</h1><p>Place an order with funds at simulated prices.</p></div>
+        <div className={styles.screenHeading}><span>PRACTICE TRADING</span><h1>Make your move.</h1><p>Place an order with funds.</p></div>
 
         <div className={styles.orderCard}><div className={styles.ticketTabs}><button className={side === "Buy" ? styles.active : ""} aria-pressed={side === "Buy"} onClick={() => { setSide("Buy"); setNotice(""); }}>Buy</button><button className={side === "Sell" ? styles.active : ""} aria-pressed={side === "Sell"} onClick={() => { setSide("Sell"); setNotice(""); }}>Sell</button></div>
 
-          <form onSubmit={submitTrade}><label className={styles.fieldLabel} htmlFor="mobile-asset">ASSET</label><select id="mobile-asset" className={styles.orderSelect} value={selected} onChange={event => { setSelected(event.target.value); setNotice(""); }}>{[...stocks, ...cryptoAssets].map(asset => <option key={asset.symbol} value={asset.symbol}>{asset.symbol} · {asset.name}</option>)}</select>
+          <form onSubmit={submitTrade}><label className={styles.fieldLabel} htmlFor="mobile-asset">ASSET</label><select id="mobile-asset" className={styles.orderSelect} value={selected} onChange={event => { setSelected(event.target.value); setNotice(""); }}>{stocks.map(asset => <option key={asset.symbol} value={asset.symbol}>{asset.symbol} · {asset.name}</option>)}</select>
 
-            <div className={styles.selectedAsset}><MarketLogo symbol={selected} className={styles.assetLogo} /><div><strong>{selectedAsset.name}</strong><span>{selectedAsset.kind === "stock" ? "Stock" : "Digital asset"} · Simulated quote</span></div><strong>{formatPrice(selectedQuote.price, selectedAsset.decimals)}</strong></div>
+            <div className={styles.selectedAsset}><MarketLogo symbol={selected} className={styles.assetLogo} /><div><strong>{selectedAsset.name}</strong><span>{selectedAsset.kind === "stock" ? "Stock" : "Digital asset"}</span></div><strong>{formatPrice(selectedQuote.price, selectedAsset.decimals)}</strong></div>
 
             <label className={styles.fieldLabel} htmlFor="mobile-amount">{side === "Sell" && selectedAsset.kind === "crypto" ? `AMOUNT IN ${selected}` : "AMOUNT IN USD"}</label><div className={styles.amountInput}><span>{side === "Sell" && selectedAsset.kind === "crypto" ? selected : "$"}</span><input id="mobile-amount" type="number" min={side === "Sell" && selectedAsset.kind === "crypto" ? "0.00000001" : "1"} step="any" inputMode="decimal" required value={amount} onChange={event => setAmount(event.target.value)} /></div>
 
@@ -314,7 +314,7 @@ export default function MobileApp({ availablePlans }: { availablePlans: { id: st
 
         <div className={styles.walletBalance}><span>AVAILABLE TO INVEST</span><div>{money(cash)}</div><p>USD balance</p><div className={styles.walletDecoration}>A</div></div>
 
-        <div className={styles.walletActions}><button onClick={() => openWalletFlow("cash")}><span><Icon name="plus" /></span>Deposit</button><button onClick={() => openWalletFlow("withdraw")}><span><Icon name="withdraw" /></span>Withdraw</button><button onClick={() => router.push("/deposits")}><span><Icon name="wallet" /></span>Receive</button><button onClick={() => { setWalletFlow("send"); setFundingNotice(""); }}><span><Icon name="send" /></span>Send</button></div>
+        <div className={styles.walletActions}><button onClick={() => openWalletFlow("cash")}><span><Icon name="plus" /></span>Deposit</button><button onClick={() => openWalletFlow("withdraw")}><span><Icon name="withdraw" /></span>Withdraw</button><button onClick={() => router.push("/deposits")}><span><Icon name="wallet" /></span>Receive</button></div>
 
         <div className={styles.walletOverview}><div><span>Stock holdings</span><strong>{money(stocksValue)}</strong></div><div><span>Digital assets</span><strong>{money(cryptoValue)}</strong></div></div>
 
@@ -326,7 +326,7 @@ export default function MobileApp({ availablePlans }: { availablePlans: { id: st
 
           <div className={styles.sectionTitle}><h2>Send crypto</h2><button type="button" onClick={() => setWalletFlow(null)}>Close ×</button></div>
 
-          <p>Simulated transfer only. No blockchain transaction occurs.</p>
+          <p>Transfer preview only. No blockchain transaction occurs.</p>
 
           <label className={styles.fieldLabel} htmlFor="transfer-asset">ASSET</label><select id="transfer-asset" value={walletAsset} onChange={event => setWalletAsset(event.target.value)}>{cryptoAssets.map(asset => <option key={asset.symbol} value={asset.symbol}>{asset.name} ({asset.symbol})</option>)}</select>
 
@@ -342,7 +342,7 @@ export default function MobileApp({ availablePlans }: { availablePlans: { id: st
 
         {fundingNotice && <p className={styles.inlineNotice} role="status">{fundingNotice}</p>}
 
-        <SectionTitle title="Crypto balances" /><div className={styles.assetList}>{cryptoAssets.filter(asset => (portfolio.crypto[asset.symbol] ?? 0) > 0).map(asset => <AssetRow key={asset.symbol} asset={asset} price={(portfolio.crypto[asset.symbol] ?? 0) * quotes[asset.symbol].price} change={quotes[asset.symbol].change} detail={`${formatAmount(portfolio.crypto[asset.symbol] ?? 0, 8)} ${asset.symbol}`} onClick={() => selectTrade(asset.symbol)} />)}</div>
+        <SectionTitle title="Crypto balances" /><div className={styles.assetList}>{cryptoAssets.filter(asset => (portfolio.crypto[asset.symbol] ?? 0) > 0).map(asset => <AssetRow key={asset.symbol} asset={asset} price={(portfolio.crypto[asset.symbol] ?? 0) * quotes[asset.symbol].price} change={quotes[asset.symbol].change} detail={`${formatAmount(portfolio.crypto[asset.symbol] ?? 0, 8)} ${asset.symbol}`} />)}</div>
 
         <SectionTitle title="Recent activity" action="View all" onAction={() => go("profile")} /><div className={styles.activityList}>{portfolio.activity.length ? portfolio.activity.slice(0, 3).map(item => <div key={item.id} className={styles.activityItem}><span className={styles.activityIcon}><Icon name={item.module === "wallet" ? "wallet" : "trade"} size={18} /></span><div><strong>{item.module === "wallet" ? "Wallet transfer" : item.module === "stocks" || item.module === "crypto" ? "Trade completed" : "Account activity"}</strong><span>{formatDateTime(item.time)}</span></div><Icon name="chevron" size={15} /></div>) : <p className={styles.empty}>Your activity will appear here.</p>}</div>
 
@@ -366,7 +366,7 @@ export default function MobileApp({ availablePlans }: { availablePlans: { id: st
 
         <form action={logout}><button type="submit" className={styles.resetButton}>Log out</button></form>
 
-        <p className={styles.profileNote}>Your balance and holdings are saved to your account. Prices and chart history are simulated.</p>
+        <p className={styles.profileNote}>Your balance and holdings are saved to your account.</p>
 
       </>}
 

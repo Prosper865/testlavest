@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { MarketLogo } from "@/features/market/components/market-logo";
 import { PriceChange } from "@/features/market/components/price-change";
-import { getInstrument, instrumentHref, type Instrument } from "@/features/market/instruments";
+import { getInstrument, instrumentHref, isOpenForTrading, type Instrument } from "@/features/market/instruments";
 import { useQuotes } from "@/features/market/quotes";
 import { formatPrice } from "@/lib/format";
 import { cn } from "@/lib/utils";
@@ -21,15 +21,17 @@ function TickerList({ duplicate = false }: { duplicate?: boolean }) {
     <div className={cn(styles.list, duplicate && styles.duplicate)} aria-hidden={duplicate || undefined}>
       {items.map(item => {
         const quote = quotes[item.symbol];
-        return (
-          <Link key={item.symbol} href={instrumentHref(item) ?? "/dashboard"} className={styles.item} tabIndex={duplicate ? -1 : undefined}>
-            <MarketLogo symbol={item.symbol} className={styles.logo} />
-            <b>{item.symbol}</b>
-            <span>{formatPrice(quote.price, item.decimals)}</span>
-            <small><PriceChange value={quote.change} arrow /></small>
-            {item.kind === "crypto" && <span className={styles.kind}>24/7</span>}
-          </Link>
-        );
+        const content = <>
+          <MarketLogo symbol={item.symbol} className={styles.logo} />
+          <b>{item.symbol}</b>
+          <span>{formatPrice(quote.price, item.decimals)}</span>
+          <small><PriceChange value={quote.change} arrow /></small>
+          {item.kind === "crypto" && <span className={styles.kind}>24/7</span>}
+        </>;
+        // Only open markets (Tesla and SpaceX) are links; the rest show their rate but can't be opened.
+        return isOpenForTrading(item)
+          ? <Link key={item.symbol} href={instrumentHref(item) ?? "/dashboard"} className={styles.item} tabIndex={duplicate ? -1 : undefined}>{content}</Link>
+          : <span key={item.symbol} className={cn(styles.item, styles.static)}>{content}</span>;
       })}
     </div>
   );
@@ -42,7 +44,7 @@ export function MarketSnapshot() {
       <div className={cn("shell", styles.inner)}>
         <div className={styles.badge}>
           <span className={styles.live}><i aria-hidden="true" />MARKETS LIVE</span>
-          <small>Stocks · <b>Crypto 24/7</b> · Simulated</small>
+          <small>Stocks · <b>Crypto rates</b></small>
         </div>
         <div className={styles.viewport}>
           <div className={styles.track} style={{ "--duration": `${items.length * 5}s` } as React.CSSProperties}>

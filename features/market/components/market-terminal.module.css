@@ -4,7 +4,9 @@
 .listHead { position: sticky; top: 0; z-index: 1; background: #fff; }
 .listHead { display: flex; justify-content: space-between; padding: 16px 18px; font-size: 10px; letter-spacing: 1.2px; color: var(--subtle); border-bottom: 1px solid var(--line); text-transform: uppercase; }
 .row { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px; width: 100%; padding: 12px 18px; border: 0; border-bottom: 1px solid #f3eff1; background: none; text-align: left; color: inherit; }
-.row:hover { background: var(--surface-muted); }
+.row:hover:not([data-static]) { background: var(--surface-muted); }
+.row[data-static] { cursor: default; }
+.closedNote { margin: auto; padding: 40px 24px; max-width: 360px; text-align: center; font-size: 14px; line-height: 1.6; color: var(--muted); }
 .row[aria-pressed="true"] { background: var(--brand-wash); box-shadow: inset 3px 0 0 var(--brand); }
 .rowLogo { width: 32px; height: 32px; border-radius: 8px; }
 .rowLogo img { width: 20px; height: 20px; }

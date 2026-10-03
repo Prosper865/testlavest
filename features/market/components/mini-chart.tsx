@@ -42,7 +42,7 @@ export function MiniChart({ symbol, timeframe = "1D", className, label }: Props)
       viewBox={`0 0 ${W} ${H}`}
       preserveAspectRatio="none"
       role="img"
-      aria-label={label ?? `${symbol} ${timeframe === "1D" ? "intraday" : timeframe} price trend, ${up ? "up" : "down"}. Simulated data.`}
+      aria-label={label ?? `${symbol} ${timeframe === "1D" ? "intraday" : timeframe} price trend, ${up ? "up" : "down"}.`}
     >
       <defs>
         <linearGradient id={id} x1="0" y1="0" x2="0" y2="1">

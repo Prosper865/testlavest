@@ -132,7 +132,7 @@ export function OrderTicket({ symbol }: { symbol: string }) {
 
         </div>
 
-        <p className="muted">You own {formatShares(held)} shares · {money(cash)} buying power. Market order at the simulated price when you submit.</p>
+        <p className="muted">You own {formatShares(held)} shares · {money(cash)} buying power. Market order at the current price when you submit.</p>
 
         <Button type="submit" disabled={trading} block arrow="arrow-up-right">{side} with funds</Button>
 

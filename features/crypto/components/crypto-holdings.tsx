@@ -17,7 +17,7 @@ export function CryptoHoldings() {
     <Panel aria-labelledby="crypto-holdings-heading">
       <PanelHeader title={<span id="crypto-holdings-heading">Crypto holdings · {money(crypto)}</span>} action={<Link href="/wallet" className="accent-text muted">Deposit &amp; withdraw <Icon name="arrow-right" /></Link>} />
       {held.length === 0 ? (
-        <EmptyState>You don’t hold any crypto yet. Pick a coin above to make your first buy.</EmptyState>
+        <EmptyState>You don’t hold any crypto. Crypto buying is not available right now.</EmptyState>
       ) : (
         <div className={styles.holdings}>
           {held.map(asset => {

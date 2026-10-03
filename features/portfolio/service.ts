@@ -3,7 +3,7 @@ import type { Database } from "@/lib/db/types";
 import { z } from "zod";
 import * as schema from "@/lib/db/schema";
 import { lockUser, withdrawalBalance } from "@/features/withdrawals/service";
-import { getInstrument } from "@/features/market/instruments";
+import { CLOSED_MESSAGE, getInstrument } from "@/features/market/instruments";
 import { simulationQuotes } from "@/features/market/simulation";
 import { getStrategy } from "@/features/investments/strategies";
 import { vehicleName } from "@/features/marketplace/vehicles";
@@ -51,18 +51,12 @@ export async function transactPortfolio(db: Database, userId: string, raw: unkno
         const [symbol, orderSide, usd] = z.tuple([name, side, dollars.min(1)]).parse(input.args);
         result = actions.tradeStockDollars(symbol, orderSide, usd, instrument(symbol, "stock")); break;
       }
-      case "buyCrypto": {
-        const [symbol, usd] = z.tuple([name, dollars.min(1)]).parse(input.args);
-        result = actions.buyCrypto(symbol, usd, instrument(symbol, "crypto")); break;
-      }
+      // Crypto is closed. Selling stays available so existing balances can still be turned back into cash.
+      case "buyCrypto": case "withdrawCrypto":
+        throw new PortfolioError(`Crypto is not available. ${CLOSED_MESSAGE}`);
       case "sellCrypto": {
         const [symbol, units] = z.tuple([name, amount]).parse(input.args);
         result = actions.sellCrypto(symbol, units, instrument(symbol, "crypto")); break;
-      }
-      case "withdrawCrypto": {
-        const [symbol, units, destination] = z.tuple([name, amount, z.string().trim().min(10).max(300)]).parse(input.args);
-        instrument(symbol, "crypto");
-        result = actions.withdrawCrypto(symbol, units, destination); break;
       }
       case "createPlan": {
         const [strategyId, usd, frequency, asset, goalId] = z.tuple([name, dollars.min(25), z.enum(["weekly", "biweekly", "monthly"]), name.nullable(), name.nullable()]).parse(input.args);
@@ -74,7 +68,8 @@ export async function transactPortfolio(db: Database, userId: string, raw: unkno
           result = actions.createPlan(`goal:${vehicle.id}`, vehicleName(vehicle), usd, frequency, undefined, { vehicleId: vehicle.id, vehicleName: vehicleName(vehicle), target: vehicle.price });
         } else if (asset) {
           const item = getInstrument(asset);
-          if (!item || item.kind === "forex") throw new PortfolioError("Choose a supported asset.");
+          if (!item) throw new PortfolioError("Choose a supported asset.");
+          if (item.kind !== "stock") throw new PortfolioError(`This asset is not available. ${CLOSED_MESSAGE}`);
           result = actions.createPlan(`asset:${asset}`, item.name, usd, frequency, asset);
         } else {
           const strategy = getStrategy(strategyId);

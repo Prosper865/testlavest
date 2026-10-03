@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { SectionHeading } from "@/components/ui";
-import { cryptoAssets, forexPairs, stocks } from "@/features/market/instruments";
+import { forexPairs, stocks } from "@/features/market/instruments";
 import { useQuotes } from "@/features/market/quotes";
 import { MarketLogo } from "@/features/market/components/market-logo";
 import { MarketTerminal } from "@/features/market/components/market-terminal";
@@ -15,7 +15,6 @@ import { Icon } from "@/components/ui";
 
 const tabs = [
   { id: "Stocks", icon: "trend-up", note: "Trade shares of the companies shaping tomorrow." },
-  { id: "Crypto", icon: "crypto", note: "Buy and sell digital assets 24/7, from $1." },
   { id: "Forex", icon: "globe", note: "Currency markets are a discovery preview; trading." },
 ] as const;
 type TabId = (typeof tabs)[number]["id"];
@@ -57,7 +56,7 @@ export function GlobalMarkets() {
         id="markets-heading"
         eyebrow="Connected to a world of opportunity"
         title={<>Different markets.<br /><span className="accent-text">One ambitious mindset.</span></>}
-        aside={<>From the world’s most recognized companies<br />to the next generation of digital assets.</>}
+        aside={<>From the world’s most recognized companies<br />to the companies building the future.</>}
       />
       <div className={styles.tabs} role="group" aria-label="Market category">
         {tabs.map(item => (
@@ -67,7 +66,6 @@ export function GlobalMarkets() {
       </div>
       <p className={styles.tabNote}>{tab.note}</p>
       {tabId === "Stocks" && <MarketTerminal key="stocks" instruments={stocks} label="Choose a stock" />}
-      {tabId === "Crypto" && <MarketTerminal key="crypto" instruments={cryptoAssets} label="Choose a coin" />}
       {tabId === "Forex" && <ForexPreview />}
     </section>
   );

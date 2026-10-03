@@ -15,6 +15,8 @@
 .list { display: flex; align-items: center; }
 .item { display: flex; align-items: center; gap: 10px; padding: 0 24px; height: 100%; border-right: 1px solid #efe3e7; font-size: 12px; font-variant-numeric: tabular-nums; white-space: nowrap; transition: background .2s; }
 .item:hover { background: #fff; }
+.static { cursor: default; }
+.static:hover { background: transparent; }
 .item b { font-weight: 600; color: #202126; }
 .item > span { color: #48434a; }
 .item small { font-size: 11px; }

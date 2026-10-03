@@ -67,6 +67,10 @@ export const forexPairs: Instrument[] = [
   pair("USD/CHF", "US Dollar / Swiss Franc", 0.8512, 0.09, ["us", "ch"]),
 ];
 
+/** Only stocks (Tesla and SpaceX) are open for trading right now. Crypto and forex are shown but inactive. */
+export const CLOSED_MESSAGE = "Only Tesla and SpaceX are open for trading right now.";
+export const isOpenForTrading = (item: Pick<Instrument, "kind">) => item.kind === "stock";
+
 export const instruments = [...stocks, ...cryptoAssets, ...forexPairs];
 export const stockSectors = [...new Set(stocks.map(item => item.sector).filter((sector): sector is StockSector => Boolean(sector)))];
 

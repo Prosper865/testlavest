@@ -19,7 +19,7 @@ export function AuthShell({ children }: { children: ReactNode }) {
           <h2>One account.<br /><span>Every way to invest.</span></h2>
           <ul>{benefits.map(item => <li key={item}><span aria-hidden="true"><Icon name="check" /></span>{item}</li>)}</ul>
         </div>
-        <p className={styles.asideNote}>Platform preview: trading uses funds and live prices. Identity verification is demo-only.</p>
+        <p className={styles.asideNote}>Platform preview: trading uses funds and live prices. Identity verification is part of the product experience.</p>
       </aside>
       <main id="main" className={styles.main}>
         <div className={styles.card}>{children}</div>

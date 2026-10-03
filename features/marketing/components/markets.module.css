@@ -2,14 +2,13 @@
 .belt { display: flex; align-items: center; gap: 40px; padding-block: 42px; border-bottom: 1px solid var(--line); }
 .belt > p { max-width: 190px; font-size: 10px; letter-spacing: 1px; line-height: 1.7; color: #48434a; }
 .belt > p > span { display: block; margin-top: 6px; font-size: 10px; letter-spacing: 0; color: #77717a; }
-.belt > div { flex: 1; display: flex; justify-content: space-between; align-items: center; gap: 25px; }
+.belt > div { flex: 1; display: flex; justify-content: space-evenly; align-items: center; gap: 25px; }
 .belt > div > span { display: flex; align-items: center; gap: 9px; }
 .belt b { font-size: 16px; font-weight: 500; color: #48434a; }
 .beltLogo { background: transparent; width: 31px; height: 31px; }
 .beltLogo img { width: 24px; height: 24px; }
-/* Pre-IPO logos are white, so give them a dark tile. */
-.beltLogo:has(img) { background: #101112; border-radius: 7px; }
-.beltLogo:has(img) img { width: 19px; height: 19px; }
+/* Pre-IPO logos are white, so show them as plain dark marks like the other logos. */
+.beltLogo:has(img) img { width: 28px; height: 28px; filter: brightness(0); }
 
 /* Global markets tabs */
 .section { padding-top: 82px; padding-bottom: 10px; }

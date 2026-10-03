@@ -191,7 +191,7 @@ export function KycWizard({ defaultName, rejectedNote }: { defaultName: string; 
               </div>
               <label className={styles.consent}>
                 <input type="checkbox" checked={consent} onChange={event => { setConsent(event.target.checked); setLocalErrors(current => ({ ...current, consent: undefined })); }} />
-                <span>I confirm this information is accurate and consent to it being reviewed for identity verification. (Simulated: no data leaves this platform.)</span>
+                <span>I confirm this information is accurate and consent to it being reviewed for identity verification.</span>
               </label>
               {errors.consent && <p className={styles.error}>{errors.consent[0]}</p>}
             </>

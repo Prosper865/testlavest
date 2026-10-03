@@ -4,7 +4,7 @@
 
 import { useState } from "react";
 
-import { Button, Eyebrow, Field, Panel, SegmentedControl, StatusMessage } from "@/components/ui";
+import { Button, Eyebrow, Field, Panel, StatusMessage } from "@/components/ui";
 
 import { useQuote } from "@/features/market/quotes";
 
@@ -24,13 +24,13 @@ const quickBuys = [25, 100, 500, 1000];
 
 
 
-/** Fractional crypto orders: buy by dollar amount, sell by coin amount. */
+/** Crypto is closed for buying, so this is sell-only: it lets people turn coins they already hold back into cash. */
 
 export function CryptoOrderTicket({ symbol }: { symbol: string }) {
 
-  const [side, setSide] = useState<Side>("Buy");
+  const [side, setSide] = useState<Side>("Sell");
 
-  const [amount, setAmount] = useState("100");
+  const [amount, setAmount] = useState("");
 
   const [notice, setNotice] = useState("");
 
@@ -45,18 +45,6 @@ export function CryptoOrderTicket({ symbol }: { symbol: string }) {
   const decimals = getInstrument(symbol)?.decimals ?? 2;
 
   const value = Number(amount) > 0 ? Number(amount) : 0;
-
-
-
-  function switchSide(next: Side) {
-
-    setSide(next);
-
-    setAmount(next === "Buy" ? "100" : "");
-
-    setNotice("");
-
-  }
 
 
 
@@ -86,11 +74,11 @@ export function CryptoOrderTicket({ symbol }: { symbol: string }) {
 
       <form onSubmit={submit}>
 
-        <Eyebrow>Crypto trading · 24/7</Eyebrow>
+        <Eyebrow>Crypto · sell only</Eyebrow>
 
         <h2>{side} {symbol}</h2>
 
-        <SegmentedControl variant="tabs" label="Order side" options={["Buy", "Sell"] as const} value={side} onChange={switchSide} />
+        <p className="muted">Buying crypto is not available right now. You can still sell coins you already hold.</p>
 
         {side === "Buy" ? (
 

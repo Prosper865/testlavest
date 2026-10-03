@@ -12,7 +12,7 @@ export function WalletBalances() {
   const { portfolio, quotes, crypto } = usePortfolioValuation();
   return (
     <Panel aria-labelledby="wallet-heading">
-      <PanelHeader title={<span id="wallet-heading">Crypto balances</span>} action={<Tag>Simulated live</Tag>} />
+      <PanelHeader title={<span id="wallet-heading">Crypto balances</span>} />
       <p className="muted">Total crypto value</p>
       <div className={styles.total}>{money(crypto)}</div>
       <div className={styles.assets}>
